@@ -7,7 +7,7 @@
 <body>
 
   <!-- Título con efecto de escritura -->
-  <h1 id="typing-name"></h1>
+  <h1 id="typing-name"><span class="cursor">|</span></h1>
 
   <!-- Sonido de tipeo -->
   <audio id="typeSound" src="sounds/type.mp3"></audio>
@@ -15,14 +15,14 @@
   <script>
     const name = "Agustín Andrés Ibarra";
     const typingSpeed = 100; // milisegundos entre letras
+    const initialPause = 2000; // 2 segundos antes de empezar
     let index = 0;
     const typeSound = document.getElementById("typeSound");
+    const title = document.getElementById("typing-name");
 
     function typeLetter() {
-      const title = document.getElementById("typing-name");
       title.innerHTML = name.substring(0, index) + '<span class="cursor">|</span>';
 
-      // Reproduce el sonido si aún quedan letras
       if (index < name.length) {
         typeSound.currentTime = 0;
         typeSound.play();
@@ -34,7 +34,8 @@
       }
     }
 
-    typeLetter();
+    // Mostrar solo el cursor parpadeando por 2 segundos antes de empezar
+    setTimeout(typeLetter, initialPause);
   </script>
 
   <style>
