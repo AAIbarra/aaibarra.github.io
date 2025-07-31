@@ -6,23 +6,30 @@
 </head>
 <body>
 
-  <!-- Título con efecto de escritura -->
+  <!-- Título principal -->
   <h1 id="typing-name"><span class="cursor">|</span></h1>
 
+  <!-- Subtítulo -->
+  <h2 id="typing-subtitle"></h2>
+
   <!-- Sonido de tipeo -->
-  <audio id="typeSound" src="sounds/type.wav"></audio>
+  <audio id="typeSound" src="sounds/type.mp3"></audio>
 
   <script>
     const name = "Agustín Andrés Ibarra";
-    const typingSpeed = 100; // milisegundos entre letras
-    const initialPause = 2000; // 2 segundos antes de empezar
-    let index = 0;
+    const subtitle = "Integral videogame narrative designer | Linguistics & Literature Graduate | Unity Developer | Game Localization.";
+
+    const typingSpeed = 100;
+    const initialPause = 2000;
+
     const typeSound = document.getElementById("typeSound");
-    const title = document.getElementById("typing-name");
+    const titleElement = document.getElementById("typing-name");
+    const subtitleElement = document.getElementById("typing-subtitle");
 
-    function typeLetter() {
-      title.innerHTML = name.substring(0, index) + '<span class="cursor">|</span>';
+    let index = 0;
 
+    function typeName() {
+      titleElement.innerHTML = name.substring(0, index) + '<span class="cursor">|</span>';
       if (index < name.length) {
         typeSound.currentTime = 0;
         typeSound.play();
@@ -30,12 +37,30 @@
 
       index++;
       if (index <= name.length) {
-        setTimeout(typeLetter, typingSpeed);
+        setTimeout(typeName, typingSpeed);
+      } else {
+        // Cuando termina el nombre, esperar y escribir el subtítulo
+        setTimeout(typeSubtitle, 1000);
       }
     }
 
-    // Mostrar solo el cursor parpadeando por 2 segundos antes de empezar
-    setTimeout(typeLetter, initialPause);
+    let subIndex = 0;
+
+    function typeSubtitle() {
+      subtitleElement.innerHTML = subtitle.substring(0, subIndex) + '<span class="cursor">|</span>';
+      if (subIndex < subtitle.length) {
+        typeSound.currentTime = 0;
+        typeSound.play();
+      }
+
+      subIndex++;
+      if (subIndex <= subtitle.length) {
+        setTimeout(typeSubtitle, typingSpeed);
+      }
+    }
+
+    // Iniciar todo con pausa de 2 segundos y solo el cursor
+    setTimeout(typeName, initialPause);
   </script>
 
   <style>
@@ -45,12 +70,19 @@
       font-family: "Arial Black", sans-serif;
       margin: 0;
       padding: 0;
+      text-align: center;
     }
 
     h1 {
       font-size: 3em;
-      text-align: center;
       margin-top: 100px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      margin-top: 10px;
+      padding: 0 20px;
     }
 
     .cursor {
