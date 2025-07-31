@@ -21,12 +21,20 @@
 
     const typingSpeed = 100;
     const initialPause = 2000;
+    const subtitlePause = 1500;
 
     const typeSound = document.getElementById("typeSound");
     const titleElement = document.getElementById("typing-name");
     const subtitleElement = document.getElementById("typing-subtitle");
 
     let index = 0;
+    let subIndex = 0;
+
+    // Requiere clic para iniciar (por restricción del navegador)
+    document.body.addEventListener("click", () => {
+      titleElement.innerHTML = '<span class="cursor">|</span>'; // solo cursor antes de empezar
+      setTimeout(typeName, initialPause);
+    }, { once: true });
 
     function typeName() {
       titleElement.innerHTML = name.substring(0, index) + '<span class="cursor">|</span>';
@@ -39,12 +47,11 @@
       if (index <= name.length) {
         setTimeout(typeName, typingSpeed);
       } else {
-        // Cuando termina el nombre, esperar y escribir el subtítulo
-        setTimeout(typeSubtitle, 1000);
+        // Reemplazar cursor parpadeante por uno fijo al final
+        titleElement.innerHTML = name + '<span id="final-cursor">|</span>';
+        setTimeout(typeSubtitle, subtitlePause);
       }
     }
-
-    let subIndex = 0;
 
     function typeSubtitle() {
       subtitleElement.innerHTML = subtitle.substring(0, subIndex) + '<span class="cursor">|</span>';
@@ -58,9 +65,6 @@
         setTimeout(typeSubtitle, typingSpeed);
       }
     }
-
-    // Iniciar todo con pausa de 2 segundos y solo el cursor
-    setTimeout(typeName, initialPause);
   </script>
 
   <style>
@@ -71,6 +75,7 @@
       margin: 0;
       padding: 0;
       text-align: center;
+      cursor: pointer; /* ayuda al usuario a saber que debe hacer clic */
     }
 
     h1 {
@@ -80,7 +85,7 @@
     }
 
     h2 {
-      font-size: 1.2em;
+      font-size: 1.6em;
       margin-top: 10px;
       padding: 0 20px;
     }
@@ -94,6 +99,11 @@
       0%   { opacity: 1; }
       50%  { opacity: 0; }
       100% { opacity: 1; }
+    }
+
+    #final-cursor {
+      display: inline-block;
+      /* Sin animación → se queda fijo */
     }
   </style>
 
