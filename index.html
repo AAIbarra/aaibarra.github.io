@@ -1,50 +1,48 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Portfolio Narrativo - Agustín Ibarra</title>
-</head>
-<body>
+<h1 id="typing-name"></h1>
 
-  <!-- Encabezado -->
-  <header>
-    <h1>Agustín Andrés Ibarra</h1>
-    <p>Diseñador narrativo de videojuegos</p>
-  </header>
+<script>
+  const name = "Agustín Andrés Ibarra";
+  const typingSpeed = 100; // milisegundos entre letras
+  let index = 0;
 
-  <!-- Presentación -->
-  <section>
-    <h2>Sobre mí</h2>
-    <p>
-      Soy un apasionado del lenguaje y la narrativa en los videojuegos. 
-      Creo historias, diálogos, personajes y mecánicas narrativas que fortalecen la experiencia del jugador.
-    </p>
-  </section>
+  function typeLetter() {
+    const title = document.getElementById("typing-name");
+    title.innerHTML = name.substring(0, index) + '<span class="cursor">|</span>';
+    index++;
+    if (index <= name.length) {
+      setTimeout(typeLetter, typingSpeed);
+    }
+  }
 
-  <!-- Proyectos -->
-  <section>
-    <h2>Proyectos destacados</h2>
+  typeLetter(); // empieza la animación
+</script>
 
-    <h3>🗣️ Sistema de diálogos ramificados</h3>
-    <p>Ejemplo de guion interactivo con múltiples finales.</p>
-    <a href="docs/dialogo_ramificado.pdf" target="_blank">Ver guion (PDF)</a>
+<style>
+  /* Estilo general de la página */
+  body {
+    background-color: black;
+    color: white;
+    font-family: "Arial Black", sans-serif;
+    margin: 0;
+    padding: 0;
+  }
 
-    <h3>🎮 Nivel narrativo: El hotel embrujado</h3>
-    <p>Nivel diseñado para un juego en el que el jugador reconstruye su pasado como fantasma.</p>
-    <a href="https://itch.io/el-hotel-embrujado" target="_blank">Ver nivel en itch.io</a>
+  /* Estilo del texto principal */
+  h1 {
+    font-size: 3em;
+    text-align: center;
+    margin-top: 100px;
+  }
 
-    <h3>✍️ Microficciones para videojuegos</h3>
-    <p>Textos breves pensados para ambientar mundos interactivos.</p>
-    <a href="docs/microficciones.pdf" target="_blank">Leer microficciones (PDF)</a>
-  </section>
+  /* Cursor parpadeante */
+  .cursor {
+    display: inline-block;
+    animation: blink 1s infinite;
+  }
 
-  <!-- Contacto -->
-  <footer>
-    <h2>Contacto</h2>
-    <p>Email: agustin@email.com</p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/agustinibarra" target="_blank">agustinibarra</a></p>
-    <p>Twitter: <a href="https://twitter.com/tu_usuario" target="_blank">@tu_usuario</a></p>
-  </footer>
-
-</body>
-</html>
+  @keyframes blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+</style>
