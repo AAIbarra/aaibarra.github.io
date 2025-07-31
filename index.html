@@ -1,48 +1,68 @@
-<h1 id="typing-name"></h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio Narrativo</title>
+</head>
+<body>
 
-<script>
-  const name = "Agustín Andrés Ibarra";
-  const typingSpeed = 100; // milisegundos entre letras
-  let index = 0;
+  <!-- Título con efecto de escritura -->
+  <h1 id="typing-name"></h1>
 
-  function typeLetter() {
-    const title = document.getElementById("typing-name");
-    title.innerHTML = name.substring(0, index) + '<span class="cursor">|</span>';
-    index++;
-    if (index <= name.length) {
-      setTimeout(typeLetter, typingSpeed);
+  <!-- Sonido de tipeo -->
+  <audio id="typeSound" src="sounds/type.mp3"></audio>
+
+  <script>
+    const name = "Agustín Andrés Ibarra";
+    const typingSpeed = 100; // milisegundos entre letras
+    let index = 0;
+    const typeSound = document.getElementById("typeSound");
+
+    function typeLetter() {
+      const title = document.getElementById("typing-name");
+      title.innerHTML = name.substring(0, index) + '<span class="cursor">|</span>';
+
+      // Reproduce el sonido si aún quedan letras
+      if (index < name.length) {
+        typeSound.currentTime = 0;
+        typeSound.play();
+      }
+
+      index++;
+      if (index <= name.length) {
+        setTimeout(typeLetter, typingSpeed);
+      }
     }
-  }
 
-  typeLetter(); // empieza la animación
-</script>
+    typeLetter();
+  </script>
 
-<style>
-  /* Estilo general de la página */
-  body {
-    background-color: black;
-    color: white;
-    font-family: "Arial Black", sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: "Arial Black", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* Estilo del texto principal */
-  h1 {
-    font-size: 3em;
-    text-align: center;
-    margin-top: 100px;
-  }
+    h1 {
+      font-size: 3em;
+      text-align: center;
+      margin-top: 100px;
+    }
 
-  /* Cursor parpadeante */
-  .cursor {
-    display: inline-block;
-    animation: blink 1s infinite;
-  }
+    .cursor {
+      display: inline-block;
+      animation: blink 1s infinite;
+    }
 
-  @keyframes blink {
-    0%   { opacity: 1; }
-    50%  { opacity: 0; }
-    100% { opacity: 1; }
-  }
-</style>
+    @keyframes blink {
+      0%   { opacity: 1; }
+      50%  { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+
+</body>
+</html>
