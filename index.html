@@ -2420,13 +2420,22 @@ function showVerticalSection(
    MOUSE WHEEL
    ========================================================= */
 
+/* =========================================================
+   MOUSE WHEEL
+   ========================================================= */
+
+let wheelCooldown = false;
+
+let wheelCooldownTimer = null;
+
+
 window.addEventListener(
     "wheel",
     (event) => {
 
         /*
          * Mientras la intro todavía está
-         * escribiéndose, el scroll no navega.
+         * escribiéndose, ignoramos el scroll.
          */
 
         if (!typingFinished) {
@@ -2434,16 +2443,30 @@ window.addEventListener(
         }
 
 
+        /*
+         * Evitamos que el navegador haga
+         * su scroll normal.
+         */
+
         event.preventDefault();
 
 
-        if (verticalLocked) {
+        /*
+         * Si todavía estamos dentro del
+         * mismo gesto de scroll, ignoramos
+         * todos los eventos siguientes.
+         */
+
+        if (
+            verticalLocked ||
+            wheelCooldown
+        ) {
             return;
         }
 
 
         /*
-         * SCROLL DOWN
+         * Determinamos la dirección UNA SOLA VEZ.
          */
 
         if (event.deltaY > 0) {
@@ -2452,12 +2475,8 @@ window.addEventListener(
                 currentSection + 1,
                 "down"
             );
+
         }
-
-
-        /*
-         * SCROLL UP
-         */
 
         else if (event.deltaY < 0) {
 
@@ -2465,7 +2484,38 @@ window.addEventListener(
                 currentSection - 1,
                 "up"
             );
+
         }
+
+        else {
+
+            return;
+        }
+
+
+        /*
+         * Bloqueamos nuevos gestos de rueda.
+         *
+         * Esto evita que la inercia del trackpad
+         * sea interpretada como otro scroll.
+         */
+
+        wheelCooldown = true;
+
+
+        clearTimeout(
+            wheelCooldownTimer
+        );
+
+
+        wheelCooldownTimer = setTimeout(
+            () => {
+
+                wheelCooldown = false;
+
+            },
+            1000
+        );
 
     },
     {
