@@ -91,6 +91,11 @@
 
         }
 
+        #intro:not(.vertical-current) {
+    opacity: 0;
+    transform: translateY(100%);
+    pointer-events: none;
+    }
 
         #intro.hidden {
 
@@ -2214,8 +2219,6 @@ function showVerticalSection(
                     "vertical-enter-bottom"
                 );
 
-                section.style.transform = "";
-                section.style.opacity = "";
                 section.style.zIndex = "";
             }
         }
