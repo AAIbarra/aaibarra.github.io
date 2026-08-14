@@ -57,7 +57,7 @@
 
         #intro {
 
-            position: fixed;
+            position: absolute;
 
             inset: 0;
 
@@ -74,14 +74,20 @@
 
             text-align: center;
 
-            z-index: 100;
+            z-index: 1;
 
             background: #000000;
 
             cursor: pointer;
 
             transition:
-                opacity 0.8s ease;
+    transform 0.8s cubic-bezier(
+        0.77,
+        0,
+        0.175,
+        1
+    ),
+    opacity 0.8s ease;
 
         }
 
@@ -2145,16 +2151,31 @@ function showVerticalSection(
     const current =
         verticalSections[currentSection];
 
-    const next =
+    const target =
         verticalSections[newSection];
 
+verticalSections.forEach(
+    section => {
 
-    /*
-     * Limpiamos estados anteriores.
-     */
+        if (
+            section !== current &&
+            section !== target
+        ) {
 
-    resetVerticalSections();
+            section.classList.remove(
+                "vertical-current",
+                "vertical-exit-up",
+                "vertical-exit-down",
+                "vertical-enter-top",
+                "vertical-enter-bottom"
+            );
 
+            section.style.transform = "";
+            section.style.opacity = "";
+            section.style.zIndex = "";
+        }
+    }
+);
 
     /*
      * SCROLL HACIA ABAJO
@@ -2169,7 +2190,7 @@ function showVerticalSection(
             "vertical-exit-up"
         );
 
-        next.classList.add(
+        target.classList.add(
             "vertical-enter-bottom"
         );
 
@@ -2178,30 +2199,20 @@ function showVerticalSection(
          * la posición inicial.
          */
 
-        next.offsetHeight;
+        target.offsetHeight;
 
-        requestAnimationFrame(
-            () => {
+requestAnimationFrame(
+    () => {
 
-                current.classList.remove(
-                    "vertical-exit-up"
-                );
+        target.classList.remove(
+            "vertical-enter-bottom"
+        );
 
-                current.classList.add(
-                    "vertical-exit-up"
-                );
-
-                next.classList.remove(
-                    "vertical-enter-bottom"
-                );
-
-                next.classList.add(
-                    "vertical-current"
-                );
-            }
+        target.classList.add(
+            "vertical-current"
         );
     }
-
+);
 
     /*
      * SCROLL HACIA ARRIBA
@@ -2216,7 +2227,7 @@ function showVerticalSection(
             "vertical-exit-down"
         );
 
-        next.classList.add(
+        target.classList.add(
             "vertical-enter-top"
         );
 
@@ -2225,29 +2236,20 @@ function showVerticalSection(
          * la posición inicial.
          */
 
-        next.offsetHeight;
+        target.offsetHeight;
 
-        requestAnimationFrame(
-            () => {
+requestAnimationFrame(
+    () => {
 
-                current.classList.remove(
-                    "vertical-exit-down"
-                );
+        target.classList.remove(
+            "vertical-enter-top"
+        );
 
-                current.classList.add(
-                    "vertical-exit-down"
-                );
-
-                next.classList.remove(
-                    "vertical-enter-top"
-                );
-
-                next.classList.add(
-                    "vertical-current"
-                );
-            }
+        target.classList.add(
+            "vertical-current"
         );
     }
+);
 
 
     currentSection =
