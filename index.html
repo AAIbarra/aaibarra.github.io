@@ -314,7 +314,7 @@
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
-    z-index: 2;
+    z-index: 10;
 }
 
 /* Elemento que sale hacia arriba */
@@ -1084,7 +1084,7 @@
         ===================================================== -->
 
         <section
-            class="portfolio-section active"
+            class="portfolio-section"
             data-project="0">
 
 
@@ -2086,12 +2086,28 @@ const projects =
         ".portfolio-section"
     );
 
+
+/*
+ * ORDEN DEL CARRUSEL:
+ *
+ * 0 = INTRO
+ * 1 = PROYECTO 1
+ * 2 = PROYECTO 2
+ * 3 = PROYECTO 3
+ *
+ * Más adelante agregaremos:
+ *
+ * 4 = CONTACTO
+ */
+
 const verticalSections = [
     intro,
     ...projects
 ];
 
+
 let currentSection = 0;
+
 let verticalLocked = false;
 
 const verticalSectionCount =
@@ -2099,10 +2115,10 @@ const verticalSectionCount =
 
 
 /* =========================================================
-   RESET ALL VERTICAL SECTIONS
+   PREPARAR ESTADO INICIAL
    ========================================================= */
 
-function resetVerticalSections() {
+function setInitialVerticalState() {
 
     verticalSections.forEach(
         section => {
@@ -2118,19 +2134,33 @@ function resetVerticalSections() {
             section.style.transform = "";
             section.style.opacity = "";
             section.style.zIndex = "";
+
         }
+    );
+
+
+    /*
+     * La INTRO es el primer elemento.
+     */
+
+    verticalSections[0].classList.add(
+        "vertical-current"
     );
 }
 
 
 /* =========================================================
-   SHOW VERTICAL SECTION
+   CAMBIAR DE SECCIÓN
    ========================================================= */
 
 function showVerticalSection(
     newSection,
     direction
 ) {
+
+    /*
+     * No podemos salir de los límites.
+     */
 
     if (
         newSection < 0 ||
@@ -2139,6 +2169,12 @@ function showVerticalSection(
         return;
     }
 
+
+    /*
+     * No hacemos nada si ya estamos ahí
+     * o si una animación está ocurriendo.
+     */
+
     if (
         newSection === currentSection ||
         verticalLocked
@@ -2146,7 +2182,9 @@ function showVerticalSection(
         return;
     }
 
+
     verticalLocked = true;
+
 
     const current =
         verticalSections[currentSection];
@@ -2154,103 +2192,163 @@ function showVerticalSection(
     const target =
         verticalSections[newSection];
 
-verticalSections.forEach(
-    section => {
-
-        if (
-            section !== current &&
-            section !== target
-        ) {
-
-            section.classList.remove(
-                "vertical-current",
-                "vertical-exit-up",
-                "vertical-exit-down",
-                "vertical-enter-top",
-                "vertical-enter-bottom"
-            );
-
-            section.style.transform = "";
-            section.style.opacity = "";
-            section.style.zIndex = "";
-        }
-    }
-);
 
     /*
-     * SCROLL HACIA ABAJO
-     *
-     * El elemento actual sale hacia arriba.
-     * El siguiente entra desde abajo.
+     * Limpiamos solamente los elementos
+     * que NO participan en esta transición.
      */
 
+    verticalSections.forEach(
+        section => {
+
+            if (
+                section !== current &&
+                section !== target
+            ) {
+
+                section.classList.remove(
+                    "vertical-current",
+                    "vertical-exit-up",
+                    "vertical-exit-down",
+                    "vertical-enter-top",
+                    "vertical-enter-bottom"
+                );
+
+                section.style.transform = "";
+                section.style.opacity = "";
+                section.style.zIndex = "";
+            }
+        }
+    );
+
+
+    /* =====================================================
+       SCROLL DOWN
+       ===================================================== */
+
     if (direction === "down") {
+
+        /*
+         * El actual sale hacia ARRIBA.
+         */
+
+        current.classList.remove(
+            "vertical-current"
+        );
 
         current.classList.add(
             "vertical-exit-up"
         );
 
+
+        /*
+         * El nuevo espera ABAJO.
+         */
+
+        target.classList.remove(
+            "vertical-current"
+        );
+
         target.classList.add(
             "vertical-enter-bottom"
         );
 
+
         /*
-         * Forzamos al navegador a reconocer
+         * Forzamos al navegador a registrar
          * la posición inicial.
          */
 
         target.offsetHeight;
 
-requestAnimationFrame(
-    () => {
 
-        target.classList.remove(
-            "vertical-enter-bottom"
-        );
+        /*
+         * Ahora empieza la animación.
+         */
 
-        target.classList.add(
-            "vertical-current"
+        requestAnimationFrame(
+            () => {
+
+                target.classList.remove(
+                    "vertical-enter-bottom"
+                );
+
+                target.classList.add(
+                    "vertical-current"
+                );
+
+            }
         );
     }
-);
 
-    /*
-     * SCROLL HACIA ARRIBA
-     *
-     * El elemento actual sale hacia abajo.
-     * El siguiente entra desde arriba.
-     */
+
+    /* =====================================================
+       SCROLL UP
+       ===================================================== */
 
     else {
+
+        /*
+         * El actual sale hacia ABAJO.
+         */
+
+        current.classList.remove(
+            "vertical-current"
+        );
 
         current.classList.add(
             "vertical-exit-down"
         );
 
+
+        /*
+         * El anterior entra desde ARRIBA.
+         *
+         * IMPORTANTE:
+         *
+         * 'target' puede ser perfectamente
+         * la INTRO.
+         */
+
+        target.classList.remove(
+            "vertical-current"
+        );
+
         target.classList.add(
             "vertical-enter-top"
         );
 
+
         /*
-         * Forzamos al navegador a reconocer
+         * Forzamos al navegador a registrar
          * la posición inicial.
          */
 
         target.offsetHeight;
 
-requestAnimationFrame(
-    () => {
 
-        target.classList.remove(
-            "vertical-enter-top"
-        );
+        requestAnimationFrame(
+            () => {
 
-        target.classList.add(
-            "vertical-current"
+                target.classList.remove(
+                    "vertical-enter-top"
+                );
+
+                target.classList.add(
+                    "vertical-current"
+                );
+
+            }
         );
     }
-);
 
+
+    /*
+     * AHORA SÍ:
+     *
+     * actualizamos siempre currentSection,
+     * tanto hacia arriba como hacia abajo.
+     */
 
     currentSection =
         newSection;
@@ -2270,6 +2368,11 @@ requestAnimationFrame(
                         index === currentSection
                     ) {
 
+                        /*
+                         * El actual queda limpio
+                         * y visible.
+                         */
+
                         section.classList.remove(
                             "vertical-exit-up",
                             "vertical-exit-down",
@@ -2283,6 +2386,11 @@ requestAnimationFrame(
 
                     } else {
 
+                        /*
+                         * TODOS los demás quedan
+                         * completamente fuera.
+                         */
+
                         section.classList.remove(
                             "vertical-current",
                             "vertical-exit-up",
@@ -2292,13 +2400,13 @@ requestAnimationFrame(
                         );
 
                         section.style.transform = "";
-
                         section.style.opacity = "";
-
                         section.style.zIndex = "";
                     }
+
                 }
             );
+
 
             verticalLocked = false;
 
@@ -2317,13 +2425,14 @@ window.addEventListener(
     (event) => {
 
         /*
-         * Mientras se escribe la intro,
-         * no hacemos nada.
+         * Mientras la intro todavía está
+         * escribiéndose, el scroll no navega.
          */
 
         if (!typingFinished) {
             return;
         }
+
 
         event.preventDefault();
 
@@ -2366,7 +2475,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   KEYBOARD NAVIGATION
+   KEYBOARD
    ========================================================= */
 
 window.addEventListener(
@@ -2406,14 +2515,10 @@ window.addEventListener(
 
 
 /* =========================================================
-   INITIAL VERTICAL STATE
+   INITIAL STATE
    ========================================================= */
 
-resetVerticalSections();
-
-verticalSections[0].classList.add(
-    "vertical-current"
-);
+setInitialVerticalState();
 
         /* =========================================================
            HORIZONTAL CAROUSELS
