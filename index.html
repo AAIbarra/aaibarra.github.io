@@ -1,105 +1,1266 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Portfolio Narrativo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Agustín Andrés Ibarra — Videogame Narrative Designer</title>
+
+    <style>
+
+        /* =========================================================
+           GENERAL
+        ========================================================= */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            color: #111111;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           INTRO
+        ========================================================= */
+
+        #intro {
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            margin-top: 15px;
+            padding: 0 20px;
+            font-weight: 400;
+        }
+
+        .cursor {
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+
+            51%, 100% {
+                opacity: 0;
+            }
+        }
+
+
+        /* =========================================================
+           SCROLL INDICATOR
+        ========================================================= */
+
+        .scroll-indicator {
+            margin-top: 80px;
+
+            font-size: 28px;
+
+            opacity: 0.45;
+
+            animation: scrollBounce 1.8s infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(12px);
+            }
+        }
+
+
+        /* =========================================================
+           PORTFOLIO
+        ========================================================= */
+
+        #portfolio {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .portfolio-section {
+
+            min-height: 100vh;
+
+            padding: 120px 40px 160px;
+
+            box-sizing: border-box;
+
+            opacity: 0;
+
+            transform: translateY(80px);
+
+            transition:
+                opacity 0.9s ease-out,
+                transform 0.9s ease-out;
+        }
+
+
+        /* Cuando aparece en pantalla */
+
+        .portfolio-section.visible {
+
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+
+        /* =========================================================
+           PROJECT TITLE
+        ========================================================= */
+
+        .project-container {
+
+            width: 100%;
+
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            text-align: left;
+        }
+
+        .project-title {
+
+            margin: 0 0 10px;
+
+            font-size: 2.4em;
+
+            font-weight: 500;
+
+            letter-spacing: 0.5px;
+        }
+
+        .project-subtitle {
+
+            margin: 0 0 35px;
+
+            font-size: 1em;
+
+            color: #666666;
+        }
+
+
+        /* =========================================================
+           CAROUSEL
+        ========================================================= */
+
+        .carousel-wrapper {
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            position: relative;
+        }
+
+
+        /* Flechas */
+
+        .carousel-button {
+
+            position: absolute;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            z-index: 10;
+
+            width: 50px;
+            height: 50px;
+
+            border: none;
+
+            background: rgba(0, 0, 0, 0.65);
+
+            color: white;
+
+            font-size: 28px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            transition: background 0.2s ease;
+        }
+
+        .carousel-button:hover {
+
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .carousel-button.prev {
+
+            left: -70px;
+        }
+
+        .carousel-button.next {
+
+            right: -70px;
+        }
+
+
+        /* Ventana */
+
+        .carousel-window {
+
+            width: 854px;
+
+            height: 480px;
+
+            overflow: hidden;
+
+            background: #111111;
+
+            position: relative;
+        }
+
+
+        /* Track */
+
+        .carousel-track {
+
+            display: flex;
+
+            width: 100%;
+            height: 100%;
+
+            transition: transform 0.45s ease-in-out;
+        }
+
+
+        /* =========================================================
+           SLIDES
+        ========================================================= */
+
+        .carousel-slide {
+
+            flex: 0 0 854px;
+
+            width: 854px;
+            height: 480px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background: #222222;
+
+            color: white;
+
+            font-size: 28px;
+
+            box-sizing: border-box;
+        }
+
+
+        /* Imágenes reales */
+
+        .carousel-slide img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        /* Videos */
+
+        .carousel-slide video {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        /* =========================================================
+           DOTS
+        ========================================================= */
+
+        .carousel-dots {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-top: 18px;
+        }
+
+        .carousel-dot {
+
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #cccccc;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .carousel-dot:hover {
+
+            transform: scale(1.3);
+        }
+
+        .carousel-dot.active {
+
+            background: #111111;
+
+            transform: scale(1.25);
+        }
+
+
+        /* =========================================================
+           PROJECT DESCRIPTION
+        ========================================================= */
+
+        .project-description {
+
+            max-width: 854px;
+
+            margin: 35px auto 0;
+
+            text-align: left;
+
+            font-size: 1.05em;
+
+            line-height: 1.7;
+
+            color: #444444;
+        }
+
+
+        /* =========================================================
+           SECOND PROJECT
+        ========================================================= */
+
+        .project-separator {
+
+            width: 80px;
+
+            height: 1px;
+
+            background: #cccccc;
+
+            margin: 0 auto;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1000px) {
+
+            .carousel-button.prev {
+                left: 10px;
+            }
+
+            .carousel-button.next {
+                right: 10px;
+            }
+
+            .carousel-window {
+
+                width: min(854px, calc(100vw - 80px));
+
+                height: auto;
+
+                aspect-ratio: 16 / 9;
+            }
+
+            .carousel-slide {
+
+                flex: 0 0 min(854px, calc(100vw - 80px));
+
+                width: min(854px, calc(100vw - 80px));
+
+                height: auto;
+
+                aspect-ratio: 16 / 9;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            #intro {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.15em;
+            }
+
+            .portfolio-section {
+
+                padding: 90px 20px 120px;
+            }
+
+            .project-title {
+
+                font-size: 1.8em;
+            }
+
+            .project-subtitle {
+
+                font-size: 0.9em;
+            }
+
+            .carousel-window {
+
+                width: calc(100vw - 40px);
+            }
+
+            .carousel-slide {
+
+                flex: 0 0 calc(100vw - 40px);
+
+                width: calc(100vw - 40px);
+            }
+
+            .carousel-button {
+
+                width: 40px;
+                height: 40px;
+
+                font-size: 22px;
+            }
+
+            .carousel-button.prev {
+                left: 5px;
+            }
+
+            .carousel-button.next {
+                right: 5px;
+            }
+
+            .project-description {
+
+                font-size: 0.95em;
+            }
+        }
+
+    </style>
 </head>
+
+
 <body>
 
-  <!-- Título principal -->
-  <h1 id="typing-name"><span class="cursor">|</span></h1>
 
-  <!-- Subtítulo -->
-  <h2 id="typing-subtitle"></h2>
+    <!-- =========================================================
+         INTRO
+    ========================================================= -->
 
-  <!-- Sonido de tipeo -->
-  <audio id="typeSound" src="sounds/type.wav"></audio>
+    <section id="intro">
 
-  <script>
-    const name = "Agustín Andrés Ibarra";
-    const subtitle = "Integral videogame narrative designer | Linguistics & Literature Graduate | Unity Developer | Game Localization";
+        <h1 id="typing-name"></h1>
 
-    const typingSpeed = 100;
-    const initialPause = 2000;
-    const subtitlePause = 1500;
+        <h2 id="typing-subtitle"></h2>
 
-    const typeSound = document.getElementById("typeSound");
-    const titleElement = document.getElementById("typing-name");
-    const subtitleElement = document.getElementById("typing-subtitle");
+        <div class="scroll-indicator">
+            ↓
+        </div>
 
-    let index = 0;
-    let subIndex = 0;
+    </section>
 
-    // Requiere clic para iniciar (por restricción del navegador)
-    document.body.addEventListener("click", () => {
-      titleElement.innerHTML = '<span class="cursor">|</span>'; // solo cursor antes de empezar
-      setTimeout(typeName, initialPause);
-    }, { once: true });
 
-    function typeName() {
-      titleElement.innerHTML = name.substring(0, index) + '<span class="cursor">|</span>';
-      if (index < name.length) {
-        typeSound.currentTime = 0;
-        typeSound.play();
-      }
+    <!-- =========================================================
+         TYPEWRITER SOUND
+    ========================================================= -->
 
-      index++;
-      if (index <= name.length) {
-        setTimeout(typeName, typingSpeed);
-      } else {
-        // Quitar cursor al terminar el nombre
-        titleElement.innerHTML = name;
-        setTimeout(typeSubtitle, subtitlePause);
-      }
-    }
+    <audio id="typeSound" src="sounds/type.wav"></audio>
 
-    function typeSubtitle() {
-      if (subIndex <= subtitle.length) {
-        subtitleElement.innerHTML = subtitle.substring(0, subIndex) + '<span class="cursor">|</span>';
-        if (subIndex < subtitle.length) {
-          typeSound.currentTime = 0;
-          typeSound.play();
+
+    <!-- =========================================================
+         PORTFOLIO
+    ========================================================= -->
+
+    <main id="portfolio">
+
+
+        <!-- =====================================================
+             PROJECT 1
+        ===================================================== -->
+
+        <section class="portfolio-section">
+
+            <div class="project-container">
+
+                <h2 class="project-title">
+                    FOAM TRAVELER GO!
+                </h2>
+
+                <p class="project-subtitle">
+                    2D Narrative Exploration / Puzzle · Unity · C# · Narrative Design · Localization
+                </p>
+
+
+                <!-- CARRUSEL -->
+
+                <div class="carousel-wrapper">
+
+                    <button
+                        class="carousel-button prev"
+                        onclick="moveCarousel(0, -1)">
+                        ←
+                    </button>
+
+
+                    <div class="carousel-window">
+
+                        <div
+                            class="carousel-track"
+                            id="carousel-0">
+
+
+                            <!-- =================================
+                                 IMAGEN 1
+                            ================================== -->
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    IMAGEN 1
+                                </span>
+
+                                <!--
+                                CUANDO TENGAS LA IMAGEN:
+
+                                <img
+                                    src="images/foam-01.png"
+                                    alt="Foam Traveler Go screenshot">
+                                -->
+
+                            </div>
+
+
+                            <!-- =================================
+                                 IMAGEN 2
+                            ================================== -->
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    IMAGEN 2
+                                </span>
+
+                                <!--
+                                <img
+                                    src="images/foam-02.png"
+                                    alt="Foam Traveler Go screenshot">
+                                -->
+
+                            </div>
+
+
+                            <!-- =================================
+                                 IMAGEN 3
+                            ================================== -->
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    IMAGEN 3
+                                </span>
+
+                                <!--
+                                <img
+                                    src="images/foam-03.png"
+                                    alt="Foam Traveler Go screenshot">
+                                -->
+
+                            </div>
+
+
+                            <!-- =================================
+                                 VIDEO
+                            ================================== -->
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    VIDEO
+                                </span>
+
+                                <!--
+                                CUANDO TENGAS EL VIDEO:
+
+                                <video
+                                    controls
+                                    src="videos/foam-gameplay.mp4">
+                                </video>
+                                -->
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="carousel-button next"
+                        onclick="moveCarousel(0, 1)">
+                        →
+                    </button>
+
+                </div>
+
+
+                <!-- DOTS -->
+
+                <div
+                    class="carousel-dots"
+                    id="dots-0">
+
+                    <div
+                        class="carousel-dot active"
+                        onclick="goToSlide(0, 0)">
+                    </div>
+
+                    <div
+                        class="carousel-dot"
+                        onclick="goToSlide(0, 1)">
+                    </div>
+
+                    <div
+                        class="carousel-dot"
+                        onclick="goToSlide(0, 2)">
+                    </div>
+
+                    <div
+                        class="carousel-dot"
+                        onclick="goToSlide(0, 3)">
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <p class="project-description">
+
+                    DESCRIPTION OF PROJECT 1 GOES HERE.
+                    This is where you can briefly explain your role,
+                    the project, the narrative systems, gameplay,
+                    localization, Unity development, or anything else
+                    you want the recruiter to know.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PROJECT 2
+        ===================================================== -->
+
+        <section class="portfolio-section">
+
+            <div class="project-container">
+
+                <h2 class="project-title">
+                    PROJECT TITLE 2
+                </h2>
+
+                <p class="project-subtitle">
+                    PROJECT TYPE · ROLE · TECHNOLOGIES
+                </p>
+
+
+                <div class="carousel-wrapper">
+
+                    <button
+                        class="carousel-button prev"
+                        onclick="moveCarousel(1, -1)">
+                        ←
+                    </button>
+
+
+                    <div class="carousel-window">
+
+                        <div
+                            class="carousel-track"
+                            id="carousel-1">
+
+
+                            <!-- IMAGEN 1 -->
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    IMAGEN 1
+                                </span>
+
+                            </div>
+
+
+                            <!-- IMAGEN 2 -->
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    IMAGEN 2
+                                </span>
+
+                            </div>
+
+
+                            <!-- VIDEO -->
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    VIDEO
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="carousel-button next"
+                        onclick="moveCarousel(1, 1)">
+                        →
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="carousel-dots"
+                    id="dots-1">
+
+                    <div
+                        class="carousel-dot active"
+                        onclick="goToSlide(1, 0)">
+                    </div>
+
+                    <div
+                        class="carousel-dot"
+                        onclick="goToSlide(1, 1)">
+                    </div>
+
+                    <div
+                        class="carousel-dot"
+                        onclick="goToSlide(1, 2)">
+                    </div>
+
+                </div>
+
+
+                <p class="project-description">
+
+                    DESCRIPTION OF PROJECT 2 GOES HERE.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PROJECT 3
+        ===================================================== -->
+
+        <section class="portfolio-section">
+
+            <div class="project-container">
+
+                <h2 class="project-title">
+                    PROJECT TITLE 3
+                </h2>
+
+                <p class="project-subtitle">
+                    PROJECT TYPE · ROLE · TECHNOLOGIES
+                </p>
+
+
+                <div class="carousel-wrapper">
+
+                    <button
+                        class="carousel-button prev"
+                        onclick="moveCarousel(2, -1)">
+                        ←
+                    </button>
+
+
+                    <div class="carousel-window">
+
+                        <div
+                            class="carousel-track"
+                            id="carousel-2">
+
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    IMAGEN 1
+                                </span>
+
+                            </div>
+
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    IMAGEN 2
+                                </span>
+
+                            </div>
+
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    IMAGEN 3
+                                </span>
+
+                            </div>
+
+
+                            <div class="carousel-slide">
+
+                                <span>
+                                    VIDEO
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="carousel-button next"
+                        onclick="moveCarousel(2, 1)">
+                        →
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="carousel-dots"
+                    id="dots-2">
+
+                    <div
+                        class="carousel-dot active"
+                        onclick="goToSlide(2, 0)">
+                    </div>
+
+                    <div
+                        class="carousel-dot"
+                        onclick="goToSlide(2, 1)">
+                    </div>
+
+                    <div
+                        class="carousel-dot"
+                        onclick="goToSlide(2, 2)">
+                    </div>
+
+                    <div
+                        class="carousel-dot"
+                        onclick="goToSlide(2, 3)">
+                    </div>
+
+                </div>
+
+
+                <p class="project-description">
+
+                    DESCRIPTION OF PROJECT 3 GOES HERE.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+
+        /* =========================================================
+           TYPEWRITER
+        ========================================================= */
+
+        const name = "Agustín Andrés Ibarra";
+
+        const subtitle =
+            "Integral videogame narrative designer | Linguistics & Literature Graduate | Unity Developer | Game Localization";
+
+        const typingSpeed = 100;
+
+        const initialPause = 2000;
+
+        const subtitlePause = 1500;
+
+        const typeSound =
+            document.getElementById("typeSound");
+
+        const titleElement =
+            document.getElementById("typing-name");
+
+        const subtitleElement =
+            document.getElementById("typing-subtitle");
+
+
+        let index = 0;
+
+        let subIndex = 0;
+
+
+        function typeName() {
+
+            titleElement.innerHTML =
+                name.substring(0, index) +
+                '<span class="cursor">|</span>';
+
+
+            if (index < name.length) {
+
+                typeSound.currentTime = 0;
+
+                typeSound.play().catch(() => {});
+
+            }
+
+
+            index++;
+
+
+            if (index <= name.length) {
+
+                setTimeout(typeName, typingSpeed);
+
+            } else {
+
+                titleElement.innerHTML = name;
+
+                setTimeout(
+                    typeSubtitle,
+                    subtitlePause
+                );
+
+            }
+
         }
-        subIndex++;
-        setTimeout(typeSubtitle, typingSpeed);
-      }
-    }
-  </script>
 
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      font-family: "Arial Black", sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      cursor: pointer;
-    }
 
-    h1 {
-      font-size: 3em;
-      margin-top: 100px;
-      margin-bottom: 20px;
-    }
+        function typeSubtitle() {
 
-    h2 {
-      font-size: 1.6em;
-      margin-top: 10px;
-      padding: 0 20px;
-    }
+            subtitleElement.innerHTML =
+                subtitle.substring(0, subIndex) +
+                '<span class="cursor">|</span>';
 
-    .cursor {
-      display: inline-block;
-      animation: blink 1s infinite;
-    }
 
-    @keyframes blink {
-      0%   { opacity: 1; }
-      50%  { opacity: 0; }
-      100% { opacity: 1; }
-    }
-  </style>
+            if (subIndex < subtitle.length) {
+
+                typeSound.currentTime = 0;
+
+                typeSound.play().catch(() => {});
+
+            }
+
+
+            subIndex++;
+
+
+            if (subIndex <= subtitle.length) {
+
+                setTimeout(
+                    typeSubtitle,
+                    typingSpeed
+                );
+
+            } else {
+
+                subtitleElement.innerHTML = subtitle;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           START TYPEWRITER
+        ========================================================= */
+
+        document.body.addEventListener(
+            "click",
+            () => {
+
+                titleElement.innerHTML =
+                    '<span class="cursor">|</span>';
+
+                setTimeout(
+                    typeName,
+                    initialPause
+                );
+
+            },
+            { once: true }
+        );
+
+
+        /* =========================================================
+           CAROUSELS
+        ========================================================= */
+
+        const carouselPositions = [
+
+            0,
+            0,
+            0
+
+        ];
+
+
+        function moveCarousel(
+            carouselIndex,
+            direction
+        ) {
+
+            const track =
+                document.getElementById(
+                    "carousel-" + carouselIndex
+                );
+
+
+            const slides =
+                track.querySelectorAll(
+                    ".carousel-slide"
+                );
+
+
+            const totalSlides =
+                slides.length;
+
+
+            carouselPositions[carouselIndex] +=
+                direction;
+
+
+            /* Loop back */
+
+            if (
+                carouselPositions[carouselIndex]
+                < 0
+            ) {
+
+                carouselPositions[carouselIndex] =
+                    totalSlides - 1;
+
+            }
+
+
+            if (
+                carouselPositions[carouselIndex]
+                >= totalSlides
+            ) {
+
+                carouselPositions[carouselIndex] =
+                    0;
+
+            }
+
+
+            updateCarousel(
+                carouselIndex
+            );
+
+        }
+
+
+        function goToSlide(
+            carouselIndex,
+            slideIndex
+        ) {
+
+            carouselPositions[carouselIndex] =
+                slideIndex;
+
+            updateCarousel(
+                carouselIndex
+            );
+
+        }
+
+
+        function updateCarousel(
+            carouselIndex
+        ) {
+
+            const track =
+                document.getElementById(
+                    "carousel-" + carouselIndex
+                );
+
+
+            const position =
+                carouselPositions[carouselIndex];
+
+
+            track.style.transform =
+                `translateX(-${position * 100}%)`;
+
+
+            /* Update dots */
+
+            const dots =
+                document.querySelectorAll(
+                    `#dots-${carouselIndex} .carousel-dot`
+                );
+
+
+            dots.forEach(
+                (dot, index) => {
+
+                    dot.classList.toggle(
+                        "active",
+                        index === position
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           SCROLL FADE-IN
+        ========================================================= */
+
+        const portfolioSections =
+            document.querySelectorAll(
+                ".portfolio-section"
+            );
+
+
+        const observer =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(
+                        (entry) => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "visible"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold: 0.15
+                }
+
+            );
+
+
+        portfolioSections.forEach(
+            (section) => {
+
+                observer.observe(section);
+
+            }
+        );
+
+
+    </script>
 
 </body>
 </html>
