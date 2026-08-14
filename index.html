@@ -1608,246 +1608,324 @@
            TYPEWRITER
         ========================================================= */
 
-        const name =
-            "Agustín Andrés Ibarra";
+/* =========================================================
+   TYPEWRITER
+========================================================= */
 
+const name =
+    "Agustín Andrés Ibarra";
 
-        const subtitle =
-            "Integral videogame narrative designer | Linguistics & Literature Graduate | Unity Developer | Game Localization";
+const subtitle =
+    "Integral videogame narrative designer | Linguistics & Literature Graduate | Unity Developer | Game Localization";
 
 
-        const typingSpeed = 100;
+/*
+ * Velocidad normal.
+ * Cuanto menor el número, más rápido escribe.
+ */
 
+const normalSpeed = 100;
 
-        const subtitlePause = 1200;
 
+/*
+ * Velocidad mientras mantenemos
+ * presionado el mouse.
+ */
 
-        const typeSound =
-            document.getElementById(
-                "typeSound"
-            );
+const fastSpeed = 25;
 
 
-        const titleElement =
-            document.getElementById(
-                "typing-name"
-            );
+/*
+ * Pausa entre nombre y subtítulo.
+ */
 
+const subtitlePause = 1200;
 
-        const subtitleElement =
-            document.getElementById(
-                "typing-subtitle"
-            );
 
+const typeSound =
+    document.getElementById("typeSound");
 
-        const scrollIndicator =
-            document.getElementById(
-                "scroll-indicator"
-            );
+const titleElement =
+    document.getElementById("typing-name");
 
+const subtitleElement =
+    document.getElementById("typing-subtitle");
 
-        const intro =
-            document.getElementById(
-                "intro"
-            );
+const scrollIndicator =
+    document.getElementById("scroll-indicator");
 
+const intro =
+    document.getElementById("intro");
 
-        let index = 0;
 
-        let subIndex = 0;
+let index = 0;
 
+let subIndex = 0;
 
-        let typingStarted = false;
 
+/*
+ * ¿Ya empezó a escribir?
+ */
 
-        let typingFinished = false;
+let typingStarted = false;
 
 
+/*
+ * ¿Terminó completamente?
+ */
 
-        /* =========================================================
-           START TYPEWRITER
-        ========================================================= */
+let typingFinished = false;
 
-        function startTyping() {
 
+/*
+ * ¿El mouse está siendo mantenido?
+ */
 
-            if (typingStarted) {
+let mouseHeld = false;
 
-                return;
 
-            }
+/*
+ * Evita iniciar varias veces
+ * el mismo proceso.
+ */
 
+let typingTimer = null;
 
-            typingStarted = true;
 
+/* =========================================================
+   START TYPEWRITER
+========================================================= */
 
-            typeName();
+function startTyping() {
 
+    if (typingStarted) {
+        return;
+    }
 
-        }
+    typingStarted = true;
 
+    typeName();
 
+}
 
-        /* =========================================================
-           TYPE NAME
-        ========================================================= */
 
-        function typeName() {
+/* =========================================================
+   TYPE NAME
+========================================================= */
 
+function typeName() {
 
-            titleElement.innerHTML =
+    if (typingFinished) {
+        return;
+    }
 
-                name.substring(
-                    0,
-                    index
-                )
 
-                +
+    titleElement.innerHTML =
+        name.substring(0, index) +
+        '<span class="cursor">|</span>';
 
-                '<span class="cursor">|</span>';
 
+    /*
+     * Sonido
+     */
 
+    if (index < name.length) {
+        playTypeSound();
+    }
 
-            if (
-                index < name.length
-            ) {
 
-                playTypeSound();
+    index++;
 
-            }
 
+    /*
+     * Todavía falta escribir
+     */
 
-            index++;
+    if (index <= name.length) {
 
+        const speed =
+            mouseHeld
+                ? fastSpeed
+                : normalSpeed;
 
 
-            if (
-                index <= name.length
-            ) {
+        typingTimer = setTimeout(
+            typeName,
+            speed
+        );
 
-                setTimeout(
-                    typeName,
-                    typingSpeed
-                );
+        return;
 
-            }
+    }
 
-            else {
 
+    /*
+     * Terminó el nombre.
+     */
 
-                titleElement.innerHTML =
-                    name;
+    titleElement.innerHTML = name;
 
 
-                setTimeout(
-                    typeSubtitle,
-                    subtitlePause
-                );
+    /*
+     * Esperamos un poquito
+     * antes del subtítulo.
+     */
 
+    typingTimer = setTimeout(
+        typeSubtitle,
+        mouseHeld
+            ? 300
+            : subtitlePause
+    );
 
-            }
+}
 
-        }
 
+/* =========================================================
+   TYPE SUBTITLE
+========================================================= */
 
+function typeSubtitle() {
 
-        /* =========================================================
-           TYPE SUBTITLE
-        ========================================================= */
+    if (typingFinished) {
+        return;
+    }
 
-        function typeSubtitle() {
 
+    subtitleElement.innerHTML =
+        subtitle.substring(0, subIndex) +
+        '<span class="cursor">|</span>';
 
-            subtitleElement.innerHTML =
 
-                subtitle.substring(
-                    0,
-                    subIndex
-                )
+    /*
+     * Sonido
+     */
 
-                +
+    if (subIndex < subtitle.length) {
+        playTypeSound();
+    }
 
-                '<span class="cursor">|</span>';
 
+    subIndex++;
 
 
-            if (
-                subIndex < subtitle.length
-            ) {
+    /*
+     * Todavía falta escribir
+     */
 
-                playTypeSound();
+    if (subIndex <= subtitle.length) {
 
-            }
+        const speed =
+            mouseHeld
+                ? fastSpeed
+                : normalSpeed;
 
 
-            subIndex++;
+        typingTimer = setTimeout(
+            typeSubtitle,
+            speed
+        );
 
+        return;
 
+    }
 
-            if (
-                subIndex <= subtitle.length
-            ) {
 
-                setTimeout(
-                    typeSubtitle,
-                    typingSpeed
-                );
+    /*
+     * Terminó todo.
+     */
 
-            }
+    subtitleElement.innerHTML =
+        subtitle;
 
-            else {
 
+    finishIntro();
 
-                subtitleElement.innerHTML =
-                    subtitle;
+}
 
 
-                finishIntro();
+/* =========================================================
+   TYPE SOUND
+========================================================= */
 
+function playTypeSound() {
 
-            }
+    typeSound.currentTime = 0;
 
-        }
+    typeSound
+        .play()
+        .catch(() => {});
 
+}
 
 
-        /* =========================================================
-           TYPE SOUND
-        ========================================================= */
+/* =========================================================
+   FINISH EVERYTHING IMMEDIATELY
+========================================================= */
 
-        function playTypeSound() {
+function finishTypingImmediately() {
 
+    /*
+     * Cancelamos cualquier escritura
+     * que estuviera ocurriendo.
+     */
 
-            typeSound.currentTime = 0;
+    clearTimeout(typingTimer);
 
 
-            typeSound
-                .play()
-                .catch(
-                    () => {}
-                );
+    /*
+     * Escribimos todo directamente.
+     */
 
+    titleElement.innerHTML =
+        name;
 
-        }
+    subtitleElement.innerHTML =
+        subtitle;
 
 
+    index =
+        name.length;
 
-        /* =========================================================
-           FINISH INTRO
-        ========================================================= */
+    subIndex =
+        subtitle.length;
 
-        function finishIntro() {
 
+    /*
+     * Terminamos la intro.
+     */
 
-            typingFinished = true;
+    finishIntro();
 
+}
 
-            scrollIndicator.classList.add(
-                "visible"
-            );
 
+/* =========================================================
+   FINISH INTRO
+========================================================= */
 
-        }
+function finishIntro() {
+
+    if (typingFinished) {
+        return;
+    }
+
+
+    typingFinished = true;
+
+
+    clearTimeout(typingTimer);
+
+
+    /*
+     * Aparece la flecha.
+     */
+
+    scrollIndicator.classList.add(
+        "visible"
+    );
+
+}
 
 
 
@@ -1860,25 +1938,128 @@
 
 
 
-        /* =========================================================
-           CLICK START
-        ========================================================= */
+/* =========================================================
+   MOUSE CONTROLS
+========================================================= */
 
-        document.body.addEventListener(
-            "click",
-            () => {
 
-                if (
-                    !typingStarted
-                ) {
+/*
+ * PRIMER CLICK
+ *
+ * Empieza la escritura.
+ */
 
-                    startTyping();
+document.body.addEventListener(
+    "mousedown",
+    (event) => {
 
-                }
+        /*
+         * Solo botón izquierdo.
+         */
 
-            }
-        );
+        if (event.button !== 0) {
+            return;
+        }
 
+
+        /*
+         * Si ya terminó, no hacemos nada.
+         */
+
+        if (typingFinished) {
+            return;
+        }
+
+
+        /*
+         * Mantener presionado.
+         */
+
+        mouseHeld = true;
+
+
+        /*
+         * Si todavía no empezó,
+         * este es el primer click.
+         */
+
+        if (!typingStarted) {
+
+            startTyping();
+
+        }
+
+    }
+);
+
+
+/*
+ * SOLTAR EL CLICK
+ */
+
+document.body.addEventListener(
+    "mouseup",
+    (event) => {
+
+        if (event.button !== 0) {
+            return;
+        }
+
+
+        mouseHeld = false;
+
+    }
+);
+
+
+/*
+ * Si el usuario mueve el mouse
+ * fuera de la ventana mientras lo
+ * mantiene presionado.
+ */
+
+document.body.addEventListener(
+    "mouseleave",
+    () => {
+
+        mouseHeld = false;
+
+    }
+);
+
+
+/*
+ * DOBLE CLICK
+ *
+ * Termina todo inmediatamente.
+ */
+
+document.body.addEventListener(
+    "dblclick",
+    (event) => {
+
+        if (event.button !== 0) {
+            return;
+        }
+
+
+        /*
+         * Si ya terminó no hacemos nada.
+         */
+
+        if (typingFinished) {
+            return;
+        }
+
+
+        /*
+         * Completar inmediatamente.
+         */
+
+        finishTypingImmediately();
+
+    }
+);
 
 
         /* =========================================================
