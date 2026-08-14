@@ -1081,7 +1081,7 @@
         ===================================================== -->
 
         <section
-            class="portfolio-section active"
+            class="portfolio-section"
             data-project="0">
 
 
@@ -2714,6 +2714,189 @@ document.body.addEventListener(
 
     </script>
 
+ <!-- =========================================================
+       CONTROLADOR SCRIPT 
+    ========================================================= -->
+
+    <script>
+        // Configuración de textos para la intro
+        const nameText = "Agustín Andrés Ibarra";
+        const subtitleText = "Videogame Narrative Designer";
+        
+        // Elementos del DOM
+        const nameContainer = document.getElementById('typing-name');
+        const subtitleContainer = document.getElementById('typing-subtitle');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        const intro = document.getElementById('intro');
+        const typeSound = document.getElementById('typeSound');
+
+        let isIntroFinished = false;
+        let currentSection = -1; // -1 significa que el usuario está viendo la Intro
+        const sections = document.querySelectorAll('.portfolio-section');
+        let isTransitioning = false;
+
+        // Función del efecto máquina de escribir con sonido opcional
+        function typeEffect(element, text, speed, callback) {
+            let i = 0;
+            element.innerHTML = '<span class="cursor">|</span>';
+            
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.innerHTML = text.substring(0, i + 1) + '<span class="cursor">|</span>';
+                    // Reproducir sonido de máquina de escribir si existe el archivo
+                    if (typeSound) {
+                        typeSound.currentTime = 0;
+                        typeSound.play().catch(() => {/* Evita errores si el navegador bloquea el autoplay */});
+                    }
+                    i++;
+                } else {
+                    clearInterval(timer);
+                    if (callback) callback();
+                }
+            }, speed);
+        }
+
+        // Iniciar máquina de escribir al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            typeEffect(nameContainer, nameText, 60, () => {
+                // Quita el cursor del nombre para empezar el subtítulo
+                const oldCursor = nameContainer.querySelector('.cursor');
+                if (oldCursor) oldCursor.remove();
+                
+                typeEffect(subtitleContainer, subtitleText, 45, () => {
+                    // Fin de la intro: activamos indicador visual
+                    scrollIndicator.classList.add('visible');
+                    isIntroFinished = true;
+                });
+            });
+        });
+
+        // Permitir saltar o avanzar la intro con un clic en pantalla
+        intro.addEventListener('click', () => {
+            if (isIntroFinished && currentSection === -1) {
+                navigate('down');
+            }
+        });
+
+        // Función para ocultar la intro fluidamente
+        function hideIntroElement() {
+            intro.classList.add('hidden');
+            setTimeout(() => {
+                intro.style.display = 'none';
+            }, 800); // 800ms coincide con la transición CSS de tu opacidad
+        }
+
+        // =========================================================
+        // SISTEMA DE NAVEGACIÓN POR DIAPOSITIVAS (SCROLL)
+        // =========================================================
+        function navigate(direction) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            // CASO A: De la Intro al Primer Proyecto
+            if (currentSection === -1 && direction === 'down') {
+                hideIntroElement();
+                currentSection = 0;
+                sections[currentSection].classList.add('active');
+            } 
+            // CASO B: Avanzar al siguiente proyecto
+            else if (direction === 'down' && currentSection < sections.length - 1) {
+                sections[currentSection].classList.remove('active');
+                sections[currentSection].classList.add('exit-up');
+                currentSection++;
+                sections[currentSection].classList.remove('enter-from-top');
+                sections[currentSection].classList.add('active');
+            } 
+            // CASO C: Retroceder al proyecto anterior
+            else if (direction === 'up' && currentSection > 0) {
+                sections[currentSection].classList.remove('active');
+                currentSection--;
+                sections[currentSection].classList.remove('exit-up');
+                sections[currentSection].classList.add('active');
+            }
+
+            // Temporizador para evitar scrolls infinitos accidentales
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 900);
+        }
+
+        // Captura del scroll físico del mouse / trackpad
+        window.addEventListener('wheel', (event) => {
+            if (!isIntroFinished && currentSection === -1) return;
+
+            if (event.deltaY > 0) {
+                navigate('down');
+            } else if (event.deltaY < 0) {
+                navigate('up');
+            }
+        });
+
+        // Soporte para pantallas táctiles de celulares (Swipe)
+        let touchStart = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStart = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+            if (!isIntroFinished && currentSection === -1) return;
+            
+            let touchEnd = e.changedTouches[0].clientY;
+            let distance = touchStart - touchEnd;
+
+            if (Math.abs(distance) > 60) { // Sensibilidad del swipe
+                if (distance > 0) {
+                    navigate('down'); // Deslizar hacia arriba baja la página
+                } else {
+                    navigate('up');   // Deslizar hacia abajo sube la página
+                }
+            }
+        }, { passive: true });
+
+
+    function moveCarousel(projectIndex, direction) {
+            // Busca la sección del proyecto específico
+            const projectSection = document.querySelector(`.portfolio-section[data-project="${projectIndex}"]`);
+            if (!projectSection) return;
+
+            const slides = projectSection.querySelectorAll('.carousel-slide');
+            const dots = projectSection.querySelectorAll('.carousel-dot');
+            
+            // Encuentra cuál es el índice de la diapositiva central activa actual
+            let currentActiveIndex = Array.from(slides).findIndex(slide => slide.classList.contains('center'));
+            
+            if (currentActiveIndex === -1) currentActiveIndex = 0;
+
+            // Quita los estilos del estado anterior
+            slides[currentActiveIndex].className = 'carousel-slide';
+            
+            // Calcula la nueva posición circularmente
+            let newActiveIndex = (currentActiveIndex + direction + slides.length) % slides.length;
+
+            // Asigna los nuevos estados dinámicos de clases CSS basados en tu diseño 3D
+            slides[newActiveIndex].className = 'carousel-slide center';
+            
+            let prevIndex = (newActiveIndex - 1 + slides.length) % slides.length;
+            slides[prevIndex].className = 'carousel-slide previous';
+            
+            let nextIndex = (newActiveIndex + 1) % slides.length;
+            slides[nextIndex].className = 'carousel-slide next';
+
+            // Oculta el resto de las diapositivas lejanas
+            slides.forEach((slide, index) => {
+                if (index !== newActiveIndex && index !== prevIndex && index !== nextIndex) {
+                    if (index < prevIndex) slide.className = 'carousel-slide hidden-left';
+                    else slide.className = 'carousel-slide hidden-right';
+                }
+            });
+
+            // Actualiza los puntitos indicadores (dots) si existen
+            if (dots.length > 0) {
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[newActiveIndex].classList.add('active');
+            }
+        }
+    </script>
 
 </body>
 
