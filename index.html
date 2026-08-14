@@ -1618,6 +1618,11 @@
 
     <script>
 
+
+        /* =========================================================
+           TYPEWRITER
+        ========================================================= */
+
 /* =========================================================
    TYPEWRITER
 ========================================================= */
@@ -1729,33 +1734,45 @@ function typeName() {
         return;
     }
 
+
+    titleElement.innerHTML =
+        name.substring(0, index) +
+        '<span class="cursor">|</span>';
+
+
+    /*
+     * Sonido
+     */
+
     if (index < name.length) {
-
-        titleElement.innerHTML =
-            name.substring(0, index) +
-            '<span class="cursor">|</span>';
-
         playTypeSound();
+    }
 
-        index++;
+
+    index++;
+
+
+    /*
+     * Todavía falta escribir
+     */
+
+    if (index <= name.length) {
 
         const speed =
             mouseHeld
                 ? fastSpeed
                 : normalSpeed;
 
-        typingTimer = setTimeout(typeName, speed);
+
+        typingTimer = setTimeout(
+            typeName,
+            speed
+        );
 
         return;
+
     }
 
-    titleElement.innerHTML = name;
-
-    typingTimer = setTimeout(
-        typeSubtitle,
-        mouseHeld ? 300 : subtitlePause
-    );
-}
 
     /*
      * Terminó el nombre.
@@ -2696,7 +2713,7 @@ document.body.addEventListener(
 
 
     </script>
-
+    
 </body>
 
 </html>
