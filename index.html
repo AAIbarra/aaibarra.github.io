@@ -1937,7 +1937,7 @@ function finishIntro() {
      */
 
     intro.classList.add(
-        "finished"
+        "hidden"
     );
 
 
@@ -2100,6 +2100,8 @@ document.body.addEventListener(
 
         let verticalLocked = false;
 
+        // Mostrar el primer proyecto detrás de la intro
+        projects[0].classList.add("active");
 
         const projectCount =
             projects.length;
