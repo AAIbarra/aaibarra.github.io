@@ -46,7 +46,7 @@
 
         body {
 
-            cursor: pointer;
+            cursor: default;
 
         }
 
@@ -78,6 +78,8 @@
 
             background: #000000;
 
+            cursor: pointer;
+
             transition:
                 opacity 0.8s ease;
 
@@ -87,6 +89,19 @@
         #intro.hidden {
 
             opacity: 0;
+
+            pointer-events: none;
+
+        }
+
+        /*
+ * Una vez terminada la intro,
+ * deja de interceptar mouse y scroll.
+ *
+ * Visualmente sigue estando ahí.
+ */
+
+        #intro.finished {
 
             pointer-events: none;
 
@@ -1918,6 +1933,15 @@ function finishIntro() {
 
 
     /*
+     * La intro terminó.
+     */
+
+    intro.classList.add(
+        "finished"
+    );
+
+
+    /*
      * Aparece la flecha.
      */
 
@@ -1926,7 +1950,6 @@ function finishIntro() {
     );
 
 }
-
 
 
         /* =========================================================
