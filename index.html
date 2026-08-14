@@ -1081,7 +1081,7 @@
         ===================================================== -->
 
         <section
-            class="portfolio-section"
+            class="portfolio-section active"
             data-project="0">
 
 
@@ -1618,11 +1618,44 @@
 
     <script>
 
-<script>
+
+        /* =========================================================
+           TYPEWRITER
+        ========================================================= */
 
 /* =========================================================
-   ELEMENTOS
+   TYPEWRITER
 ========================================================= */
+
+const name =
+    "Agustín Andrés Ibarra";
+
+const subtitle =
+    "Integral videogame narrative designer | Linguistics & Literature Graduate | Unity Developer | Game Localization";
+
+
+/*
+ * Velocidad normal.
+ * Cuanto menor el número, más rápido escribe.
+ */
+
+const normalSpeed = 100;
+
+
+/*
+ * Velocidad mientras mantenemos
+ * presionado el mouse.
+ */
+
+const fastSpeed = 25;
+
+
+/*
+ * Pausa entre nombre y subtítulo.
+ */
+
+const subtitlePause = 1200;
+
 
 const typeSound =
     document.getElementById("typeSound");
@@ -1640,64 +1673,42 @@ const intro =
     document.getElementById("intro");
 
 
-/* =========================================================
-   TEXTOS
-========================================================= */
-
-const name =
-    "Agustín Andrés Ibarra";
-
-const subtitle =
-    "Integral videogame narrative designer | Linguistics & Literature Graduate | Unity Developer | Game Localization";
-
-
-/* =========================================================
-   TYPEWRITER SETTINGS
-========================================================= */
-
-const normalSpeed = 100;
-
-const fastSpeed = 25;
-
-const subtitlePause = 1200;
-
-
-/* =========================================================
-   TYPEWRITER STATE
-========================================================= */
-
 let index = 0;
 
 let subIndex = 0;
 
+
+/*
+ * ¿Ya empezó a escribir?
+ */
+
 let typingStarted = false;
+
+
+/*
+ * ¿Terminó completamente?
+ */
 
 let typingFinished = false;
 
+
+/*
+ * ¿El mouse está siendo mantenido?
+ */
+
 let mouseHeld = false;
+
+
+/*
+ * Evita iniciar varias veces
+ * el mismo proceso.
+ */
 
 let typingTimer = null;
 
 
 /* =========================================================
-   VERTICAL PROJECT CAROUSEL
-========================================================= */
-
-const projects =
-    document.querySelectorAll(
-        ".portfolio-section"
-    );
-
-let currentProject = 0;
-
-let verticalLocked = false;
-
-const projectCount =
-    projects.length;
-
-
-/* =========================================================
-   TYPEWRITER
+   START TYPEWRITER
 ========================================================= */
 
 function startTyping() {
@@ -1730,13 +1741,11 @@ function typeName() {
 
 
     /*
-     * Sonido de tipeo
+     * Sonido
      */
 
     if (index < name.length) {
-
         playTypeSound();
-
     }
 
 
@@ -1744,7 +1753,7 @@ function typeName() {
 
 
     /*
-     * Todavía queda texto.
+     * Todavía falta escribir
      */
 
     if (index <= name.length) {
@@ -1760,7 +1769,6 @@ function typeName() {
             speed
         );
 
-
         return;
 
     }
@@ -1770,13 +1778,12 @@ function typeName() {
      * Terminó el nombre.
      */
 
-    titleElement.innerHTML =
-        name;
+    titleElement.innerHTML = name;
 
 
     /*
-     * Esperamos antes de escribir
-     * el subtítulo.
+     * Esperamos un poquito
+     * antes del subtítulo.
      */
 
     typingTimer = setTimeout(
@@ -1810,9 +1817,7 @@ function typeSubtitle() {
      */
 
     if (subIndex < subtitle.length) {
-
         playTypeSound();
-
     }
 
 
@@ -1820,7 +1825,7 @@ function typeSubtitle() {
 
 
     /*
-     * Todavía queda texto.
+     * Todavía falta escribir
      */
 
     if (subIndex <= subtitle.length) {
@@ -1835,7 +1840,6 @@ function typeSubtitle() {
             typeSubtitle,
             speed
         );
-
 
         return;
 
@@ -1871,20 +1875,21 @@ function playTypeSound() {
 
 
 /* =========================================================
-   FINISH TYPING IMMEDIATELY
+   FINISH EVERYTHING IMMEDIATELY
 ========================================================= */
 
 function finishTypingImmediately() {
 
     /*
-     * Cancelamos la escritura actual.
+     * Cancelamos cualquier escritura
+     * que estuviera ocurriendo.
      */
 
     clearTimeout(typingTimer);
 
 
     /*
-     * Mostramos todo.
+     * Escribimos todo directamente.
      */
 
     titleElement.innerHTML =
@@ -1893,10 +1898,6 @@ function finishTypingImmediately() {
     subtitleElement.innerHTML =
         subtitle;
 
-
-    /*
-     * Actualizamos los índices.
-     */
 
     index =
         name.length;
@@ -1920,11 +1921,6 @@ function finishTypingImmediately() {
 
 function finishIntro() {
 
-    /*
-     * Evitamos ejecutar esto
-     * dos veces.
-     */
-
     if (typingFinished) {
         return;
     }
@@ -1938,46 +1934,35 @@ function finishIntro() {
 
     /*
      * La intro terminó.
-     *
-     * Visualmente sigue ahí,
-     * pero deja de capturar
-     * mouse y rueda.
      */
 
-    if (intro) {
-
-        intro.classList.add(
-            "finished"
-        );
-
-    }
+    intro.classList.add(
+        "finished"
+    );
 
 
     /*
      * Aparece la flecha.
      */
 
-    if (scrollIndicator) {
-
-        scrollIndicator.classList.add(
-            "visible"
-        );
-
-    }
+    scrollIndicator.classList.add(
+        "visible"
+    );
 
 }
 
 
+        /* =========================================================
+           INITIAL CURSOR
+        ========================================================= */
+
+        titleElement.innerHTML =
+            '<span class="cursor">|</span>';
+
+
+
 /* =========================================================
-   INITIAL CURSOR
-========================================================= */
-
-titleElement.innerHTML =
-    '<span class="cursor">|</span>';
-
-
-/* =========================================================
-   MOUSE CONTROLS — INTRO
+   MOUSE CONTROLS
 ========================================================= */
 
 
@@ -1985,15 +1970,11 @@ titleElement.innerHTML =
  * PRIMER CLICK
  *
  * Empieza la escritura.
- *
- * MANTENER CLICK
- *
- * Acelera la escritura.
  */
 
-document.addEventListener(
+document.body.addEventListener(
     "mousedown",
-    function(event) {
+    (event) => {
 
         /*
          * Solo botón izquierdo.
@@ -2005,8 +1986,7 @@ document.addEventListener(
 
 
         /*
-         * Si la intro terminó,
-         * no necesitamos estos controles.
+         * Si ya terminó, no hacemos nada.
          */
 
         if (typingFinished) {
@@ -2015,14 +1995,15 @@ document.addEventListener(
 
 
         /*
-         * Mouse mantenido.
+         * Mantener presionado.
          */
 
         mouseHeld = true;
 
 
         /*
-         * Primer click.
+         * Si todavía no empezó,
+         * este es el primer click.
          */
 
         if (!typingStarted) {
@@ -2036,12 +2017,12 @@ document.addEventListener(
 
 
 /*
- * SOLTAR CLICK
+ * SOLTAR EL CLICK
  */
 
-document.addEventListener(
+document.body.addEventListener(
     "mouseup",
-    function(event) {
+    (event) => {
 
         if (event.button !== 0) {
             return;
@@ -2055,13 +2036,14 @@ document.addEventListener(
 
 
 /*
- * Si el mouse sale de la ventana,
- * cancelamos el estado de "mantenido".
+ * Si el usuario mueve el mouse
+ * fuera de la ventana mientras lo
+ * mantiene presionado.
  */
 
-document.addEventListener(
+document.body.addEventListener(
     "mouseleave",
-    function() {
+    () => {
 
         mouseHeld = false;
 
@@ -2072,22 +2054,30 @@ document.addEventListener(
 /*
  * DOBLE CLICK
  *
- * Completa todo inmediatamente.
+ * Termina todo inmediatamente.
  */
 
-document.addEventListener(
+document.body.addEventListener(
     "dblclick",
-    function(event) {
+    (event) => {
 
         if (event.button !== 0) {
             return;
         }
 
 
+        /*
+         * Si ya terminó no hacemos nada.
+         */
+
         if (typingFinished) {
             return;
         }
 
+
+        /*
+         * Completar inmediatamente.
+         */
 
         finishTypingImmediately();
 
@@ -2095,270 +2085,231 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   SHOW PROJECT
-========================================================= */
+        /* =========================================================
+           VERTICAL PROJECT CAROUSEL
+        ========================================================= */
 
-function showProject(
-    newProject,
-    direction
-) {
-
-    /*
-     * Evitamos índices inválidos.
-     */
-
-    if (
-        newProject < 0 ||
-        newProject >= projectCount
-    ) {
-
-        return;
-
-    }
-
-
-    /*
-     * Evitamos volver al mismo proyecto.
-     */
-
-    if (
-        newProject === currentProject
-    ) {
-
-        return;
-
-    }
-
-
-    /*
-     * Evitamos recibir otra orden
-     * mientras la animación está ocurriendo.
-     */
-
-    if (verticalLocked) {
-
-        return;
-
-    }
-
-
-    verticalLocked = true;
-
-
-    const current =
-        projects[currentProject];
-
-    const next =
-        projects[newProject];
-
-
-    /*
-     * Dirección de entrada.
-     *
-     * Si bajamos:
-     *
-     * actual sale hacia arriba
-     * siguiente entra desde abajo
-     *
-     * Si subimos:
-     *
-     * actual sale hacia abajo
-     * siguiente entra desde arriba
-     */
-
-    if (direction === "down") {
-
-        next.classList.remove(
-            "project-from-top"
-        );
-
-        next.classList.add(
-            "project-from-bottom"
-        );
-
-    }
-    else {
-
-        next.classList.remove(
-            "project-from-bottom"
-        );
-
-        next.classList.add(
-            "project-from-top"
-        );
-
-    }
-
-
-    /*
-     * Activamos el proyecto siguiente.
-     */
-
-    next.classList.add(
-        "project-active"
-    );
-
-
-    /*
-     * Forzamos al navegador a registrar
-     * el estado inicial antes de animar.
-     */
-
-    void next.offsetWidth;
-
-
-    /*
-     * Animamos.
-     */
-
-    requestAnimationFrame(
-        function() {
-
-            current.classList.remove(
-                "project-active"
+        const projects =
+            document.querySelectorAll(
+                ".portfolio-section"
             );
 
 
-            current.classList.add(
+        let currentProject = 0;
+
+
+        let verticalLocked = false;
+
+
+        const projectCount =
+            projects.length;
+
+
+
+        /* =========================================================
+           SHOW PROJECT
+        ========================================================= */
+
+        function showProject(
+            newProject,
+            direction
+        ) {
+
+
+            if (
+                newProject < 0
+                ||
+                newProject >= projectCount
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                newProject === currentProject
+                ||
+                verticalLocked
+            ) {
+
+                return;
+
+            }
+
+
+            verticalLocked = true;
+
+
+
+            const current =
+                projects[currentProject];
+
+
+            const next =
+                projects[newProject];
+
+
+
+            /* Remove old states */
+
+            projects.forEach(
+                project => {
+
+                    project.classList.remove(
+                        "active",
+                        "exit-up",
+                        "enter-from-top"
+                    );
+
+                }
+            );
+
+
+
+            /* Direction: DOWN */
+
+            if (
                 direction === "down"
-                    ? "project-exit-top"
-                    : "project-exit-bottom"
-            );
+            ) {
 
 
-            next.classList.remove(
-                direction === "down"
-                    ? "project-from-bottom"
-                    : "project-from-top"
-            );
+                current.classList.add(
+                    "exit-up"
+                );
 
 
-            next.classList.add(
-                "project-center"
-            );
-
-        }
-    );
+                next.style.transform =
+                    "translateY(100%)";
 
 
-    /*
-     * Esperamos a que termine
-     * la transición.
-     */
-
-    setTimeout(
-        function() {
-
-            /*
-             * Limpiamos clases del proyecto anterior.
-             */
-
-            current.classList.remove(
-                "project-exit-top",
-                "project-exit-bottom"
-            );
+                next.style.opacity = "0";
 
 
-            /*
-             * Limpiamos clases del nuevo.
-             */
-
-            next.classList.remove(
-                "project-center"
-            );
+                next.classList.add(
+                    "active"
+                );
 
 
-            /*
-             * Dejamos el nuevo proyecto
-             * como estado activo.
-             */
+                requestAnimationFrame(
+                    () => {
 
-            next.classList.add(
-                "project-active"
-            );
+                        next.style.transform =
+                            "translateY(0)";
+
+                        next.style.opacity =
+                            "1";
+
+                    }
+                );
 
 
-            /*
-             * Actualizamos índice.
-             */
+            }
+
+
+
+            /* Direction: UP */
+
+            else {
+
+
+                current.style.transform =
+                    "translateY(100%)";
+
+
+                current.style.opacity =
+                    "0";
+
+
+                next.style.transform =
+                    "translateY(-100%)";
+
+
+                next.style.opacity =
+                    "0";
+
+
+                next.classList.add(
+                    "active"
+                );
+
+
+                requestAnimationFrame(
+                    () => {
+
+                        current.style.transform =
+                            "translateY(100%)";
+
+                        next.style.transform =
+                            "translateY(0)";
+
+                        next.style.opacity =
+                            "1";
+
+                    }
+                );
+
+            }
+
+
 
             currentProject =
                 newProject;
 
 
-            /*
-             * Volvemos a permitir navegación.
-             */
 
-            verticalLocked = false;
+            setTimeout(
+                () => {
 
-        },
-        800
-    );
+                    verticalLocked = false;
 
-}
-
-
-/* =========================================================
-   MOUSE WHEEL — VERTICAL NAVIGATION
-========================================================= */
-
-document.addEventListener(
-    "wheel",
-    function(event) {
-
-        /*
-         * MUY IMPORTANTE:
-         *
-         * Antes de terminar la intro,
-         * la rueda no hace nada.
-         */
-
-        if (!typingFinished) {
-
-            return;
+                },
+                850
+            );
 
         }
 
 
+
+        /* =========================================================
+           MOUSE WHEEL
+        ========================================================= */
+
+        window.addEventListener(
+    "wheel",
+    (event) => {
+
         /*
-         * La página no tiene scroll físico.
-         *
-         * La rueda controla nuestro
-         * carrusel vertical.
+         * Mientras se escribe el texto,
+         * no hacemos absolutamente nada.
+         */
+
+        if (!typingFinished) {
+            return;
+        }
+
+
+        /*
+         * Evitamos que el navegador intente
+         * hacer un scroll normal.
          */
 
         event.preventDefault();
 
 
         /*
-         * Si estamos animando,
-         * ignoramos esta rueda.
+         * Si todavía está ocurriendo la
+         * transición entre proyectos,
+         * ignoramos el siguiente movimiento.
          */
 
         if (verticalLocked) {
-
             return;
-
         }
 
 
         /*
-         * Ignoramos movimientos mínimos.
-         */
-
-        if (
-            Math.abs(event.deltaY) < 5
-        ) {
-
-            return;
-
-        }
-
-
-        /*
-         * SCROLL HACIA ABAJO
+         * Scroll hacia abajo
          */
 
         if (event.deltaY > 0) {
@@ -2375,90 +2326,14 @@ document.addEventListener(
 
             }
 
-            return;
-
         }
 
 
         /*
-         * SCROLL HACIA ARRIBA
+         * Scroll hacia arriba
          */
 
-        if (
-            currentProject > 0
-        ) {
-
-            showProject(
-                currentProject - 1,
-                "up"
-            );
-
-        }
-
-    },
-    {
-        passive: false,
-        capture: true
-    }
-);
-
-
-/* =========================================================
-   KEYBOARD NAVIGATION
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        /*
-         * Antes de terminar la intro,
-         * las flechas no hacen nada.
-         */
-
-        if (!typingFinished) {
-
-            return;
-
-        }
-
-
-        /*
-         * FLECHA ABAJO
-         */
-
-        if (
-            event.key === "ArrowDown"
-        ) {
-
-            event.preventDefault();
-
-
-            if (
-                currentProject <
-                projectCount - 1
-            ) {
-
-                showProject(
-                    currentProject + 1,
-                    "down"
-                );
-
-            }
-
-        }
-
-
-        /*
-         * FLECHA ARRIBA
-         */
-
-        if (
-            event.key === "ArrowUp"
-        ) {
-
-            event.preventDefault();
-
+        else if (event.deltaY < 0) {
 
             if (
                 currentProject > 0
@@ -2473,44 +2348,512 @@ document.addEventListener(
 
         }
 
+    },
+    {
+        passive: false
     }
 );
 
 
-/* =========================================================
-   INITIAL PROJECT
-========================================================= */
 
-if (projects.length > 0) {
+        /* =========================================================
+           KEYBOARD NAVIGATION
+        ========================================================= */
 
-    projects.forEach(
-        function(project, index) {
+        window.addEventListener(
+            "keydown",
+            (event) => {
 
-            project.classList.remove(
-                "project-active",
-                "project-center",
-                "project-from-top",
-                "project-from-bottom",
-                "project-exit-top",
-                "project-exit-bottom"
+
+                if (
+                    !typingFinished
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    event.key === "ArrowDown"
+                    ||
+                    event.key === "PageDown"
+                ) {
+
+
+                    showProject(
+                        currentProject + 1,
+                        "down"
+                    );
+
+
+                }
+
+
+                if (
+                    event.key === "ArrowUp"
+                    ||
+                    event.key === "PageUp"
+                ) {
+
+
+                    showProject(
+                        currentProject - 1,
+                        "up"
+                    );
+
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           HORIZONTAL CAROUSELS
+        ========================================================= */
+
+        const carouselIndexes = [
+
+            0,
+            0,
+            0
+
+        ];
+
+
+
+        /* =========================================================
+           UPDATE COVERFLOW
+        ========================================================= */
+
+        function updateCarousel(
+            carouselIndex
+        ) {
+
+
+            const section =
+                projects[
+                    carouselIndex
+                ];
+
+
+            const slides =
+                section.querySelectorAll(
+                    ".carousel-slide"
+                );
+
+
+            const total =
+                slides.length;
+
+
+            const currentIndex =
+                carouselIndexes[
+                    carouselIndex
+                ];
+
+
+
+            slides.forEach(
+                (slide, index) => {
+
+
+                    slide.classList.remove(
+                        "center",
+                        "previous",
+                        "next",
+                        "hidden-left",
+                        "hidden-right"
+                    );
+
+
+
+                    if (
+                        index === currentIndex
+                    ) {
+
+
+                        slide.classList.add(
+                            "center"
+                        );
+
+
+                    }
+
+
+                    else if (
+                        index ===
+                        getWrappedIndex(
+                            currentIndex - 1,
+                            total
+                        )
+                    ) {
+
+
+                        slide.classList.add(
+                            "previous"
+                        );
+
+
+                    }
+
+
+                    else if (
+                        index ===
+                        getWrappedIndex(
+                            currentIndex + 1,
+                            total
+                        )
+                    ) {
+
+
+                        slide.classList.add(
+                            "next"
+                        );
+
+
+                    }
+
+
+                    else if (
+                        isBefore(
+                            index,
+                            currentIndex,
+                            total
+                        )
+                    ) {
+
+
+                        slide.classList.add(
+                            "hidden-left"
+                        );
+
+
+                    }
+
+
+                    else {
+
+
+                        slide.classList.add(
+                            "hidden-right"
+                        );
+
+
+                    }
+
+                }
             );
 
 
-            if (index === 0) {
 
-                project.classList.add(
-                    "project-active"
+            /* Update dots */
+
+            const dots =
+                section.querySelectorAll(
+                    ".carousel-dot"
                 );
 
-            }
+
+            dots.forEach(
+                (dot, index) => {
+
+                    dot.classList.toggle(
+                        "active",
+                        index === currentIndex
+                    );
+
+                }
+            );
 
         }
-    );
 
-}
 
-</script>
 
+        /* =========================================================
+           WRAPPED INDEX
+        ========================================================= */
+
+        function getWrappedIndex(
+            index,
+            total
+        ) {
+
+
+            return (
+                (
+                    index
+                    %
+                    total
+                )
+                +
+                total
+            )
+            %
+            total;
+
+        }
+
+
+
+        /* =========================================================
+           DETERMINE SIDE
+        ========================================================= */
+
+        function isBefore(
+            index,
+            current,
+            total
+        ) {
+
+
+            const difference =
+                (
+                    index
+                    -
+                    current
+                    +
+                    total
+                )
+                %
+                total;
+
+
+            return (
+                difference >
+                total / 2
+            );
+
+        }
+
+
+
+        /* =========================================================
+           MOVE CAROUSEL
+        ========================================================= */
+
+        function moveCarousel(
+            carouselIndex,
+            direction
+        ) {
+
+
+            const section =
+                projects[
+                    carouselIndex
+                ];
+
+
+            const slides =
+                section.querySelectorAll(
+                    ".carousel-slide"
+                );
+
+
+            const total =
+                slides.length;
+
+
+            carouselIndexes[
+                carouselIndex
+            ] =
+
+                getWrappedIndex(
+                    carouselIndexes[
+                        carouselIndex
+                    ]
+                    +
+                    direction,
+                    total
+                );
+
+
+            updateCarousel(
+                carouselIndex
+            );
+
+        }
+
+
+
+        /* =========================================================
+           SELECT SLIDE
+        ========================================================= */
+
+        function selectSlide(
+            carouselIndex,
+            slideIndex
+        ) {
+
+
+            carouselIndexes[
+                carouselIndex
+            ] = slideIndex;
+
+
+            updateCarousel(
+                carouselIndex
+            );
+
+        }
+
+
+
+        /* =========================================================
+           INITIALIZE CAROUSELS
+        ========================================================= */
+
+        updateCarousel(0);
+
+        updateCarousel(1);
+
+        updateCarousel(2);
+
+
+    </script>
+
+ <!-- =========================================================
+       CONTROLADOR SCRIPT 
+    ========================================================= -->
+
+    <script>
+        // Configuración de textos para la intro
+        const nameText = "Agustín Andrés Ibarra";
+        const subtitleText = "Videogame Narrative Designer";
+        
+        // Elementos del DOM
+        const nameContainer = document.getElementById('typing-name');
+        const subtitleContainer = document.getElementById('typing-subtitle');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        const intro = document.getElementById('intro');
+        const typeSound = document.getElementById('typeSound');
+
+        let isIntroFinished = false;
+        let currentSection = -1; // -1 significa que el usuario está viendo la Intro
+        const sections = document.querySelectorAll('.portfolio-section');
+        let isTransitioning = false;
+
+        // Función del efecto máquina de escribir con sonido opcional
+        function typeEffect(element, text, speed, callback) {
+            let i = 0;
+            element.innerHTML = '<span class="cursor">|</span>';
+            
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.innerHTML = text.substring(0, i + 1) + '<span class="cursor">|</span>';
+                    // Reproducir sonido de máquina de escribir si existe el archivo
+                    if (typeSound) {
+                        typeSound.currentTime = 0;
+                        typeSound.play().catch(() => {/* Evita errores si el navegador bloquea el autoplay */});
+                    }
+                    i++;
+                } else {
+                    clearInterval(timer);
+                    if (callback) callback();
+                }
+            }, speed);
+        }
+
+        // Iniciar máquina de escribir al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            typeEffect(nameContainer, nameText, 60, () => {
+                // Quita el cursor del nombre para empezar el subtítulo
+                const oldCursor = nameContainer.querySelector('.cursor');
+                if (oldCursor) oldCursor.remove();
+                
+                typeEffect(subtitleContainer, subtitleText, 45, () => {
+                    // Fin de la intro: activamos indicador visual
+                    scrollIndicator.classList.add('visible');
+                    isIntroFinished = true;
+                });
+            });
+        });
+
+        // Permitir saltar o avanzar la intro con un clic en pantalla
+        intro.addEventListener('click', () => {
+            if (isIntroFinished && currentSection === -1) {
+                navigate('down');
+            }
+        });
+
+        // Función para ocultar la intro fluidamente
+        function hideIntroElement() {
+            intro.classList.add('hidden');
+            setTimeout(() => {
+                intro.style.display = 'none';
+            }, 800); // 800ms coincide con la transición CSS de tu opacidad
+        }
+
+        // =========================================================
+        // SISTEMA DE NAVEGACIÓN POR DIAPOSITIVAS (SCROLL)
+        // =========================================================
+        function navigate(direction) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            // CASO A: De la Intro al Primer Proyecto
+            if (currentSection === -1 && direction === 'down') {
+                hideIntroElement();
+                currentSection = 0;
+                sections[currentSection].classList.add('active');
+            } 
+            // CASO B: Avanzar al siguiente proyecto
+            else if (direction === 'down' && currentSection < sections.length - 1) {
+                sections[currentSection].classList.remove('active');
+                sections[currentSection].classList.add('exit-up');
+                currentSection++;
+                sections[currentSection].classList.remove('enter-from-top');
+                sections[currentSection].classList.add('active');
+            } 
+            // CASO C: Retroceder al proyecto anterior
+            else if (direction === 'up' && currentSection > 0) {
+                sections[currentSection].classList.remove('active');
+                currentSection--;
+                sections[currentSection].classList.remove('exit-up');
+                sections[currentSection].classList.add('active');
+            }
+
+            // Temporizador para evitar scrolls infinitos accidentales
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 900);
+        }
+
+        // Captura del scroll físico del mouse / trackpad
+        window.addEventListener('wheel', (event) => {
+            if (!isIntroFinished && currentSection === -1) return;
+
+            if (event.deltaY > 0) {
+                navigate('down');
+            } else if (event.deltaY < 0) {
+                navigate('up');
+            }
+        });
+
+        // Soporte para pantallas táctiles de celulares (Swipe)
+        let touchStart = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStart = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+            if (!isIntroFinished && currentSection === -1) return;
+            
+            let touchEnd = e.changedTouches[0].clientY;
+            let distance = touchStart - touchEnd;
+
+            if (Math.abs(distance) > 60) { // Sensibilidad del swipe
+                if (distance > 0) {
+                    navigate('down'); // Deslizar hacia arriba baja la página
+                } else {
+                    navigate('up');   // Deslizar hacia abajo sube la página
+                }
+            }
+        }, { passive: true });
+    </script>
+    
 </body>
 
 </html>
