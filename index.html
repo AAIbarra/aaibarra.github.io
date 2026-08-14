@@ -39,6 +39,7 @@
                 sans-serif;
 
             overflow: hidden;
+            overscroll-behavior: none;
 
         }
 
@@ -2071,73 +2072,83 @@
         ========================================================= */
 
         window.addEventListener(
-            "wheel",
-            (event) => {
+    "wheel",
+    (event) => {
+
+        /*
+         * Mientras se escribe el texto,
+         * no hacemos absolutamente nada.
+         */
+
+        if (!typingFinished) {
+            return;
+        }
 
 
-                if (
-                    !typingFinished
-                ) {
+        /*
+         * Evitamos que el navegador intente
+         * hacer un scroll normal.
+         */
 
-                    return;
-
-                }
-
-
-                if (
-                    verticalLocked
-                ) {
-
-                    return;
-
-                }
+        event.preventDefault();
 
 
-                if (
-                    event.deltaY > 0
-                ) {
+        /*
+         * Si todavía está ocurriendo la
+         * transición entre proyectos,
+         * ignoramos el siguiente movimiento.
+         */
+
+        if (verticalLocked) {
+            return;
+        }
 
 
-                    if (
-                        currentProject
-                        <
-                        projectCount - 1
-                    ) {
+        /*
+         * Scroll hacia abajo
+         */
 
-                        showProject(
-                            currentProject + 1,
-                            "down"
-                        );
+        if (event.deltaY > 0) {
 
-                    }
+            if (
+                currentProject <
+                projectCount - 1
+            ) {
 
+                showProject(
+                    currentProject + 1,
+                    "down"
+                );
 
-                }
-
-                else if (
-                    event.deltaY < 0
-                ) {
-
-
-                    if (
-                        currentProject > 0
-                    ) {
-
-                        showProject(
-                            currentProject - 1,
-                            "up"
-                        );
-
-                    }
-
-                }
-
-
-            },
-            {
-                passive: true
             }
-        );
+
+        }
+
+
+        /*
+         * Scroll hacia arriba
+         */
+
+        else if (event.deltaY < 0) {
+
+            if (
+                currentProject > 0
+            ) {
+
+                showProject(
+                    currentProject - 1,
+                    "up"
+                );
+
+            }
+
+        }
+
+    },
+    {
+        passive: false
+    }
+);
 
 
 
