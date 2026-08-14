@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Agustín Andrés Ibarra — Videogame Narrative Designer</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Agustín Andrés Ibarra — Videogame Narrative Designer
+    </title>
+
 
     <style>
 
@@ -12,18 +21,32 @@
            GENERAL
         ========================================================= */
 
-        html {
-            scroll-behavior: smooth;
-        }
-
+        html,
         body {
+
             margin: 0;
             padding: 0;
-            background: #ffffff;
-            color: #111111;
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
+
+            width: 100%;
+            height: 100%;
+
+            background: #000000;
+            color: #ffffff;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            overflow: hidden;
+
+        }
+
+
+        body {
+
             cursor: pointer;
+
         }
 
 
@@ -32,69 +55,177 @@
         ========================================================= */
 
         #intro {
-            min-height: 100vh;
+
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
 
             display: flex;
+
             flex-direction: column;
+
             justify-content: center;
+
             align-items: center;
 
+            text-align: center;
+
+            z-index: 100;
+
+            background: #000000;
+
+            transition:
+                opacity 0.8s ease;
+
+        }
+
+
+        #intro.hidden {
+
+            opacity: 0;
+
+            pointer-events: none;
+
+        }
+
+
+        #intro-content {
+
+            width: 100%;
+
             padding: 40px;
+
             box-sizing: border-box;
+
         }
 
-        h1 {
-            font-size: 3em;
+
+        #typing-name {
+
             margin: 0;
-            font-weight: 600;
+
+            font-size: 3em;
+
+            font-weight: 500;
+
             letter-spacing: 1px;
+
         }
 
-        h2 {
-            font-size: 1.6em;
-            margin-top: 15px;
+
+        #typing-subtitle {
+
+            margin-top: 18px;
+
             padding: 0 20px;
+
+            font-size: 1.4em;
+
             font-weight: 400;
-        }
 
-        .cursor {
-            animation: blink 0.8s infinite;
-        }
+            line-height: 1.5;
 
-        @keyframes blink {
-            0%, 50% {
-                opacity: 1;
-            }
-
-            51%, 100% {
-                opacity: 0;
-            }
         }
 
 
         /* =========================================================
-           SCROLL INDICATOR
+           CURSOR
         ========================================================= */
 
-        .scroll-indicator {
-            margin-top: 80px;
+        .cursor {
 
-            font-size: 28px;
+            animation:
+                blink 0.8s infinite;
 
-            opacity: 0.45;
-
-            animation: scrollBounce 1.8s infinite;
         }
+
+
+        @keyframes blink {
+
+            0%,
+            50% {
+
+                opacity: 1;
+
+            }
+
+            51%,
+            100% {
+
+                opacity: 0;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SCROLL ARROW
+        ========================================================= */
+
+        #scroll-indicator {
+
+            position: absolute;
+
+            bottom: 50px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%)
+                translateY(20px);
+
+            font-size: 32px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition:
+                opacity 1s ease,
+                transform 1s ease;
+
+        }
+
+
+        #scroll-indicator.visible {
+
+            opacity: 0.7;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+
+            pointer-events: auto;
+
+            animation:
+                scrollBounce 1.8s infinite;
+
+        }
+
 
         @keyframes scrollBounce {
 
-            0%, 100% {
-                transform: translateY(0);
+            0%,
+            100% {
+
+                transform:
+                    translateX(-50%)
+                    translateY(0);
+
             }
 
             50% {
-                transform: translateY(12px);
+
+                transform:
+                    translateX(-50%)
+                    translateY(12px);
+
             }
+
         }
 
 
@@ -103,168 +234,185 @@
         ========================================================= */
 
         #portfolio {
+
+            position: fixed;
+
+            inset: 0;
+
             width: 100%;
-            box-sizing: border-box;
-        }
+            height: 100%;
 
-        .portfolio-section {
+            overflow: hidden;
 
-            min-height: 100vh;
+            background: #000000;
 
-            padding: 120px 40px 160px;
-
-            box-sizing: border-box;
-
-            opacity: 0;
-
-            transform: translateY(80px);
-
-            transition:
-                opacity 0.9s ease-out,
-                transform 0.9s ease-out;
-        }
-
-
-        /* Cuando aparece en pantalla */
-
-        .portfolio-section.visible {
-
-            opacity: 1;
-
-            transform: translateY(0);
         }
 
 
         /* =========================================================
-           PROJECT TITLE
+           PROJECT SECTIONS
+        ========================================================= */
+
+        .portfolio-section {
+
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-sizing: border-box;
+
+            padding: 70px 40px;
+
+            opacity: 0;
+
+            transform:
+                translateY(100%);
+
+            pointer-events: none;
+
+            transition:
+
+                transform 0.8s
+                cubic-bezier(
+                    0.77,
+                    0,
+                    0.175,
+                    1
+                ),
+
+                opacity 0.8s
+                ease;
+
+        }
+
+
+        /* Proyecto actual */
+
+        .portfolio-section.active {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+
+            pointer-events: auto;
+
+        }
+
+
+        /* Proyecto que sale hacia arriba */
+
+        .portfolio-section.exit-up {
+
+            opacity: 0;
+
+            transform:
+                translateY(-100%);
+
+        }
+
+
+        /* Proyecto anterior que entra desde arriba */
+
+        .portfolio-section.enter-from-top {
+
+            transform:
+                translateY(-100%);
+
+        }
+
+
+        /* =========================================================
+           PROJECT CONTAINER
         ========================================================= */
 
         .project-container {
 
             width: 100%;
 
-            max-width: 1100px;
-
-            margin: 0 auto;
+            max-width: 1150px;
 
             text-align: left;
+
         }
+
+
+        /* =========================================================
+           TITLE
+        ========================================================= */
 
         .project-title {
 
-            margin: 0 0 10px;
+            margin: 0 0 8px;
 
             font-size: 2.4em;
 
             font-weight: 500;
 
             letter-spacing: 0.5px;
+
         }
+
 
         .project-subtitle {
 
             margin: 0 0 35px;
 
+            color: #888888;
+
             font-size: 1em;
 
-            color: #666666;
+            line-height: 1.5;
+
         }
 
 
         /* =========================================================
-           CAROUSEL
+           COVERFLOW CAROUSEL
         ========================================================= */
 
         .carousel-wrapper {
 
-            width: 100%;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
             position: relative;
-        }
 
-
-        /* Flechas */
-
-        .carousel-button {
-
-            position: absolute;
-
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            z-index: 10;
-
-            width: 50px;
-            height: 50px;
-
-            border: none;
-
-            background: rgba(0, 0, 0, 0.65);
-
-            color: white;
-
-            font-size: 28px;
-
-            cursor: pointer;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            transition: background 0.2s ease;
-        }
-
-        .carousel-button:hover {
-
-            background: rgba(0, 0, 0, 0.9);
-        }
-
-        .carousel-button.prev {
-
-            left: -70px;
-        }
-
-        .carousel-button.next {
-
-            right: -70px;
-        }
-
-
-        /* Ventana */
-
-        .carousel-window {
-
-            width: 854px;
+            width: 100%;
 
             height: 480px;
 
-            overflow: hidden;
+            display: flex;
 
-            background: #111111;
+            justify-content: center;
 
-            position: relative;
+            align-items: center;
+
+            overflow: visible;
+
         }
 
 
-        /* Track */
+        .carousel-stage {
 
-        .carousel-track {
+            position: relative;
+
+            width: 100%;
+
+            height: 480px;
 
             display: flex;
 
-            width: 100%;
-            height: 100%;
+            justify-content: center;
 
-            transition: transform 0.45s ease-in-out;
+            align-items: center;
+
         }
 
 
@@ -274,51 +422,287 @@
 
         .carousel-slide {
 
-            flex: 0 0 854px;
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
 
             width: 854px;
             height: 480px;
+
+            background: #111111;
 
             display: flex;
 
             justify-content: center;
             align-items: center;
 
-            background: #222222;
+            overflow: hidden;
 
-            color: white;
+            transform-origin: center center;
 
-            font-size: 28px;
+            cursor: pointer;
 
-            box-sizing: border-box;
+            transition:
+
+                transform 0.55s
+                cubic-bezier(
+                    0.77,
+                    0,
+                    0.175,
+                    1
+                ),
+
+                opacity 0.55s
+                ease,
+
+                filter 0.55s
+                ease;
+
         }
 
 
-        /* Imágenes reales */
+        /* =========================================================
+           CENTER SLIDE
+        ========================================================= */
+
+        .carousel-slide.center {
+
+            transform:
+                translate(
+                    -50%,
+                    -50%
+                )
+                scale(1);
+
+            opacity: 1;
+
+            z-index: 5;
+
+            filter:
+                brightness(1);
+
+            cursor: default;
+
+        }
+
+
+        /* =========================================================
+           PREVIOUS SLIDE
+        ========================================================= */
+
+        .carousel-slide.previous {
+
+            transform:
+                translate(
+                    calc(-50% - 470px),
+                    -50%
+                )
+                scale(0.65);
+
+            opacity: 0.45;
+
+            z-index: 3;
+
+            filter:
+                brightness(0.6);
+
+        }
+
+
+        /* =========================================================
+           NEXT SLIDE
+        ========================================================= */
+
+        .carousel-slide.next {
+
+            transform:
+                translate(
+                    calc(-50% + 470px),
+                    -50%
+                )
+                scale(0.65);
+
+            opacity: 0.45;
+
+            z-index: 3;
+
+            filter:
+                brightness(0.6);
+
+        }
+
+
+        /* =========================================================
+           FAR SLIDES
+        ========================================================= */
+
+        .carousel-slide.hidden-left {
+
+            transform:
+                translate(
+                    calc(-50% - 900px),
+                    -50%
+                )
+                scale(0.45);
+
+            opacity: 0;
+
+            z-index: 1;
+
+        }
+
+
+        .carousel-slide.hidden-right {
+
+            transform:
+                translate(
+                    calc(-50% + 900px),
+                    -50%
+                )
+                scale(0.45);
+
+            opacity: 0;
+
+            z-index: 1;
+
+        }
+
+
+        /* =========================================================
+           PLACEHOLDER CONTENT
+        ========================================================= */
+
+        .placeholder {
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111111,
+                    #222222
+                );
+
+            color: #777777;
+
+            font-size: 28px;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        /* =========================================================
+           REAL IMAGES
+        ========================================================= */
 
         .carousel-slide img {
 
             width: 100%;
-
             height: 100%;
 
             object-fit: cover;
 
             display: block;
+
         }
 
 
-        /* Videos */
+        /* =========================================================
+           VIDEOS
+        ========================================================= */
 
         .carousel-slide video {
 
             width: 100%;
-
             height: 100%;
 
             object-fit: cover;
 
             display: block;
+
+        }
+
+
+        /* =========================================================
+           ARROWS
+        ========================================================= */
+
+        .carousel-button {
+
+            position: absolute;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            z-index: 20;
+
+            width: 48px;
+            height: 48px;
+
+            border: none;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            color: #ffffff;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            transition:
+
+                background 0.2s ease,
+
+                opacity 0.2s ease;
+
+        }
+
+
+        .carousel-button:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.18
+                );
+
+        }
+
+
+        .carousel-button.prev {
+
+            left: 15px;
+
+        }
+
+
+        .carousel-button.next {
+
+            right: 15px;
+
         }
 
 
@@ -337,173 +721,293 @@
             gap: 10px;
 
             margin-top: 18px;
+
         }
+
 
         .carousel-dot {
 
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
 
             border-radius: 50%;
 
-            background: #cccccc;
+            background: #444444;
 
             cursor: pointer;
 
             transition:
-                transform 0.2s ease,
-                background 0.2s ease;
+
+                transform 0.25s ease,
+
+                background 0.25s ease;
+
         }
 
-        .carousel-dot:hover {
-
-            transform: scale(1.3);
-        }
 
         .carousel-dot.active {
 
-            background: #111111;
+            background: #ffffff;
 
-            transform: scale(1.25);
+            transform:
+                scale(1.35);
+
         }
 
 
         /* =========================================================
-           PROJECT DESCRIPTION
+           DESCRIPTION
         ========================================================= */
 
         .project-description {
 
             max-width: 854px;
 
-            margin: 35px auto 0;
+            margin: 28px auto 0;
+
+            color: #999999;
+
+            font-size: 0.98em;
+
+            line-height: 1.6;
 
             text-align: left;
 
-            font-size: 1.05em;
-
-            line-height: 1.7;
-
-            color: #444444;
         }
 
 
         /* =========================================================
-           SECOND PROJECT
+           MOBILE
         ========================================================= */
 
-        .project-separator {
-
-            width: 80px;
-
-            height: 1px;
-
-            background: #cccccc;
-
-            margin: 0 auto;
-        }
+        @media (max-width: 1100px) {
 
 
-        /* =========================================================
-           RESPONSIVE
-        ========================================================= */
+            #typing-name {
 
-        @media (max-width: 1000px) {
+                font-size: 2.5em;
 
-            .carousel-button.prev {
-                left: 10px;
             }
 
-            .carousel-button.next {
-                right: 10px;
+
+            #typing-subtitle {
+
+                font-size: 1.15em;
+
             }
 
-            .carousel-window {
 
-                width: min(854px, calc(100vw - 80px));
+            .carousel-wrapper {
 
-                height: auto;
+                height:
+                    min(
+                        480px,
+                        calc(
+                            (100vw - 80px)
+                            * 0.5625
+                        )
+                    );
 
-                aspect-ratio: 16 / 9;
             }
+
+
+            .carousel-stage {
+
+                height:
+                    min(
+                        480px,
+                        calc(
+                            (100vw - 80px)
+                            * 0.5625
+                        )
+                    );
+
+            }
+
 
             .carousel-slide {
 
-                flex: 0 0 min(854px, calc(100vw - 80px));
+                width:
+                    min(
+                        854px,
+                        calc(
+                            100vw - 80px
+                        )
+                    );
 
-                width: min(854px, calc(100vw - 80px));
+                height:
+                    min(
+                        480px,
+                        calc(
+                            (100vw - 80px)
+                            * 0.5625
+                        )
+                    );
 
-                height: auto;
-
-                aspect-ratio: 16 / 9;
             }
+
+
+            .carousel-slide.previous {
+
+                transform:
+                    translate(
+                        calc(-50% - 350px),
+                        -50%
+                    )
+                    scale(0.6);
+
+            }
+
+
+            .carousel-slide.next {
+
+                transform:
+                    translate(
+                        calc(-50% + 350px),
+                        -50%
+                    )
+                    scale(0.6);
+
+            }
+
         }
 
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
 
-            #intro {
-                padding: 25px;
+
+            #intro-content {
+
+                padding: 20px;
+
             }
 
-            h1 {
-                font-size: 2em;
+
+            #typing-name {
+
+                font-size: 1.8em;
+
             }
 
-            h2 {
-                font-size: 1.15em;
+
+            #typing-subtitle {
+
+                font-size: 0.95em;
+
             }
+
 
             .portfolio-section {
 
-                padding: 90px 20px 120px;
+                padding:
+                    40px 20px 60px;
+
             }
+
 
             .project-title {
 
-                font-size: 1.8em;
+                font-size: 1.7em;
+
             }
+
 
             .project-subtitle {
 
-                font-size: 0.9em;
+                font-size: 0.85em;
+
+                margin-bottom: 15px;
+
             }
 
-            .carousel-window {
 
-                width: calc(100vw - 40px);
+            .carousel-wrapper {
+
+                height:
+                    calc(
+                        (100vw - 40px)
+                        * 0.5625
+                    );
+
             }
+
+
+            .carousel-stage {
+
+                height:
+                    calc(
+                        (100vw - 40px)
+                        * 0.5625
+                    );
+
+            }
+
 
             .carousel-slide {
 
-                flex: 0 0 calc(100vw - 40px);
+                width:
+                    calc(
+                        100vw - 40px
+                    );
 
-                width: calc(100vw - 40px);
+                height:
+                    calc(
+                        (100vw - 40px)
+                        * 0.5625
+                    );
+
             }
+
+
+            .carousel-slide.previous {
+
+                transform:
+                    translate(
+                        calc(-50% - 220px),
+                        -50%
+                    )
+                    scale(0.55);
+
+                opacity: 0.3;
+
+            }
+
+
+            .carousel-slide.next {
+
+                transform:
+                    translate(
+                        calc(-50% + 220px),
+                        -50%
+                    )
+                    scale(0.55);
+
+                opacity: 0.3;
+
+            }
+
 
             .carousel-button {
 
                 width: 40px;
                 height: 40px;
 
-                font-size: 22px;
+                font-size: 20px;
+
             }
 
-            .carousel-button.prev {
-                left: 5px;
-            }
-
-            .carousel-button.next {
-                right: 5px;
-            }
 
             .project-description {
 
-                font-size: 0.95em;
+                font-size: 0.9em;
+
             }
+
         }
 
+
     </style>
+
 </head>
 
 
@@ -516,22 +1020,37 @@
 
     <section id="intro">
 
-        <h1 id="typing-name"></h1>
 
-        <h2 id="typing-subtitle"></h2>
+        <div id="intro-content">
 
-        <div class="scroll-indicator">
-            ↓
+            <h1 id="typing-name"></h1>
+
+            <h2 id="typing-subtitle"></h2>
+
         </div>
 
+
+        <div id="scroll-indicator">
+
+            ↓
+
+        </div>
+
+
     </section>
+
 
 
     <!-- =========================================================
          TYPEWRITER SOUND
     ========================================================= -->
 
-    <audio id="typeSound" src="sounds/type.wav"></audio>
+    <audio
+        id="typeSound"
+        src="sounds/type.wav"
+        preload="auto">
+    </audio>
+
 
 
     <!-- =========================================================
@@ -545,130 +1064,168 @@
              PROJECT 1
         ===================================================== -->
 
-        <section class="portfolio-section">
+        <section
+            class="portfolio-section active"
+            data-project="0">
+
 
             <div class="project-container">
 
+
                 <h2 class="project-title">
+
                     FOAM TRAVELER GO!
+
                 </h2>
 
+
                 <p class="project-subtitle">
-                    2D Narrative Exploration / Puzzle · Unity · C# · Narrative Design · Localization
+
+                    2D Narrative Exploration / Puzzle
+                    · Unity · C# · Narrative Design
+                    · Localization
+
                 </p>
 
 
-                <!-- CARRUSEL -->
+
+                <!-- =========================
+                     CAROUSEL
+                ========================== -->
 
                 <div class="carousel-wrapper">
+
 
                     <button
                         class="carousel-button prev"
                         onclick="moveCarousel(0, -1)">
+
                         ←
+
                     </button>
 
 
-                    <div class="carousel-window">
+
+                    <div class="carousel-stage">
+
+
+                        <!-- IMAGEN 1 -->
 
                         <div
-                            class="carousel-track"
-                            id="carousel-0">
+                            class="carousel-slide center"
+                            data-index="0"
+                            onclick="selectSlide(0, 0)">
 
+                            <div class="placeholder">
 
-                            <!-- =================================
-                                 IMAGEN 1
-                            ================================== -->
-
-                            <div class="carousel-slide">
-
-                                <span>
-                                    IMAGEN 1
-                                </span>
-
-                                <!--
-                                CUANDO TENGAS LA IMAGEN:
-
-                                <img
-                                    src="images/foam-01.png"
-                                    alt="Foam Traveler Go screenshot">
-                                -->
+                                IMAGEN 1
 
                             </div>
 
+                            <!--
 
-                            <!-- =================================
-                                 IMAGEN 2
-                            ================================== -->
+                            IMAGEN REAL:
 
-                            <div class="carousel-slide">
+                            <img
+                                src="images/foam-01.png"
+                                alt="Foam Traveler Go screenshot">
 
-                                <span>
-                                    IMAGEN 2
-                                </span>
-
-                                <!--
-                                <img
-                                    src="images/foam-02.png"
-                                    alt="Foam Traveler Go screenshot">
-                                -->
-
-                            </div>
-
-
-                            <!-- =================================
-                                 IMAGEN 3
-                            ================================== -->
-
-                            <div class="carousel-slide">
-
-                                <span>
-                                    IMAGEN 3
-                                </span>
-
-                                <!--
-                                <img
-                                    src="images/foam-03.png"
-                                    alt="Foam Traveler Go screenshot">
-                                -->
-
-                            </div>
-
-
-                            <!-- =================================
-                                 VIDEO
-                            ================================== -->
-
-                            <div class="carousel-slide">
-
-                                <span>
-                                    VIDEO
-                                </span>
-
-                                <!--
-                                CUANDO TENGAS EL VIDEO:
-
-                                <video
-                                    controls
-                                    src="videos/foam-gameplay.mp4">
-                                </video>
-                                -->
-
-                            </div>
-
+                            -->
 
                         </div>
 
+
+
+                        <!-- IMAGEN 2 -->
+
+                        <div
+                            class="carousel-slide next"
+                            data-index="1"
+                            onclick="selectSlide(0, 1)">
+
+                            <div class="placeholder">
+
+                                IMAGEN 2
+
+                            </div>
+
+                            <!--
+
+                            <img
+                                src="images/foam-02.png"
+                                alt="Foam Traveler Go screenshot">
+
+                            -->
+
+                        </div>
+
+
+
+                        <!-- IMAGEN 3 -->
+
+                        <div
+                            class="carousel-slide hidden-right"
+                            data-index="2"
+                            onclick="selectSlide(0, 2)">
+
+                            <div class="placeholder">
+
+                                IMAGEN 3
+
+                            </div>
+
+                            <!--
+
+                            <img
+                                src="images/foam-03.png"
+                                alt="Foam Traveler Go screenshot">
+
+                            -->
+
+                        </div>
+
+
+
+                        <!-- VIDEO -->
+
+                        <div
+                            class="carousel-slide hidden-right"
+                            data-index="3"
+                            onclick="selectSlide(0, 3)">
+
+                            <div class="placeholder">
+
+                                VIDEO
+
+                            </div>
+
+                            <!--
+
+                            <video
+                                controls
+                                src="videos/foam-gameplay.mp4">
+                            </video>
+
+                            -->
+
+                        </div>
+
+
                     </div>
+
 
 
                     <button
                         class="carousel-button next"
                         onclick="moveCarousel(0, 1)">
+
                         →
+
                     </button>
 
+
                 </div>
+
 
 
                 <!-- DOTS -->
@@ -677,27 +1234,33 @@
                     class="carousel-dots"
                     id="dots-0">
 
+
                     <div
                         class="carousel-dot active"
-                        onclick="goToSlide(0, 0)">
+                        onclick="selectSlide(0, 0)">
                     </div>
+
 
                     <div
                         class="carousel-dot"
-                        onclick="goToSlide(0, 1)">
+                        onclick="selectSlide(0, 1)">
                     </div>
+
 
                     <div
                         class="carousel-dot"
-                        onclick="goToSlide(0, 2)">
+                        onclick="selectSlide(0, 2)">
                     </div>
+
 
                     <div
                         class="carousel-dot"
-                        onclick="goToSlide(0, 3)">
+                        onclick="selectSlide(0, 3)">
                     </div>
+
 
                 </div>
+
 
 
                 <!-- DESCRIPTION -->
@@ -705,14 +1268,16 @@
                 <p class="project-description">
 
                     DESCRIPTION OF PROJECT 1 GOES HERE.
-                    This is where you can briefly explain your role,
-                    the project, the narrative systems, gameplay,
-                    localization, Unity development, or anything else
-                    you want the recruiter to know.
+                    This is where the project description will go.
+                    We can later use this space to explain your role,
+                    narrative design, Unity development,
+                    localization, systems, dialogue and other work.
 
                 </p>
 
+
             </div>
+
 
         </section>
 
@@ -722,102 +1287,131 @@
              PROJECT 2
         ===================================================== -->
 
-        <section class="portfolio-section">
+        <section
+            class="portfolio-section"
+            data-project="1">
+
 
             <div class="project-container">
 
+
                 <h2 class="project-title">
+
                     PROJECT TITLE 2
+
                 </h2>
 
+
                 <p class="project-subtitle">
-                    PROJECT TYPE · ROLE · TECHNOLOGIES
+
+                    PROJECT TYPE
+                    · ROLE
+                    · TECHNOLOGIES
+
                 </p>
+
 
 
                 <div class="carousel-wrapper">
 
+
                     <button
                         class="carousel-button prev"
                         onclick="moveCarousel(1, -1)">
+
                         ←
+
                     </button>
 
 
-                    <div class="carousel-window">
+
+                    <div class="carousel-stage">
+
 
                         <div
-                            class="carousel-track"
-                            id="carousel-1">
+                            class="carousel-slide center"
+                            data-index="0"
+                            onclick="selectSlide(1, 0)">
 
+                            <div class="placeholder">
 
-                            <!-- IMAGEN 1 -->
-
-                            <div class="carousel-slide">
-
-                                <span>
-                                    IMAGEN 1
-                                </span>
+                                IMAGEN 1
 
                             </div>
-
-
-                            <!-- IMAGEN 2 -->
-
-                            <div class="carousel-slide">
-
-                                <span>
-                                    IMAGEN 2
-                                </span>
-
-                            </div>
-
-
-                            <!-- VIDEO -->
-
-                            <div class="carousel-slide">
-
-                                <span>
-                                    VIDEO
-                                </span>
-
-                            </div>
-
 
                         </div>
 
+
+                        <div
+                            class="carousel-slide next"
+                            data-index="1"
+                            onclick="selectSlide(1, 1)">
+
+                            <div class="placeholder">
+
+                                IMAGEN 2
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="carousel-slide hidden-right"
+                            data-index="2"
+                            onclick="selectSlide(1, 2)">
+
+                            <div class="placeholder">
+
+                                VIDEO
+
+                            </div>
+
+                        </div>
+
+
                     </div>
+
 
 
                     <button
                         class="carousel-button next"
                         onclick="moveCarousel(1, 1)">
+
                         →
+
                     </button>
 
+
                 </div>
+
 
 
                 <div
                     class="carousel-dots"
                     id="dots-1">
 
+
                     <div
                         class="carousel-dot active"
-                        onclick="goToSlide(1, 0)">
+                        onclick="selectSlide(1, 0)">
                     </div>
+
 
                     <div
                         class="carousel-dot"
-                        onclick="goToSlide(1, 1)">
+                        onclick="selectSlide(1, 1)">
                     </div>
+
 
                     <div
                         class="carousel-dot"
-                        onclick="goToSlide(1, 2)">
+                        onclick="selectSlide(1, 2)">
                     </div>
+
 
                 </div>
+
 
 
                 <p class="project-description">
@@ -826,7 +1420,9 @@
 
                 </p>
 
+
             </div>
+
 
         </section>
 
@@ -836,110 +1432,151 @@
              PROJECT 3
         ===================================================== -->
 
-        <section class="portfolio-section">
+        <section
+            class="portfolio-section"
+            data-project="2">
+
 
             <div class="project-container">
 
+
                 <h2 class="project-title">
+
                     PROJECT TITLE 3
+
                 </h2>
 
+
                 <p class="project-subtitle">
-                    PROJECT TYPE · ROLE · TECHNOLOGIES
+
+                    PROJECT TYPE
+                    · ROLE
+                    · TECHNOLOGIES
+
                 </p>
+
 
 
                 <div class="carousel-wrapper">
 
+
                     <button
                         class="carousel-button prev"
                         onclick="moveCarousel(2, -1)">
+
                         ←
+
                     </button>
 
 
-                    <div class="carousel-window">
+
+                    <div class="carousel-stage">
+
 
                         <div
-                            class="carousel-track"
-                            id="carousel-2">
+                            class="carousel-slide center"
+                            data-index="0"
+                            onclick="selectSlide(2, 0)">
 
+                            <div class="placeholder">
 
-                            <div class="carousel-slide">
-
-                                <span>
-                                    IMAGEN 1
-                                </span>
+                                IMAGEN 1
 
                             </div>
-
-
-                            <div class="carousel-slide">
-
-                                <span>
-                                    IMAGEN 2
-                                </span>
-
-                            </div>
-
-
-                            <div class="carousel-slide">
-
-                                <span>
-                                    IMAGEN 3
-                                </span>
-
-                            </div>
-
-
-                            <div class="carousel-slide">
-
-                                <span>
-                                    VIDEO
-                                </span>
-
-                            </div>
-
 
                         </div>
 
+
+                        <div
+                            class="carousel-slide next"
+                            data-index="1"
+                            onclick="selectSlide(2, 1)">
+
+                            <div class="placeholder">
+
+                                IMAGEN 2
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="carousel-slide hidden-right"
+                            data-index="2"
+                            onclick="selectSlide(2, 2)">
+
+                            <div class="placeholder">
+
+                                IMAGEN 3
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="carousel-slide hidden-right"
+                            data-index="3"
+                            onclick="selectSlide(2, 3)">
+
+                            <div class="placeholder">
+
+                                VIDEO
+
+                            </div>
+
+                        </div>
+
+
                     </div>
+
 
 
                     <button
                         class="carousel-button next"
                         onclick="moveCarousel(2, 1)">
+
                         →
+
                     </button>
 
+
                 </div>
+
 
 
                 <div
                     class="carousel-dots"
                     id="dots-2">
 
+
                     <div
                         class="carousel-dot active"
-                        onclick="goToSlide(2, 0)">
+                        onclick="selectSlide(2, 0)">
                     </div>
+
 
                     <div
                         class="carousel-dot"
-                        onclick="goToSlide(2, 1)">
+                        onclick="selectSlide(2, 1)">
                     </div>
+
 
                     <div
                         class="carousel-dot"
-                        onclick="goToSlide(2, 2)">
+                        onclick="selectSlide(2, 2)">
                     </div>
+
 
                     <div
                         class="carousel-dot"
-                        onclick="goToSlide(2, 3)">
+                        onclick="selectSlide(2, 3)">
                     </div>
+
 
                 </div>
+
 
 
                 <p class="project-description">
@@ -948,7 +1585,9 @@
 
                 </p>
 
+
             </div>
+
 
         </section>
 
@@ -968,25 +1607,48 @@
            TYPEWRITER
         ========================================================= */
 
-        const name = "Agustín Andrés Ibarra";
+        const name =
+            "Agustín Andrés Ibarra";
+
 
         const subtitle =
             "Integral videogame narrative designer | Linguistics & Literature Graduate | Unity Developer | Game Localization";
 
+
         const typingSpeed = 100;
 
-        const initialPause = 2000;
 
-        const subtitlePause = 1500;
+        const subtitlePause = 1200;
+
 
         const typeSound =
-            document.getElementById("typeSound");
+            document.getElementById(
+                "typeSound"
+            );
+
 
         const titleElement =
-            document.getElementById("typing-name");
+            document.getElementById(
+                "typing-name"
+            );
+
 
         const subtitleElement =
-            document.getElementById("typing-subtitle");
+            document.getElementById(
+                "typing-subtitle"
+            );
+
+
+        const scrollIndicator =
+            document.getElementById(
+                "scroll-indicator"
+            );
+
+
+        const intro =
+            document.getElementById(
+                "intro"
+            );
 
 
         let index = 0;
@@ -994,18 +1656,62 @@
         let subIndex = 0;
 
 
+        let typingStarted = false;
+
+
+        let typingFinished = false;
+
+
+
+        /* =========================================================
+           START TYPEWRITER
+        ========================================================= */
+
+        function startTyping() {
+
+
+            if (typingStarted) {
+
+                return;
+
+            }
+
+
+            typingStarted = true;
+
+
+            typeName();
+
+
+        }
+
+
+
+        /* =========================================================
+           TYPE NAME
+        ========================================================= */
+
         function typeName() {
 
+
             titleElement.innerHTML =
-                name.substring(0, index) +
+
+                name.substring(
+                    0,
+                    index
+                )
+
+                +
+
                 '<span class="cursor">|</span>';
 
 
-            if (index < name.length) {
 
-                typeSound.currentTime = 0;
+            if (
+                index < name.length
+            ) {
 
-                typeSound.play().catch(() => {});
+                playTypeSound();
 
             }
 
@@ -1013,36 +1719,62 @@
             index++;
 
 
-            if (index <= name.length) {
 
-                setTimeout(typeName, typingSpeed);
+            if (
+                index <= name.length
+            ) {
 
-            } else {
+                setTimeout(
+                    typeName,
+                    typingSpeed
+                );
 
-                titleElement.innerHTML = name;
+            }
+
+            else {
+
+
+                titleElement.innerHTML =
+                    name;
+
 
                 setTimeout(
                     typeSubtitle,
                     subtitlePause
                 );
 
+
             }
 
         }
 
 
+
+        /* =========================================================
+           TYPE SUBTITLE
+        ========================================================= */
+
         function typeSubtitle() {
 
+
             subtitleElement.innerHTML =
-                subtitle.substring(0, subIndex) +
+
+                subtitle.substring(
+                    0,
+                    subIndex
+                )
+
+                +
+
                 '<span class="cursor">|</span>';
 
 
-            if (subIndex < subtitle.length) {
 
-                typeSound.currentTime = 0;
+            if (
+                subIndex < subtitle.length
+            ) {
 
-                typeSound.play().catch(() => {});
+                playTypeSound();
 
             }
 
@@ -1050,48 +1782,424 @@
             subIndex++;
 
 
-            if (subIndex <= subtitle.length) {
+
+            if (
+                subIndex <= subtitle.length
+            ) {
 
                 setTimeout(
                     typeSubtitle,
                     typingSpeed
                 );
 
-            } else {
+            }
 
-                subtitleElement.innerHTML = subtitle;
+            else {
+
+
+                subtitleElement.innerHTML =
+                    subtitle;
+
+
+                finishIntro();
+
 
             }
 
         }
 
 
+
         /* =========================================================
-           START TYPEWRITER
+           TYPE SOUND
+        ========================================================= */
+
+        function playTypeSound() {
+
+
+            typeSound.currentTime = 0;
+
+
+            typeSound
+                .play()
+                .catch(
+                    () => {}
+                );
+
+
+        }
+
+
+
+        /* =========================================================
+           FINISH INTRO
+        ========================================================= */
+
+        function finishIntro() {
+
+
+            typingFinished = true;
+
+
+            scrollIndicator.classList.add(
+                "visible"
+            );
+
+
+        }
+
+
+
+        /* =========================================================
+           INITIAL CURSOR
+        ========================================================= */
+
+        titleElement.innerHTML =
+            '<span class="cursor">|</span>';
+
+
+
+        /* =========================================================
+           CLICK START
         ========================================================= */
 
         document.body.addEventListener(
             "click",
             () => {
 
-                titleElement.innerHTML =
-                    '<span class="cursor">|</span>';
+                if (
+                    !typingStarted
+                ) {
 
-                setTimeout(
-                    typeName,
-                    initialPause
-                );
+                    startTyping();
 
-            },
-            { once: true }
+                }
+
+            }
         );
 
 
+
         /* =========================================================
-           CAROUSELS
+           VERTICAL PROJECT CAROUSEL
         ========================================================= */
 
-        const carouselPositions = [
+        const projects =
+            document.querySelectorAll(
+                ".portfolio-section"
+            );
+
+
+        let currentProject = 0;
+
+
+        let verticalLocked = false;
+
+
+        const projectCount =
+            projects.length;
+
+
+
+        /* =========================================================
+           SHOW PROJECT
+        ========================================================= */
+
+        function showProject(
+            newProject,
+            direction
+        ) {
+
+
+            if (
+                newProject < 0
+                ||
+                newProject >= projectCount
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                newProject === currentProject
+                ||
+                verticalLocked
+            ) {
+
+                return;
+
+            }
+
+
+            verticalLocked = true;
+
+
+
+            const current =
+                projects[currentProject];
+
+
+            const next =
+                projects[newProject];
+
+
+
+            /* Remove old states */
+
+            projects.forEach(
+                project => {
+
+                    project.classList.remove(
+                        "active",
+                        "exit-up",
+                        "enter-from-top"
+                    );
+
+                }
+            );
+
+
+
+            /* Direction: DOWN */
+
+            if (
+                direction === "down"
+            ) {
+
+
+                current.classList.add(
+                    "exit-up"
+                );
+
+
+                next.style.transform =
+                    "translateY(100%)";
+
+
+                next.style.opacity = "0";
+
+
+                next.classList.add(
+                    "active"
+                );
+
+
+                requestAnimationFrame(
+                    () => {
+
+                        next.style.transform =
+                            "translateY(0)";
+
+                        next.style.opacity =
+                            "1";
+
+                    }
+                );
+
+
+            }
+
+
+
+            /* Direction: UP */
+
+            else {
+
+
+                current.style.transform =
+                    "translateY(100%)";
+
+
+                current.style.opacity =
+                    "0";
+
+
+                next.style.transform =
+                    "translateY(-100%)";
+
+
+                next.style.opacity =
+                    "0";
+
+
+                next.classList.add(
+                    "active"
+                );
+
+
+                requestAnimationFrame(
+                    () => {
+
+                        current.style.transform =
+                            "translateY(100%)";
+
+                        next.style.transform =
+                            "translateY(0)";
+
+                        next.style.opacity =
+                            "1";
+
+                    }
+                );
+
+            }
+
+
+
+            currentProject =
+                newProject;
+
+
+
+            setTimeout(
+                () => {
+
+                    verticalLocked = false;
+
+                },
+                850
+            );
+
+        }
+
+
+
+        /* =========================================================
+           MOUSE WHEEL
+        ========================================================= */
+
+        window.addEventListener(
+            "wheel",
+            (event) => {
+
+
+                if (
+                    !typingFinished
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    verticalLocked
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    event.deltaY > 0
+                ) {
+
+
+                    if (
+                        currentProject
+                        <
+                        projectCount - 1
+                    ) {
+
+                        showProject(
+                            currentProject + 1,
+                            "down"
+                        );
+
+                    }
+
+
+                }
+
+                else if (
+                    event.deltaY < 0
+                ) {
+
+
+                    if (
+                        currentProject > 0
+                    ) {
+
+                        showProject(
+                            currentProject - 1,
+                            "up"
+                        );
+
+                    }
+
+                }
+
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+
+        /* =========================================================
+           KEYBOARD NAVIGATION
+        ========================================================= */
+
+        window.addEventListener(
+            "keydown",
+            (event) => {
+
+
+                if (
+                    !typingFinished
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    event.key === "ArrowDown"
+                    ||
+                    event.key === "PageDown"
+                ) {
+
+
+                    showProject(
+                        currentProject + 1,
+                        "down"
+                    );
+
+
+                }
+
+
+                if (
+                    event.key === "ArrowUp"
+                    ||
+                    event.key === "PageUp"
+                ) {
+
+
+                    showProject(
+                        currentProject - 1,
+                        "up"
+                    );
+
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           HORIZONTAL CAROUSELS
+        ========================================================= */
+
+        const carouselIndexes = [
 
             0,
             0,
@@ -1100,100 +2208,137 @@
         ];
 
 
-        function moveCarousel(
-            carouselIndex,
-            direction
-        ) {
 
-            const track =
-                document.getElementById(
-                    "carousel-" + carouselIndex
-                );
-
-
-            const slides =
-                track.querySelectorAll(
-                    ".carousel-slide"
-                );
-
-
-            const totalSlides =
-                slides.length;
-
-
-            carouselPositions[carouselIndex] +=
-                direction;
-
-
-            /* Loop back */
-
-            if (
-                carouselPositions[carouselIndex]
-                < 0
-            ) {
-
-                carouselPositions[carouselIndex] =
-                    totalSlides - 1;
-
-            }
-
-
-            if (
-                carouselPositions[carouselIndex]
-                >= totalSlides
-            ) {
-
-                carouselPositions[carouselIndex] =
-                    0;
-
-            }
-
-
-            updateCarousel(
-                carouselIndex
-            );
-
-        }
-
-
-        function goToSlide(
-            carouselIndex,
-            slideIndex
-        ) {
-
-            carouselPositions[carouselIndex] =
-                slideIndex;
-
-            updateCarousel(
-                carouselIndex
-            );
-
-        }
-
+        /* =========================================================
+           UPDATE COVERFLOW
+        ========================================================= */
 
         function updateCarousel(
             carouselIndex
         ) {
 
-            const track =
-                document.getElementById(
-                    "carousel-" + carouselIndex
+
+            const section =
+                projects[
+                    carouselIndex
+                ];
+
+
+            const slides =
+                section.querySelectorAll(
+                    ".carousel-slide"
                 );
 
 
-            const position =
-                carouselPositions[carouselIndex];
+            const total =
+                slides.length;
 
 
-            track.style.transform =
-                `translateX(-${position * 100}%)`;
+            const currentIndex =
+                carouselIndexes[
+                    carouselIndex
+                ];
+
+
+
+            slides.forEach(
+                (slide, index) => {
+
+
+                    slide.classList.remove(
+                        "center",
+                        "previous",
+                        "next",
+                        "hidden-left",
+                        "hidden-right"
+                    );
+
+
+
+                    if (
+                        index === currentIndex
+                    ) {
+
+
+                        slide.classList.add(
+                            "center"
+                        );
+
+
+                    }
+
+
+                    else if (
+                        index ===
+                        getWrappedIndex(
+                            currentIndex - 1,
+                            total
+                        )
+                    ) {
+
+
+                        slide.classList.add(
+                            "previous"
+                        );
+
+
+                    }
+
+
+                    else if (
+                        index ===
+                        getWrappedIndex(
+                            currentIndex + 1,
+                            total
+                        )
+                    ) {
+
+
+                        slide.classList.add(
+                            "next"
+                        );
+
+
+                    }
+
+
+                    else if (
+                        isBefore(
+                            index,
+                            currentIndex,
+                            total
+                        )
+                    ) {
+
+
+                        slide.classList.add(
+                            "hidden-left"
+                        );
+
+
+                    }
+
+
+                    else {
+
+
+                        slide.classList.add(
+                            "hidden-right"
+                        );
+
+
+                    }
+
+                }
+            );
+
 
 
             /* Update dots */
 
             const dots =
-                document.querySelectorAll(
-                    `#dots-${carouselIndex} .carousel-dot`
+                section.querySelectorAll(
+                    ".carousel-dot"
                 );
 
 
@@ -1202,7 +2347,7 @@
 
                     dot.classList.toggle(
                         "active",
-                        index === position
+                        index === currentIndex
                     );
 
                 }
@@ -1211,56 +2356,150 @@
         }
 
 
+
         /* =========================================================
-           SCROLL FADE-IN
+           WRAPPED INDEX
         ========================================================= */
 
-        const portfolioSections =
-            document.querySelectorAll(
-                ".portfolio-section"
+        function getWrappedIndex(
+            index,
+            total
+        ) {
+
+
+            return (
+                (
+                    index
+                    %
+                    total
+                )
+                +
+                total
+            )
+            %
+            total;
+
+        }
+
+
+
+        /* =========================================================
+           DETERMINE SIDE
+        ========================================================= */
+
+        function isBefore(
+            index,
+            current,
+            total
+        ) {
+
+
+            const difference =
+                (
+                    index
+                    -
+                    current
+                    +
+                    total
+                )
+                %
+                total;
+
+
+            return (
+                difference >
+                total / 2
             );
 
+        }
 
-        const observer =
-            new IntersectionObserver(
 
-                (entries) => {
 
-                    entries.forEach(
-                        (entry) => {
+        /* =========================================================
+           MOVE CAROUSEL
+        ========================================================= */
 
-                            if (
-                                entry.isIntersecting
-                            ) {
+        function moveCarousel(
+            carouselIndex,
+            direction
+        ) {
 
-                                entry.target.classList.add(
-                                    "visible"
-                                );
 
-                            }
+            const section =
+                projects[
+                    carouselIndex
+                ];
 
-                        }
-                    );
 
-                },
+            const slides =
+                section.querySelectorAll(
+                    ".carousel-slide"
+                );
 
-                {
-                    threshold: 0.15
-                }
 
+            const total =
+                slides.length;
+
+
+            carouselIndexes[
+                carouselIndex
+            ] =
+
+                getWrappedIndex(
+                    carouselIndexes[
+                        carouselIndex
+                    ]
+                    +
+                    direction,
+                    total
+                );
+
+
+            updateCarousel(
+                carouselIndex
             );
 
+        }
 
-        portfolioSections.forEach(
-            (section) => {
 
-                observer.observe(section);
 
-            }
-        );
+        /* =========================================================
+           SELECT SLIDE
+        ========================================================= */
+
+        function selectSlide(
+            carouselIndex,
+            slideIndex
+        ) {
+
+
+            carouselIndexes[
+                carouselIndex
+            ] = slideIndex;
+
+
+            updateCarousel(
+                carouselIndex
+            );
+
+        }
+
+
+
+        /* =========================================================
+           INITIALIZE CAROUSELS
+        ========================================================= */
+
+        updateCarousel(0);
+
+        updateCarousel(1);
+
+        updateCarousel(2);
 
 
     </script>
 
+
 </body>
+
 </html>
