@@ -269,82 +269,79 @@
            PROJECT SECTIONS
         ========================================================= */
 
-        .portfolio-section {
+.portfolio-section {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
 
-            position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            inset: 0;
+    box-sizing: border-box;
+    padding: 70px 40px;
 
-            width: 100%;
-            height: 100%;
+    opacity: 0;
+    transform: translateY(100%);
 
-            display: flex;
+    pointer-events: none;
 
-            align-items: center;
+    transition:
+        transform 0.8s cubic-bezier(
+            0.77,
+            0,
+            0.175,
+            1
+        ),
+        opacity 0.8s ease;
 
-            justify-content: center;
+    z-index: 1;
+}
 
-            box-sizing: border-box;
+/* =========================================================
+   VERTICAL CAROUSEL STATES
+   ========================================================= */
 
-            padding: 70px 40px;
+/* Elemento actualmente visible */
+.vertical-current {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 2;
+}
 
-            opacity: 0;
+/* Elemento que sale hacia arriba */
+.vertical-exit-up {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+    z-index: 1;
+}
 
-            transform:
-                translateY(100%);
+/* Elemento que sale hacia abajo */
+.vertical-exit-down {
+    opacity: 0;
+    transform: translateY(100%);
+    pointer-events: none;
+    z-index: 1;
+}
 
-            pointer-events: none;
+/* Elemento que espera para entrar desde arriba */
+.vertical-enter-top {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+    z-index: 1;
+}
 
-            transition:
-
-                transform 0.8s
-                cubic-bezier(
-                    0.77,
-                    0,
-                    0.175,
-                    1
-                ),
-
-                opacity 0.8s
-                ease;
-
-        }
-
-
-        /* Proyecto actual */
-
-        .portfolio-section.active {
-
-            opacity: 1;
-
-            transform:
-                translateY(0);
-
-            pointer-events: auto;
-
-        }
-
-
-        /* Proyecto que sale hacia arriba */
-
-        .portfolio-section.exit-up {
-
-            opacity: 0;
-
-            transform:
-                translateY(-100%);
-
-        }
-
-
-        /* Proyecto anterior que entra desde arriba */
-
-        .portfolio-section.enter-from-top {
-
-            transform:
-                translateY(-100%);
-
-        }
+/* Elemento que espera para entrar desde abajo */
+.vertical-enter-bottom {
+    opacity: 0;
+    transform: translateY(100%);
+    pointer-events: none;
+    z-index: 1;
+}
 
 
         /* =========================================================
@@ -1931,16 +1928,6 @@ function finishIntro() {
 
     clearTimeout(typingTimer);
 
-
-    /*
-     * La intro terminó.
-     */
-
-    intro.classList.add(
-        "hidden"
-    );
-
-
     /*
      * Aparece la flecha.
      */
@@ -2084,226 +2071,260 @@ document.body.addEventListener(
     }
 );
 
+/* =========================================================
+   VERTICAL CAROUSEL
+   ========================================================= */
 
-        /* =========================================================
-           VERTICAL PROJECT CAROUSEL
-        ========================================================= */
+const projects =
+    document.querySelectorAll(
+        ".portfolio-section"
+    );
 
-        const projects =
-            document.querySelectorAll(
-                ".portfolio-section"
+const verticalSections = [
+    intro,
+    ...projects
+];
+
+let currentSection = 0;
+let verticalLocked = false;
+
+const verticalSectionCount =
+    verticalSections.length;
+
+
+/* =========================================================
+   RESET ALL VERTICAL SECTIONS
+   ========================================================= */
+
+function resetVerticalSections() {
+
+    verticalSections.forEach(
+        section => {
+
+            section.classList.remove(
+                "vertical-current",
+                "vertical-exit-up",
+                "vertical-exit-down",
+                "vertical-enter-top",
+                "vertical-enter-bottom"
             );
 
-
-        let currentProject = 0;
-
-
-        let verticalLocked = false;
-
-        // Mostrar el primer proyecto detrás de la intro
-        projects[0].classList.add("active");
-
-        const projectCount =
-            projects.length;
+            section.style.transform = "";
+            section.style.opacity = "";
+            section.style.zIndex = "";
+        }
+    );
+}
 
 
+/* =========================================================
+   SHOW VERTICAL SECTION
+   ========================================================= */
 
-        /* =========================================================
-           SHOW PROJECT
-        ========================================================= */
+function showVerticalSection(
+    newSection,
+    direction
+) {
 
-        function showProject(
-            newProject,
-            direction
-        ) {
+    if (
+        newSection < 0 ||
+        newSection >= verticalSectionCount
+    ) {
+        return;
+    }
+
+    if (
+        newSection === currentSection ||
+        verticalLocked
+    ) {
+        return;
+    }
+
+    verticalLocked = true;
+
+    const current =
+        verticalSections[currentSection];
+
+    const next =
+        verticalSections[newSection];
 
 
-            if (
-                newProject < 0
-                ||
-                newProject >= projectCount
-            ) {
+    /*
+     * Limpiamos estados anteriores.
+     */
 
-                return;
+    resetVerticalSections();
 
+
+    /*
+     * SCROLL HACIA ABAJO
+     *
+     * El elemento actual sale hacia arriba.
+     * El siguiente entra desde abajo.
+     */
+
+    if (direction === "down") {
+
+        current.classList.add(
+            "vertical-exit-up"
+        );
+
+        next.classList.add(
+            "vertical-enter-bottom"
+        );
+
+        /*
+         * Forzamos al navegador a reconocer
+         * la posición inicial.
+         */
+
+        next.offsetHeight;
+
+        requestAnimationFrame(
+            () => {
+
+                current.classList.remove(
+                    "vertical-exit-up"
+                );
+
+                current.classList.add(
+                    "vertical-exit-up"
+                );
+
+                next.classList.remove(
+                    "vertical-enter-bottom"
+                );
+
+                next.classList.add(
+                    "vertical-current"
+                );
             }
+        );
+    }
 
 
-            if (
-                newProject === currentProject
-                ||
-                verticalLocked
-            ) {
+    /*
+     * SCROLL HACIA ARRIBA
+     *
+     * El elemento actual sale hacia abajo.
+     * El siguiente entra desde arriba.
+     */
 
-                return;
+    else {
 
+        current.classList.add(
+            "vertical-exit-down"
+        );
+
+        next.classList.add(
+            "vertical-enter-top"
+        );
+
+        /*
+         * Forzamos al navegador a reconocer
+         * la posición inicial.
+         */
+
+        next.offsetHeight;
+
+        requestAnimationFrame(
+            () => {
+
+                current.classList.remove(
+                    "vertical-exit-down"
+                );
+
+                current.classList.add(
+                    "vertical-exit-down"
+                );
+
+                next.classList.remove(
+                    "vertical-enter-top"
+                );
+
+                next.classList.add(
+                    "vertical-current"
+                );
             }
+        );
+    }
 
 
-            verticalLocked = true;
+    currentSection =
+        newSection;
 
 
+    /*
+     * Esperamos a que termine la animación.
+     */
 
-            const current =
-                projects[currentProject];
+    setTimeout(
+        () => {
 
+            verticalSections.forEach(
+                (section, index) => {
 
-            const next =
-                projects[newProject];
+                    if (
+                        index === currentSection
+                    ) {
 
+                        section.classList.remove(
+                            "vertical-exit-up",
+                            "vertical-exit-down",
+                            "vertical-enter-top",
+                            "vertical-enter-bottom"
+                        );
 
+                        section.classList.add(
+                            "vertical-current"
+                        );
 
-            /* Remove old states */
+                    } else {
 
-            projects.forEach(
-                project => {
+                        section.classList.remove(
+                            "vertical-current",
+                            "vertical-exit-up",
+                            "vertical-exit-down",
+                            "vertical-enter-top",
+                            "vertical-enter-bottom"
+                        );
 
-                    project.classList.remove(
-                        "active",
-                        "exit-up",
-                        "enter-from-top"
-                    );
+                        section.style.transform = "";
 
+                        section.style.opacity = "";
+
+                        section.style.zIndex = "";
+                    }
                 }
             );
 
+            verticalLocked = false;
+
+        },
+        850
+    );
+}
 
 
-            /* Direction: DOWN */
+/* =========================================================
+   MOUSE WHEEL
+   ========================================================= */
 
-            if (
-                direction === "down"
-            ) {
-
-
-                current.classList.add(
-                    "exit-up"
-                );
-
-
-                next.style.transform =
-                    "translateY(100%)";
-
-
-                next.style.opacity = "0";
-
-
-                next.classList.add(
-                    "active"
-                );
-
-
-                requestAnimationFrame(
-                    () => {
-
-                        next.style.transform =
-                            "translateY(0)";
-
-                        next.style.opacity =
-                            "1";
-
-                    }
-                );
-
-
-            }
-
-
-
-            /* Direction: UP */
-
-            else {
-
-
-                current.style.transform =
-                    "translateY(100%)";
-
-
-                current.style.opacity =
-                    "0";
-
-
-                next.style.transform =
-                    "translateY(-100%)";
-
-
-                next.style.opacity =
-                    "0";
-
-
-                next.classList.add(
-                    "active"
-                );
-
-
-                requestAnimationFrame(
-                    () => {
-
-                        current.style.transform =
-                            "translateY(100%)";
-
-                        next.style.transform =
-                            "translateY(0)";
-
-                        next.style.opacity =
-                            "1";
-
-                    }
-                );
-
-            }
-
-
-
-            currentProject =
-                newProject;
-
-
-
-            setTimeout(
-                () => {
-
-                    verticalLocked = false;
-
-                },
-                850
-            );
-
-        }
-
-
-
-        /* =========================================================
-           MOUSE WHEEL
-        ========================================================= */
-
-        window.addEventListener(
+window.addEventListener(
     "wheel",
     (event) => {
 
         /*
-         * Mientras se escribe el texto,
-         * no hacemos absolutamente nada.
+         * Mientras se escribe la intro,
+         * no hacemos nada.
          */
 
         if (!typingFinished) {
             return;
         }
 
-
-        /*
-         * Evitamos que el navegador intente
-         * hacer un scroll normal.
-         */
-
         event.preventDefault();
 
-
-        /*
-         * Si todavía está ocurriendo la
-         * transición entre proyectos,
-         * ignoramos el siguiente movimiento.
-         */
 
         if (verticalLocked) {
             return;
@@ -2311,43 +2332,28 @@ document.body.addEventListener(
 
 
         /*
-         * Scroll hacia abajo
+         * SCROLL DOWN
          */
 
         if (event.deltaY > 0) {
 
-            if (
-                currentProject <
-                projectCount - 1
-            ) {
-
-                showProject(
-                    currentProject + 1,
-                    "down"
-                );
-
-            }
-
+            showVerticalSection(
+                currentSection + 1,
+                "down"
+            );
         }
 
 
         /*
-         * Scroll hacia arriba
+         * SCROLL UP
          */
 
         else if (event.deltaY < 0) {
 
-            if (
-                currentProject > 0
-            ) {
-
-                showProject(
-                    currentProject - 1,
-                    "up"
-                );
-
-            }
-
+            showVerticalSection(
+                currentSection - 1,
+                "up"
+            );
         }
 
     },
@@ -2357,60 +2363,55 @@ document.body.addEventListener(
 );
 
 
+/* =========================================================
+   KEYBOARD NAVIGATION
+   ========================================================= */
 
-        /* =========================================================
-           KEYBOARD NAVIGATION
-        ========================================================= */
+window.addEventListener(
+    "keydown",
+    (event) => {
 
-        window.addEventListener(
-            "keydown",
-            (event) => {
-
-
-                if (
-                    !typingFinished
-                ) {
-
-                    return;
-
-                }
+        if (!typingFinished) {
+            return;
+        }
 
 
-                if (
-                    event.key === "ArrowDown"
-                    ||
-                    event.key === "PageDown"
-                ) {
+        if (
+            event.key === "ArrowDown" ||
+            event.key === "PageDown"
+        ) {
+
+            showVerticalSection(
+                currentSection + 1,
+                "down"
+            );
+        }
 
 
-                    showProject(
-                        currentProject + 1,
-                        "down"
-                    );
+        if (
+            event.key === "ArrowUp" ||
+            event.key === "PageUp"
+        ) {
+
+            showVerticalSection(
+                currentSection - 1,
+                "up"
+            );
+        }
+
+    }
+);
 
 
-                }
+/* =========================================================
+   INITIAL VERTICAL STATE
+   ========================================================= */
 
+resetVerticalSections();
 
-                if (
-                    event.key === "ArrowUp"
-                    ||
-                    event.key === "PageUp"
-                ) {
-
-
-                    showProject(
-                        currentProject - 1,
-                        "up"
-                    );
-
-
-                }
-
-            }
-        );
-
-
+verticalSections[0].classList.add(
+    "vertical-current"
+);
 
         /* =========================================================
            HORIZONTAL CAROUSELS
