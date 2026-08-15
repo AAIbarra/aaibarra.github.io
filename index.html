@@ -81,7 +81,6 @@
         opacity 0.8s ease;
 }
 
-
 /* =========================================================
    INTRO — ESTADO BASE
    ========================================================= */
@@ -99,6 +98,12 @@
             pointer-events: none;
 
         }
+
+        #intro-content,
+#scroll-indicator {
+    position: relative;
+    z-index: 1;
+}
 
         /*
  * Una vez terminada la intro,
@@ -305,6 +310,11 @@
     z-index: 1;
 }
 
+.portfolio-section > .project-container {
+    position: relative;
+    z-index: 1;
+}
+
 /* =========================================================
    VERTICAL CAROUSEL STATES
    ========================================================= */
@@ -356,6 +366,27 @@
 /* Preparar una sección sin animarla */
 .vertical-no-transition {
     transition: none !important;
+}
+
+/* =========================================================
+   SECTION BACKGROUNDS
+   ========================================================= */
+
+.section-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.section-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 
@@ -1048,6 +1079,18 @@
 
     <section id="intro">
 
+    <!-- FONDO DE INTRO -->
+    <div class="section-background">
+        <img src="images/intro-bg.jpg" alt="">
+    </div>
+
+        <!-- AUDIO DE INTRO -->
+        <audio
+        class="section-audio"
+        src="sounds/intro.mp3"
+        preload="auto"
+        loop>
+        </audio>
 
         <div id="intro-content">
 
@@ -1096,6 +1139,18 @@
             class="portfolio-section"
             data-project="0">
 
+            <!-- FONDO DE P1 -->
+            <div class="section-background">
+            <img src="images/p1-bg.jpg" alt="">
+            </div>
+
+        <!-- AUDIO DE P1 -->
+        <audio
+        class="section-audio"
+        src="sounds/p1.mp3"
+        preload="auto"
+        loop>
+        </audio>
 
             <div class="project-container">
 
@@ -1319,8 +1374,19 @@
             class="portfolio-section"
             data-project="1">
 
-
+   <!-- FONDO DE P2 -->
+    <div class="section-background">
+        <img src="images/p2-bg.jpg" alt="">
+    </div>
             <div class="project-container">
+
+        <!-- AUDIO DE P2 -->
+        <audio
+        class="section-audio"
+        src="sounds/p2.mp3"
+        preload="auto"
+        loop>
+        </audio>
 
 
                 <h2 class="project-title">
@@ -1464,6 +1530,18 @@
             class="portfolio-section"
             data-project="2">
 
+   <!-- FONDO DE P3 -->
+    <div class="section-background">
+        <img src="images/p3-bg.jpg" alt="">
+    </div>
+
+        <!-- AUDIO DE P3 -->
+        <audio
+        class="section-audio"
+        src="sounds/p3.mp3"
+        preload="auto"
+        loop>
+        </audio>
 
             <div class="project-container">
 
@@ -1940,6 +2018,8 @@ function finishIntro() {
 
     typingFinished = true;
 
+    changeSectionAudio(0);
+
 
     clearTimeout(typingTimer);
 
@@ -2115,6 +2195,87 @@ const nextSection = () => {
 
 const verticalSectionCount =
     verticalSections.length;
+
+/* =========================================================
+   SECTION AUDIO
+   ========================================================= */
+
+const sectionAudios = verticalSections.map(section =>
+    section.querySelector(".section-audio")
+);
+
+const AUDIO_FADE_TIME = 800;
+const AUDIO_MAX_VOLUME = 1;
+
+let audioFadeTimers = [];
+
+function fadeAudio(audio, targetVolume, duration) {
+
+    if (!audio) return;
+
+    const startVolume = audio.volume;
+    const difference = targetVolume - startVolume;
+    const startTime = performance.now();
+
+    function update() {
+
+        const elapsed = performance.now() - startTime;
+        const progress = Math.min(
+            elapsed / duration,
+            1
+        );
+
+        audio.volume =
+            startVolume +
+            difference * progress;
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+
+            audio.volume = targetVolume;
+
+            if (targetVolume === 0) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+    }
+
+    requestAnimationFrame(update);
+}
+
+
+function changeSectionAudio(newIndex) {
+
+    sectionAudios.forEach((audio, index) => {
+
+        if (!audio) return;
+
+        if (index === newIndex) {
+
+            audio.volume = 0;
+
+            audio.play().catch(() => {});
+
+            fadeAudio(
+                audio,
+                AUDIO_MAX_VOLUME,
+                AUDIO_FADE_TIME
+            );
+
+        } else {
+
+            fadeAudio(
+                audio,
+                0,
+                AUDIO_FADE_TIME
+            );
+
+        }
+
+    });
+}
 
 
 /* =========================================================
@@ -2327,7 +2488,7 @@ function showVerticalSection(newIndex) {
 
     currentSection = newIndex;
 
-
+    changeSectionAudio(currentSection);
     /*
      * =====================================================
      * SIGUIENTE FRAME
