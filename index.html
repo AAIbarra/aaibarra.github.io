@@ -2015,7 +2015,6 @@ function finishIntro() {
         return;
     }
 
-
     typingFinished = true;
 
     clearTimeout(typingTimer);
@@ -2290,6 +2289,16 @@ function changeSectionAudio(newIndex) {
         );
 
     }, 500);
+}
+
+const introAudio = sectionAudios[0];
+
+if (introAudio) {
+    introAudio.volume = AUDIO_MAX_VOLUME;
+
+    introAudio.play().catch(() => {
+        // El navegador puede bloquear autoplay hasta que haya interacción.
+    });
 }
 
 /* =========================================================
