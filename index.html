@@ -55,47 +55,42 @@
            INTRO
         ========================================================= */
 
-        #intro {
+#intro {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
 
-            position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 
-            inset: 0;
+    z-index: 1;
+    background: #000000;
+    cursor: pointer;
 
-            width: 100%;
-            height: 100%;
+    transition:
+        transform 0.8s cubic-bezier(
+            0.77,
+            0,
+            0.175,
+            1
+        ),
+        opacity 0.8s ease;
+}
 
-            display: flex;
 
-            flex-direction: column;
+/* =========================================================
+   INTRO — ESTADO BASE
+   ========================================================= */
 
-            justify-content: center;
-
-            align-items: center;
-
-            text-align: center;
-
-            z-index: 1;
-
-            background: #000000;
-
-            cursor: pointer;
-
-            transition:
-    transform 0.8s cubic-bezier(
-        0.77,
-        0,
-        0.175,
-        1
-    ),
-    opacity 0.8s ease;
-
-        }
-
-        #intro:not(.vertical-current) {
+#intro:not(.vertical-current):not(.vertical-exit-up):not(.vertical-exit-down):not(.vertical-enter-top):not(.vertical-enter-bottom) {
     opacity: 0;
     transform: translateY(100%);
     pointer-events: none;
-    }
+}
 
         #intro.hidden {
 
@@ -322,6 +317,7 @@
     z-index: 10;
 }
 
+
 /* Elemento que sale hacia arriba */
 .vertical-exit-up {
     opacity: 0;
@@ -329,6 +325,7 @@
     pointer-events: none;
     z-index: 1;
 }
+
 
 /* Elemento que sale hacia abajo */
 .vertical-exit-down {
@@ -338,27 +335,27 @@
     z-index: 1;
 }
 
-/* Elemento que espera para entrar desde arriba */
-.portfolio-section.vertical-enter-top {
+
+/* Elemento que entra desde arriba */
+.vertical-enter-top {
     opacity: 0;
     transform: translateY(-100%);
     pointer-events: none;
     z-index: 3;
 }
 
-#intro.vertical-enter-top {
-    opacity: 0;
-    transform: translateY(-100%);
-    pointer-events: none;
-    z-index: 3;
-}
 
-/* Elemento que espera para entrar desde abajo */
+/* Elemento que entra desde abajo */
 .vertical-enter-bottom {
     opacity: 0;
     transform: translateY(100%);
     pointer-events: none;
-    z-index: 1;
+    z-index: 3;
+}
+
+/* Preparar una sección sin animarla */
+.vertical-no-transition {
+    transition: none !important;
 }
 
 
@@ -2093,34 +2090,28 @@ document.body.addEventListener(
    VERTICAL CAROUSEL
    ========================================================= */
 
-const projects =
-    document.querySelectorAll(
-        ".portfolio-section"
-    );
-
-
-/*
- * ORDEN DEL CARRUSEL:
- *
- * 0 = INTRO
- * 1 = PROYECTO 1
- * 2 = PROYECTO 2
- * 3 = PROYECTO 3
- *
- * Más adelante agregaremos:
- *
- * 4 = CONTACTO
- */
-
-const verticalSections = [
-    intro,
-    ...projects
-];
-
+const projects = document.querySelectorAll(".portfolio-section");
+const verticalSections = [intro, ...projects];
 
 let currentSection = 0;
-
 let verticalLocked = false;
+
+const ANIM_TIME = 800;
+
+// Sección actual
+const current = () => verticalSections[currentSection];
+
+// Sección anterior
+const previousSection = () => {
+    if (currentSection === 0) return null;
+    return verticalSections[currentSection - 1];
+};
+
+// Sección siguiente
+const nextSection = () => {
+    if (currentSection === verticalSections.length - 1) return null;
+    return verticalSections[currentSection + 1];
+};
 
 const verticalSectionCount =
     verticalSections.length;
@@ -2165,268 +2156,247 @@ function setInitialVerticalState() {
    CAMBIAR DE SECCIÓN
    ========================================================= */
 
-function showVerticalSection(
-    newSection,
-    direction
-) {
+function clearStates(element) {
+
+    element.classList.remove(
+        "vertical-current",
+        "vertical-exit-up",
+        "vertical-exit-down",
+        "vertical-enter-top",
+        "vertical-enter-bottom",
+        "vertical-no-transition"
+    );
+}
+
+function showVerticalSection(newIndex) {
 
     /*
-     * No podemos salir de los límites.
+     * =====================================================
+     * VALIDACIONES
+     * =====================================================
      */
 
     if (
-        newSection < 0 ||
-        newSection >= verticalSectionCount
+        newIndex < 0 ||
+        newIndex >= verticalSections.length
     ) {
+        return;
+    }
+
+    if (newIndex === currentSection) {
+        return;
+    }
+
+    if (verticalLocked) {
         return;
     }
 
 
     /*
-     * No hacemos nada si ya estamos ahí
-     * o si una animación está ocurriendo.
+     * =====================================================
+     * BLOQUEAMOS LA TRANSICIÓN
+     * =====================================================
      */
-
-    if (
-        newSection === currentSection ||
-        verticalLocked
-    ) {
-        return;
-    }
-
 
     verticalLocked = true;
 
+
+    /*
+     * =====================================================
+     * IDENTIFICAMOS CURRENT Y TARGET
+     * =====================================================
+     */
 
     const current =
         verticalSections[currentSection];
 
     const target =
-        verticalSections[newSection];
+        verticalSections[newIndex];
 
 
     /*
-     * Limpiamos solamente los elementos
-     * que NO participan en esta transición.
+     * =====================================================
+     * DETERMINAMOS DIRECCIÓN
+     * =====================================================
+     *
+     * newIndex > currentSection
+     * → estamos bajando
+     *
+     * newIndex < currentSection
+     * → estamos subiendo
      */
 
-    verticalSections.forEach(
-        section => {
+    const movingDown =
+        newIndex > currentSection;
 
-            if (
-                section !== current &&
-                section !== target
-            ) {
 
-                section.classList.remove(
-                    "vertical-current",
-                    "vertical-exit-up",
-                    "vertical-exit-down",
-                    "vertical-enter-top",
-                    "vertical-enter-bottom"
-                );
+    /*
+     * =====================================================
+     * LIMPIAMOS ESTADOS ANTERIORES
+     * =====================================================
+     */
 
-                section.style.zIndex = "";
-            }
-        }
+    clearStates(current);
+    clearStates(target);
+
+
+    /*
+     * =====================================================
+     * PREPARAMOS EL TARGET
+     *
+     * IMPORTANTE:
+     *
+     * Lo hacemos SIN transición.
+     *
+     * Así evitamos que el target pase
+     * visualmente de +100% a -100%.
+     * =====================================================
+     */
+
+    target.classList.add(
+        "vertical-no-transition"
     );
 
 
-    /* =====================================================
-       SCROLL DOWN
-       ===================================================== */
-
-    if (direction === "down") {
+    if (movingDown) {
 
         /*
-         * El actual sale hacia ARRIBA.
+         * BAJAMOS:
+         *
+         * P1 → P2
+         *
+         * P2 tiene que empezar ABAJO.
          */
-
-        current.classList.remove(
-            "vertical-current"
-        );
-
-        current.classList.add(
-            "vertical-exit-up"
-        );
-
-
-        /*
-         * El nuevo espera ABAJO.
-         */
-
-        target.classList.remove(
-            "vertical-current"
-        );
 
         target.classList.add(
             "vertical-enter-bottom"
         );
 
+    } else {
 
         /*
-         * Forzamos al navegador a registrar
-         * la posición inicial.
-         */
-
-        target.offsetHeight;
-
-
-        /*
-         * Ahora empieza la animación.
-         */
-
-        requestAnimationFrame(
-            () => {
-
-                target.classList.remove(
-                    "vertical-enter-bottom"
-                );
-
-                target.classList.add(
-                    "vertical-current"
-                );
-
-            }
-        );
-    }
-
-
-    /* =====================================================
-       SCROLL UP
-       ===================================================== */
-
-    else {
-
-        /*
-         * El actual sale hacia ABAJO.
-         */
-
-        current.classList.remove(
-            "vertical-current"
-        );
-
-        current.classList.add(
-            "vertical-exit-down"
-        );
-
-
-        /*
-         * El anterior entra desde ARRIBA.
+         * SUBIMOS:
          *
-         * IMPORTANTE:
+         * P2 → P1
          *
-         * 'target' puede ser perfectamente
-         * la INTRO.
+         * P1 tiene que empezar ARRIBA.
          */
-
-        target.classList.remove(
-            "vertical-current"
-        );
 
         target.classList.add(
             "vertical-enter-top"
         );
+    }
 
 
-        /*
-         * Forzamos al navegador a registrar
-         * la posición inicial.
-         */
+    /*
+     * =====================================================
+     * FORZAMOS AL NAVEGADOR A APLICAR
+     * ESA POSICIÓN INICIAL.
+     * =====================================================
+     */
 
-        target.offsetHeight;
+    target.offsetHeight;
 
 
-        requestAnimationFrame(
-            () => {
+    /*
+     * =====================================================
+     * AHORA PREPARAMOS LA SALIDA
+     * DEL ELEMENTO ACTUAL.
+     * =====================================================
+     */
 
-                target.classList.remove(
-                    "vertical-enter-top"
-                );
+    if (movingDown) {
 
-                target.classList.add(
-                    "vertical-current"
-                );
+        current.classList.add(
+            "vertical-exit-up"
+        );
 
-            }
+    } else {
+
+        current.classList.add(
+            "vertical-exit-down"
         );
     }
 
 
     /*
-     * AHORA SÍ:
-     *
-     * actualizamos siempre currentSection,
-     * tanto hacia arriba como hacia abajo.
+     * =====================================================
+     * ACTUALIZAMOS EL ÍNDICE
+     * =====================================================
      */
 
-    currentSection =
-        newSection;
+    currentSection = newIndex;
 
 
     /*
-     * Esperamos a que termine la animación.
+     * =====================================================
+     * SIGUIENTE FRAME
+     *
+     * Quitamos "no-transition".
+     *
+     * Ahora sí empieza la animación.
+     * =====================================================
      */
 
-    setTimeout(
-        () => {
+    requestAnimationFrame(() => {
 
-            verticalSections.forEach(
-                (section, index) => {
+        target.classList.remove(
+            "vertical-no-transition",
+            "vertical-enter-top",
+            "vertical-enter-bottom"
+        );
 
-                    if (
-                        index === currentSection
-                    ) {
+        target.classList.add(
+            "vertical-current"
+        );
 
-                        /*
-                         * El actual queda limpio
-                         * y visible.
-                         */
+    });
 
-                        section.classList.remove(
-                            "vertical-exit-up",
-                            "vertical-exit-down",
-                            "vertical-enter-top",
-                            "vertical-enter-bottom"
-                        );
 
-                        section.classList.add(
-                            "vertical-current"
-                        );
+    /*
+     * =====================================================
+     * FINAL DE LA ANIMACIÓN
+     * =====================================================
+     */
 
-                    } else {
+    setTimeout(() => {
 
-                        /*
-                         * TODOS los demás quedan
-                         * completamente fuera.
-                         */
+        /*
+         * Limpiamos todos los estados.
+         */
 
-                        section.classList.remove(
-                            "vertical-current",
-                            "vertical-exit-up",
-                            "vertical-exit-down",
-                            "vertical-enter-top",
-                            "vertical-enter-bottom"
-                        );
+        verticalSections.forEach(
+            (section, index) => {
 
-                        section.style.zIndex = "";
-                    }
+                clearStates(section);
+
+                /*
+                 * Solo el elemento actual
+                 * queda visible.
+                 */
+
+                if (
+                    index === currentSection
+                ) {
+
+                    section.classList.add(
+                        "vertical-current"
+                    );
 
                 }
-            );
+
+            }
+        );
 
 
-            verticalLocked = false;
+        /*
+         * Liberamos el bloqueo.
+         */
 
-        },
-        850
-    );
+        verticalLocked = false;
+
+    }, ANIM_TIME);
 }
-
-
-/* =========================================================
-   MOUSE WHEEL
-   ========================================================= */
 
 /* =========================================================
    MOUSE WHEEL
@@ -2441,29 +2411,11 @@ window.addEventListener(
     "wheel",
     (event) => {
 
-        /*
-         * Mientras la intro todavía está
-         * escribiéndose, ignoramos el scroll.
-         */
-
         if (!typingFinished) {
             return;
         }
 
-
-        /*
-         * Evitamos que el navegador haga
-         * su scroll normal.
-         */
-
         event.preventDefault();
-
-
-        /*
-         * Si todavía estamos dentro del
-         * mismo gesto de scroll, ignoramos
-         * todos los eventos siguientes.
-         */
 
         if (
             verticalLocked ||
@@ -2472,49 +2424,50 @@ window.addEventListener(
             return;
         }
 
-
-        /*
-         * Determinamos la dirección UNA SOLA VEZ.
-         */
-
         if (event.deltaY > 0) {
 
+            console.log(
+                "SCROLL DOWN:",
+                currentSection,
+                "→",
+                currentSection + 1
+            );
+
             showVerticalSection(
-                currentSection + 1,
-                "down"
+                currentSection + 1
             );
 
         }
 
         else if (event.deltaY < 0) {
 
+            console.log(
+                "SCROLL UP:",
+                currentSection,
+                "→",
+                currentSection - 1
+            );
+
             showVerticalSection(
-                currentSection - 1,
-                "up"
+                currentSection - 1
             );
 
         }
 
         else {
-
             return;
         }
 
 
         /*
-         * Bloqueamos nuevos gestos de rueda.
-         *
-         * Esto evita que la inercia del trackpad
-         * sea interpretada como otro scroll.
+         * Bloqueamos el resto del gesto
          */
 
         wheelCooldown = true;
 
-
         clearTimeout(
             wheelCooldownTimer
         );
-
 
         wheelCooldownTimer = setTimeout(
             () => {
@@ -2530,7 +2483,6 @@ window.addEventListener(
         passive: false
     }
 );
-
 
 /* =========================================================
    KEYBOARD
@@ -2551,9 +2503,7 @@ window.addEventListener(
         ) {
 
             showVerticalSection(
-                currentSection + 1,
-                "down"
-            );
+                currentSection + 1);
         }
 
 
@@ -2563,9 +2513,7 @@ window.addEventListener(
         ) {
 
             showVerticalSection(
-                currentSection - 1,
-                "up"
-            );
+                currentSection - 1);
         }
 
     }
