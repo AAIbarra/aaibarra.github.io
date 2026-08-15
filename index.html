@@ -2018,9 +2018,6 @@ function finishIntro() {
 
     typingFinished = true;
 
-    changeSectionAudio(0);
-
-
     clearTimeout(typingTimer);
 
     /*
@@ -2208,6 +2205,7 @@ const AUDIO_FADE_TIME = 800;
 const AUDIO_MAX_VOLUME = 1;
 
 let audioFadeTimers = [];
+let audioTransitionId = 0;
 
 function fadeAudio(audio, targetVolume, duration) {
 
@@ -2248,35 +2246,51 @@ function fadeAudio(audio, targetVolume, duration) {
 
 function changeSectionAudio(newIndex) {
 
+    audioTransitionId++;
+
+    const transitionId = audioTransitionId;
+
+    // Primero apagamos todos los audios actuales
     sectionAudios.forEach((audio, index) => {
 
         if (!audio) return;
 
-        if (index === newIndex) {
-
-            audio.volume = 0;
-
-            audio.play().catch(() => {});
-
-            fadeAudio(
-                audio,
-                AUDIO_MAX_VOLUME,
-                AUDIO_FADE_TIME
-            );
-
-        } else {
+        if (index !== newIndex) {
 
             fadeAudio(
                 audio,
                 0,
                 AUDIO_FADE_TIME
             );
+        }
+    });
 
+
+    // Esperamos 500 ms antes de iniciar el nuevo
+    setTimeout(() => {
+
+        // Si durante estos 500 ms el usuario cambió
+        // nuevamente de sección, cancelamos esta transición.
+        if (transitionId !== audioTransitionId) {
+            return;
         }
 
-    });
-}
+        const newAudio = sectionAudios[newIndex];
 
+        if (!newAudio) return;
+
+        newAudio.volume = 0;
+
+        newAudio.play().catch(() => {});
+
+        fadeAudio(
+            newAudio,
+            AUDIO_MAX_VOLUME,
+            AUDIO_FADE_TIME
+        );
+
+    }, 500);
+}
 
 /* =========================================================
    PREPARAR ESTADO INICIAL
