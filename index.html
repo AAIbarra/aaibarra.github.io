@@ -433,6 +433,8 @@
 
             overflow: visible;
 
+            touch-action: none;
+
         }
 
 
@@ -2533,8 +2535,9 @@ function showVerticalSection(newIndex) {
    MOUSE WHEEL
    ========================================================= */
 
+let touchStartX = 0;
 let touchStartY = 0;
-let touchEndY = 0;
+let touchTarget = null;
 
 const SWIPE_THRESHOLD = 50;
 
@@ -2585,7 +2588,12 @@ window.addEventListener("touchstart", (event) => {
         return;
     }
 
-    touchStartY = event.touches[0].clientY;
+    const touch = event.touches[0];
+
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+
+    touchTarget = event.target;
 
 });
 
@@ -2595,15 +2603,61 @@ window.addEventListener("touchend", (event) => {
         return;
     }
 
-    touchEndY = event.changedTouches[0].clientY;
+    const touch = event.changedTouches[0];
 
-    const distance = touchStartY - touchEndY;
+    const deltaX = touch.clientX - touchStartX;
+    const deltaY = touch.clientY - touchStartY;
 
-    if (Math.abs(distance) < SWIPE_THRESHOLD) {
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+
+    if (Math.max(absX, absY) < SWIPE_THRESHOLD) {
         return;
     }
 
-    if (distance > 0) {
+    /*
+     * SWIPE HORIZONTAL
+     */
+    if (absX > absY) {
+
+        const carousel = touchTarget.closest(".carousel-wrapper");
+
+        if (!carousel) {
+            return;
+        }
+
+        const section = carousel.closest(".portfolio-section");
+
+        if (!section) {
+            return;
+        }
+
+        const carouselIndex =
+            Array.from(projects).indexOf(section);
+
+        if (carouselIndex === -1) {
+            return;
+        }
+
+        if (deltaX < 0) {
+
+            // Swipe hacia la izquierda → siguiente imagen
+            moveCarousel(carouselIndex, 1);
+
+        } else {
+
+            // Swipe hacia la derecha → imagen anterior
+            moveCarousel(carouselIndex, -1);
+
+        }
+
+        return;
+    }
+
+    /*
+     * SWIPE VERTICAL
+     */
+    if (deltaY < 0) {
 
         // Swipe hacia arriba → siguiente sección
         showVerticalSection(currentSection + 1);
