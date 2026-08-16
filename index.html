@@ -140,6 +140,40 @@
 
         }
 
+                /* =========================================================
+           AUDIO SETTINGS FOR USER CSS
+        ========================================================= */
+
+        #audio-control {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    z-index: 1000;
+}
+
+#audio-toggle {
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+#audio-volume {
+    width: 90px;
+    cursor: pointer;
+}
 
         /* =========================================================
            CURSOR
@@ -1045,6 +1079,28 @@
 
 <body>
 
+        <!-- =========================================================
+         AUDIO SETTINGS FOR USER
+    ========================================================= -->
+<div id="audio-control">
+
+    <button
+        id="audio-toggle"
+        type="button"
+        aria-label="Mute audio">
+        🔊
+    </button>
+
+    <input
+        id="audio-volume"
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1"
+        aria-label="Volume">
+
+</div>
 
     <!-- =========================================================
          INTRO
@@ -2151,7 +2207,9 @@ const sectionAudios = verticalSections.map(section =>
 );
 
 const AUDIO_FADE_TIME = 800;
-const AUDIO_MAX_VOLUME = 1;
+
+let audioUserVolume = 1;
+let previousAudioVolume = 1;
 
 let audioTransitionId = 0;
 
@@ -2227,28 +2285,122 @@ function changeSectionAudio(newIndex) {
 
         if (!newAudio) return;
 
-        newAudio.volume = 0;
+newAudio.volume = 0;
 
-        newAudio.play().catch(() => {});
+newAudio.play().catch(() => {});
 
-        fadeAudio(
-            newAudio,
-            AUDIO_MAX_VOLUME,
-            AUDIO_FADE_TIME
-        );
-
+fadeAudio(
+    newAudio,
+    audioUserVolume,
+    AUDIO_FADE_TIME
+);
     }, 500);
 }
 
 const introAudio = sectionAudios[0];
 
 if (introAudio) {
-    introAudio.volume = AUDIO_MAX_VOLUME;
+    introAudio.volume = audioUserVolume;
 
     introAudio.play().catch(() => {
         // El navegador puede bloquear autoplay hasta que haya interacción.
     });
 }
+/* =========================================================
+   AUDIO SETTINGS FOR USER
+========================================================= */
+
+const allAudio =
+    document.querySelectorAll("audio");
+
+const audioToggle =
+    document.getElementById("audio-toggle");
+
+const audioVolume =
+    document.getElementById("audio-volume");
+
+
+/* =========================================================
+   VOLUME CONTROL
+========================================================= */
+
+audioVolume.addEventListener("input", () => {
+
+    audioUserVolume =
+        Number(audioVolume.value);
+
+    if (audioUserVolume > 0) {
+
+        previousAudioVolume =
+            audioUserVolume;
+
+    }
+
+    allAudio.forEach(audio => {
+
+        audio.volume =
+            audioUserVolume;
+
+    });
+
+
+    if (audioUserVolume === 0) {
+
+        audioToggle.textContent = "🔇";
+
+    } else {
+
+        audioToggle.textContent = "🔊";
+
+    }
+
+});
+
+
+/* =========================================================
+   MUTE / UNMUTE
+========================================================= */
+
+audioToggle.addEventListener("click", () => {
+
+    if (audioUserVolume === 0) {
+
+        audioUserVolume =
+            previousAudioVolume;
+
+        audioVolume.value =
+            audioUserVolume;
+
+        allAudio.forEach(audio => {
+
+            audio.volume =
+                audioUserVolume;
+
+        });
+
+        audioToggle.textContent = "🔊";
+
+        return;
+    }
+
+
+    previousAudioVolume =
+        audioUserVolume;
+
+    audioUserVolume = 0;
+
+    audioVolume.value = 0;
+
+    allAudio.forEach(audio => {
+
+        audio.volume = 0;
+
+    });
+
+    audioToggle.textContent = "🔇";
+
+});
+
 
 /* =========================================================
    PREPARAR ESTADO INICIAL
@@ -2532,7 +2684,7 @@ function showVerticalSection(newIndex) {
 }
 
 /* =========================================================
-   MOUSE WHEEL
+   TOUCH PAD CELULAR & MOUSE WHEEL
    ========================================================= */
 
 let touchStartX = 0;
