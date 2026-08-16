@@ -175,6 +175,15 @@
     cursor: pointer;
 }
 
+#audio-control {
+    touch-action: auto;
+}
+
+#audio-toggle,
+#audio-volume {
+    touch-action: auto;
+}
+
         /* =========================================================
            CURSOR
         ========================================================= */
@@ -2211,6 +2220,8 @@ const AUDIO_FADE_TIME = 800;
 let audioUserVolume = 1;
 let previousAudioVolume = 1;
 
+let audioUnlocked = false;
+
 let audioTransitionId = 0;
 
 function fadeAudio(audio, targetVolume, duration) {
@@ -2249,6 +2260,37 @@ function fadeAudio(audio, targetVolume, duration) {
     requestAnimationFrame(update);
 }
 
+function unlockAudio() {
+
+    if (audioUnlocked) {
+        return;
+    }
+
+    const introAudio = sectionAudios[0];
+
+    if (!introAudio) {
+        return;
+    }
+
+    introAudio.muted = true;
+
+    introAudio.play()
+        .then(() => {
+
+            introAudio.pause();
+            introAudio.currentTime = 0;
+            introAudio.muted = false;
+
+            audioUnlocked = true;
+
+        })
+        .catch(() => {
+
+            // El navegador todavía no permitió reproducir audio.
+
+        });
+
+}
 
 function changeSectionAudio(newIndex) {
 
@@ -2326,6 +2368,8 @@ const audioVolume =
 
 audioVolume.addEventListener("input", () => {
 
+    unlockAudio();
+
     audioUserVolume =
         Number(audioVolume.value);
 
@@ -2362,6 +2406,8 @@ audioVolume.addEventListener("input", () => {
 ========================================================= */
 
 audioToggle.addEventListener("click", () => {
+
+    unlockAudio();
 
     if (audioUserVolume === 0) {
 
@@ -2702,6 +2748,8 @@ let wheelCooldownTimer = null;
 
 intro.addEventListener("touchstart", (event) => {
 
+    unlockAudio();
+
     if (typingFinished) {
         return;
     }
@@ -2736,7 +2784,13 @@ intro.addEventListener("touchend", () => {
 
 window.addEventListener("touchstart", (event) => {
 
+    unlockAudio();
+
     if (!typingFinished) {
+        return;
+    }
+
+        if (event.target.closest("#audio-control")) {
         return;
     }
 
@@ -2752,6 +2806,10 @@ window.addEventListener("touchstart", (event) => {
 window.addEventListener("touchend", (event) => {
 
     if (!typingFinished) {
+        return;
+    }
+
+        if (event.target.closest("#audio-control")) {
         return;
     }
 
