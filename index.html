@@ -2537,10 +2537,47 @@ let touchStartY = 0;
 let touchEndY = 0;
 
 const SWIPE_THRESHOLD = 50;
+
+let lastTapTime = 0;
+const DOUBLE_TAP_DELAY = 350;
    
 let wheelCooldown = false;
 
 let wheelCooldownTimer = null;
+
+intro.addEventListener("touchstart", (event) => {
+
+    if (typingFinished) {
+        return;
+    }
+
+    const now = Date.now();
+
+    if (now - lastTapTime < DOUBLE_TAP_DELAY) {
+        finishTypingImmediately();
+        lastTapTime = 0;
+        return;
+    }
+
+    lastTapTime = now;
+
+    mouseHeld = true;
+
+    if (!typingStarted) {
+        startTyping();
+    }
+
+});
+
+intro.addEventListener("touchend", () => {
+
+    if (typingFinished) {
+        return;
+    }
+
+    mouseHeld = false;
+
+});
 
 window.addEventListener("touchstart", (event) => {
 
