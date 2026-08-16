@@ -2224,38 +2224,109 @@ let audioUnlocked = false;
 
 let audioTransitionId = 0;
 
-function fadeAudio(audio, targetVolume, duration) {
+const audioFadeLevels = new WeakMap();
+
+function fadeAudio(
+    audio,
+    targetLevel,
+    duration,
+    pauseWhenFinished = false,
+    transitionId = audioTransitionId
+) {
 
     if (!audio) return;
 
-    const startVolume = audio.volume;
-    const difference = targetVolume - startVolume;
-    const startTime = performance.now();
+    const startLevel =
+        audioFadeLevels.get(audio) ?? 1;
+
+    const difference =
+        targetLevel - startLevel;
+
+    const startTime =
+        performance.now();
+
+    audioFadeLevels.set(
+        audio,
+        startLevel
+    );
+
 
     function update() {
 
-        const elapsed = performance.now() - startTime;
-        const progress = Math.min(
-            elapsed / duration,
-            1
-        );
+        /*
+         * Si comenzó una nueva transición,
+         * este fade ya no tiene autoridad.
+         */
+        if (
+            transitionId !==
+            audioTransitionId
+        ) {
+            return;
+        }
 
-        audio.volume =
-            startVolume +
+
+        const elapsed =
+            performance.now() - startTime;
+
+        const progress =
+            Math.min(
+                elapsed / duration,
+                1
+            );
+
+
+        const currentLevel =
+            startLevel +
             difference * progress;
 
+
+        audioFadeLevels.set(
+            audio,
+            currentLevel
+        );
+
+
+        /*
+         * El volumen audible es:
+         *
+         * nivel del fade × volumen del usuario
+         */
+        audio.volume =
+            currentLevel *
+            audioUserVolume;
+
+
         if (progress < 1) {
-            requestAnimationFrame(update);
+
+            requestAnimationFrame(
+                update
+            );
+
         } else {
 
-            audio.volume = targetVolume;
+            audioFadeLevels.set(
+                audio,
+                targetLevel
+            );
 
-            if (targetVolume === 0) {
+            audio.volume =
+                targetLevel *
+                audioUserVolume;
+
+
+            if (
+                targetLevel === 0 &&
+                pauseWhenFinished
+            ) {
+
                 audio.pause();
                 audio.currentTime = 0;
+
             }
+
         }
     }
+
 
     requestAnimationFrame(update);
 }
@@ -2296,58 +2367,86 @@ function changeSectionAudio(newIndex) {
 
     audioTransitionId++;
 
-    const transitionId = audioTransitionId;
+    const transitionId =
+        audioTransitionId;
 
-    // Primero apagamos todos los audios actuales
-    sectionAudios.forEach((audio, index) => {
 
-        if (!audio) return;
+    /*
+     * Apagamos todos los audios
+     * que no pertenecen a la nueva sección.
+     */
+    sectionAudios.forEach(
+        (audio, index) => {
 
-        if (index !== newIndex) {
+            if (!audio) return;
 
-            fadeAudio(
-                audio,
-                0,
-                AUDIO_FADE_TIME
-            );
+            if (index !== newIndex) {
+
+                fadeAudio(
+                    audio,
+                    0,
+                    AUDIO_FADE_TIME,
+                    true,
+                    transitionId
+                );
+
+            }
+
         }
-    });
+    );
 
 
-    // Esperamos 500 ms antes de iniciar el nuevo
-    setTimeout(() => {
+    const newAudio =
+        sectionAudios[newIndex];
 
-        // Si durante estos 500 ms el usuario cambió
-        // nuevamente de sección, cancelamos esta transición.
-        if (transitionId !== audioTransitionId) {
+    if (!newAudio) return;
+
+
+    /*
+     * El nuevo audio empieza
+     * SIEMPRE desde el principio.
+     */
+    newAudio.currentTime = 0;
+
+    audioFadeLevels.set(
+        newAudio,
+        0
+    );
+
+    newAudio.volume = 0;
+
+
+    /*
+     * El audio comienza aunque
+     * el usuario esté muteado.
+     */
+    newAudio.play().catch(() => {});
+
+
+    /*
+     * Fade IN.
+     */
+    requestAnimationFrame(() => {
+
+        if (
+            transitionId !==
+            audioTransitionId
+        ) {
             return;
         }
 
-        const newAudio = sectionAudios[newIndex];
+        fadeAudio(
+            newAudio,
+            1,
+            AUDIO_FADE_TIME,
+            false,
+            transitionId
+        );
 
-        if (!newAudio) return;
-
-newAudio.volume = 0;
-
-newAudio.play().catch(() => {});
-
-fadeAudio(
-    newAudio,
-    audioUserVolume,
-    AUDIO_FADE_TIME
-);
-    }, 500);
-}
-
-const introAudio = sectionAudios[0];
-
-if (introAudio) {
-    introAudio.volume = audioUserVolume;
-
-    introAudio.play().catch(() => {
-        // El navegador puede bloquear autoplay hasta que haya interacción.
     });
+
 }
+
 /* =========================================================
    AUDIO SETTINGS FOR USER
 ========================================================= */
@@ -2366,86 +2465,139 @@ const audioVolume =
    VOLUME CONTROL
 ========================================================= */
 
-audioVolume.addEventListener("input", () => {
+audioVolume.addEventListener(
+    "input",
+    () => {
 
-    unlockAudio();
+        audioUserVolume =
+            Number(
+                audioVolume.value
+            );
 
-    audioUserVolume =
-        Number(audioVolume.value);
 
-    if (audioUserVolume > 0) {
+        if (audioUserVolume > 0) {
 
-        previousAudioVolume =
-            audioUserVolume;
+            previousAudioVolume =
+                audioUserVolume;
+
+        }
+
+
+        /*
+         * Actualizamos solamente
+         * el volumen audible.
+         *
+         * NO tocamos play/pause.
+         * NO tocamos currentTime.
+         */
+        sectionAudios.forEach(
+            audio => {
+
+                if (!audio) return;
+
+                const fadeLevel =
+                    audioFadeLevels.get(
+                        audio
+                    ) ?? 0;
+
+                audio.volume =
+                    fadeLevel *
+                    audioUserVolume;
+
+            }
+        );
+
+
+        if (audioUserVolume === 0) {
+
+            audioToggle.textContent =
+                "🔇";
+
+        } else {
+
+            audioToggle.textContent =
+                "🔊";
+
+        }
 
     }
-
-    allAudio.forEach(audio => {
-
-        audio.volume =
-            audioUserVolume;
-
-    });
-
-
-    if (audioUserVolume === 0) {
-
-        audioToggle.textContent = "🔇";
-
-    } else {
-
-        audioToggle.textContent = "🔊";
-
-    }
-
-});
+);
 
 
 /* =========================================================
    MUTE / UNMUTE
 ========================================================= */
 
-audioToggle.addEventListener("click", () => {
+audioToggle.addEventListener(
+    "click",
+    () => {
 
-    unlockAudio();
+        /*
+         * DESMUTE
+         */
+        if (audioUserVolume === 0) {
 
-    if (audioUserVolume === 0) {
+            audioUserVolume =
+                previousAudioVolume;
 
-        audioUserVolume =
-            previousAudioVolume;
 
-        audioVolume.value =
-            audioUserVolume;
-
-        allAudio.forEach(audio => {
-
-            audio.volume =
+            audioVolume.value =
                 audioUserVolume;
 
-        });
 
-        audioToggle.textContent = "🔊";
+            sectionAudios.forEach(
+                audio => {
 
-        return;
+                    if (!audio) return;
+
+                    const fadeLevel =
+                        audioFadeLevels.get(
+                            audio
+                        ) ?? 0;
+
+                    audio.volume =
+                        fadeLevel *
+                        audioUserVolume;
+
+                }
+            );
+
+
+            audioToggle.textContent =
+                "🔊";
+
+            return;
+        }
+
+
+        /*
+         * MUTE
+         */
+
+        previousAudioVolume =
+            audioUserVolume;
+
+        audioUserVolume = 0;
+
+        audioVolume.value = 0;
+
+
+        sectionAudios.forEach(
+            audio => {
+
+                if (!audio) return;
+
+                audio.volume = 0;
+
+            }
+        );
+
+
+        audioToggle.textContent =
+            "🔇";
+
     }
-
-
-    previousAudioVolume =
-        audioUserVolume;
-
-    audioUserVolume = 0;
-
-    audioVolume.value = 0;
-
-    allAudio.forEach(audio => {
-
-        audio.volume = 0;
-
-    });
-
-    audioToggle.textContent = "🔇";
-
-});
+);
 
 
 /* =========================================================
