@@ -144,7 +144,7 @@
            AUDIO SETTINGS FOR USER CSS
         ========================================================= */
 
-        #audio-control {
+    #audio-control {
     position: fixed;
     top: 20px;
     right: 24px;
@@ -154,6 +154,7 @@
     gap: 8px;
 
     z-index: 1000;
+    touch-action: auto;
 }
 
 #audio-toggle {
@@ -173,10 +174,6 @@
 #audio-volume {
     width: 90px;
     cursor: pointer;
-}
-
-#audio-control {
-    touch-action: auto;
 }
 
 #audio-toggle,
@@ -415,46 +412,97 @@
            PROJECT CONTAINER
         ========================================================= */
 
-        .project-container {
+.project-container {
+    width: 100%;
+    max-width: 1150px;
 
-            width: 100%;
+    height: 100%;
 
-            max-width: 1150px;
+    display: flex;
+    flex-direction: column;
 
-            text-align: left;
+    justify-content: center;
 
-        }
+    box-sizing: border-box;
 
-
-        /* =========================================================
-           TITLE
-        ========================================================= */
-
-        .project-title {
-
-            margin: 0 0 8px;
-
-            font-size: 2.4em;
-
-            font-weight: 500;
-
-            letter-spacing: 0.5px;
-
-        }
+    text-align: left;
+}
 
 
-        .project-subtitle {
+/* =========================================================
+   PROJECT HEADER
+========================================================= */
 
-            margin: 0 0 35px;
+.project-header {
+    flex-shrink: 0;
+    margin-bottom: 12px;
+}
 
-            color: #888888;
 
-            font-size: 1em;
+/* =========================================================
+   PROJECT TITLE
+========================================================= */
 
-            line-height: 1.5;
+.project-title {
+    margin: 0 0 6px;
 
-        }
+    font-size: 2.4em;
+    font-weight: 500;
 
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   PROJECT SUBTITLE
+========================================================= */
+
+.project-subtitle {
+    margin: 0;
+
+    color: #888888;
+
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   PROJECT INFO
+========================================================= */
+
+.project-info {
+    width: 100%;
+    max-width: 900px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   PROJECT DESCRIPTION
+========================================================= */
+
+.project-description {
+    margin: 0;
+
+    max-width: none;
+
+    padding: 0;
+
+    font-size: 1em;
+    line-height: 1.6;
+
+    color: #b0b0b0;
+
+    text-align: left;
+}
+/* =========================================================
+   PROJECT GALLERY
+========================================================= */
+
+.project-gallery {
+    width: 100%;
+}
 
         /* =========================================================
            COVERFLOW CAROUSEL
@@ -466,7 +514,7 @@
 
             width: 100%;
 
-            height: 480px;
+            height: 320px;
 
             display: flex;
 
@@ -487,7 +535,7 @@
 
             width: 100%;
 
-            height: 480px;
+            height: 320px;
         }
 
 
@@ -502,8 +550,8 @@
             top: 50%;
             left: 50%;
 
-            width: 854px;
-            height: 480px;
+            width: 570px;
+            height: 320px;
 
             background: #111111;
 
@@ -570,7 +618,7 @@
 
             transform:
                 translate(
-                    calc(-50% - 470px),
+                    calc(-50% - 330px),
                     -50%
                 )
                 scale(0.65);
@@ -593,7 +641,7 @@
 
             transform:
                 translate(
-                    calc(-50% + 470px),
+                    calc(-50% + 330px),
                     -50%
                 )
                 scale(0.65);
@@ -616,7 +664,7 @@
 
             transform:
                 translate(
-                    calc(-50% - 900px),
+                    calc(-50% - 700px),
                     -50%
                 )
                 scale(0.45);
@@ -632,7 +680,7 @@
 
             transform:
                 translate(
-                    calc(-50% + 900px),
+                    calc(-50% + 700px),
                     -50%
                 )
                 scale(0.45);
@@ -795,7 +843,7 @@
 
             gap: 10px;
 
-            margin-top: 18px;
+            margin-top: 14px;
 
         }
 
@@ -830,25 +878,53 @@
         }
 
 
-        /* =========================================================
-           DESCRIPTION
-        ========================================================= */
+/* =========================================================
+   PROJECT INFO
+========================================================= */
 
-        .project-description {
+.project-info {
 
-            max-width: 854px;
+    width: 100%;
 
-            margin: 28px auto 0;
+    max-width: 900px;
 
-            color: #999999;
+    margin-bottom: 25px;
 
-            font-size: 0.98em;
+}
 
-            line-height: 1.6;
 
-            text-align: left;
+/* =========================================================
+   DESCRIPTION
+========================================================= */
 
-        }
+.project-description {
+
+    margin: 0;
+
+    max-width: none;
+
+    padding: 0;
+
+    color: #b0b0b0;
+
+    font-size: 1em;
+
+    line-height: 1.6;
+
+    text-align: left;
+
+}
+
+
+/* =========================================================
+   PROJECT GALLERY
+========================================================= */
+
+.project-gallery {
+
+    width: 100%;
+
+}
 
 
         /* =========================================================
@@ -876,7 +952,7 @@
 
                 height:
                     min(
-                        480px,
+                        320px,
                         calc(
                             (100vw - 80px)
                             * 0.5625
@@ -890,7 +966,7 @@
 
                 height:
                     min(
-                        480px,
+                        320px,
                         calc(
                             (100vw - 80px)
                             * 0.5625
@@ -904,7 +980,7 @@
 
                 width:
                     min(
-                        854px,
+                        570px,
                         calc(
                             100vw - 80px
                         )
@@ -912,7 +988,7 @@
 
                 height:
                     min(
-                        480px,
+                        320px,
                         calc(
                             (100vw - 80px)
                             * 0.5625
@@ -926,7 +1002,7 @@
 
                 transform:
                     translate(
-                        calc(-50% - 350px),
+                        calc(-50% - 330px),
                         -50%
                     )
                     scale(0.6);
@@ -938,7 +1014,7 @@
 
                 transform:
                     translate(
-                        calc(-50% + 350px),
+                        calc(-50% + 330px),
                         -50%
                     )
                     scale(0.6);
@@ -1190,29 +1266,49 @@
         loop>
         </audio>
 
-            <div class="project-container">
+            <div class="project-container project-layout">
 
+    <!-- =========================
+    PROJECT HEADER
+    ========================== -->
 
-                <h2 class="project-title">
+<div class="project-header">
 
-                    FOAM TRAVELER GO!
+        <h2 class="project-title">
+            FOAM TRAVELER GO!
+        </h2>
 
-                </h2>
+        <p class="project-subtitle">
+            2D Narrative Exploration / Puzzle
+            · Unity · C# · Narrative Design
+            · Localization
+        </p>
 
+    </div>
 
-                <p class="project-subtitle">
+  <!-- =========================
+    PROJECT DESCRIPTION
+    ========================== -->
 
-                    2D Narrative Exploration / Puzzle
-                    · Unity · C# · Narrative Design
-                    · Localization
+    <div class="project-info">
 
-                </p>
+        <p class="project-description">
 
+            DESCRIPTION OF PROJECT 1 GOES HERE.
+            This is where the project description will go.
+            We can later use this space to explain your role,
+            narrative design, Unity development,
+            localization, systems, dialogue and other work.
 
+        </p>
+
+    </div>
 
                 <!-- =========================
                      CAROUSEL
                 ========================== -->
+
+            <div class="project-gallery">
 
                 <div class="carousel-wrapper">
 
@@ -1275,7 +1371,7 @@
                         <div
                             class="carousel-slide hidden-right"
                             data-index="3"
-                            onclick="selectSlide(0, 2)">
+                            onclick="selectSlide(0, 3)">
 
                             <img
                                 src="images/p1/ViñetaExpulsado.png"
@@ -1288,7 +1384,7 @@
                         <div
                             class="carousel-slide hidden-right"
                             data-index="4"
-                            onclick="selectSlide(0, 2)">
+                            onclick="selectSlide(0, 4)">
 
                             <img
                                 src="images/p1/VeMatafuegos.png"
@@ -1301,7 +1397,7 @@
                         <div
                             class="carousel-slide hidden-right"
                             data-index="5"
-                            onclick="selectSlide(0, 2)">
+                            onclick="selectSlide(0, 5)">
 
                             <img
                                 src="images/p1/lets-do-this.png"
@@ -1314,7 +1410,7 @@
                         <div
                             class="carousel-slide hidden-right"
                             data-index="6"
-                            onclick="selectSlide(0, 2)">
+                            onclick="selectSlide(0, 6)">
 
                             <img
                                 src="images/p1/Pausa.png"
@@ -1327,7 +1423,7 @@
                         <div
                             class="carousel-slide hidden-right"
                             data-index="7"
-                            onclick="selectSlide(0, 2)">
+                            onclick="selectSlide(0, 7)">
 
                             <img
                                 src="images/p1/MenuFogata.png"
@@ -1341,7 +1437,7 @@
                         <div
                             class="carousel-slide hidden-right"
                             data-index="8"
-                            onclick="selectSlide(0, 3)">
+                            onclick="selectSlide(0, 8)">
 
                             <div class="placeholder">
 
@@ -1437,23 +1533,8 @@
 
                 </div>
 
-
-
-                <!-- DESCRIPTION -->
-
-                <p class="project-description">
-
-                    DESCRIPTION OF PROJECT 1 GOES HERE.
-                    This is where the project description will go.
-                    We can later use this space to explain your role,
-                    narrative design, Unity development,
-                    localization, systems, dialogue and other work.
-
-                </p>
-
-
             </div>
-
+        </div>
 
         </section>
 
@@ -1480,7 +1561,13 @@
         loop>
         </audio>
 
-            <div class="project-container">
+<div class="project-container project-layout">
+
+    <!-- =========================
+    PROJECT HEADER
+    ========================== -->
+
+    <div class="project-header">
 
                 <h2 class="project-title">
 
@@ -1496,8 +1583,30 @@
                     · TECHNOLOGIES
 
                 </p>
+    </div>
+  <!-- =========================
+    PROJECT DESCRIPTION
+    ========================== -->
 
+    <div class="project-info">
 
+        <p class="project-description">
+
+            DESCRIPTION OF PROJECT 1 GOES HERE.
+            This is where the project description will go.
+            We can later use this space to explain your role,
+            narrative design, Unity development,
+            localization, systems, dialogue and other work.
+
+        </p>
+
+    </div>
+
+    <!-- =========================
+    CAROUSEL
+    ========================== -->
+
+    <div class="project-gallery">
 
                 <div class="carousel-wrapper">
 
@@ -1601,9 +1710,9 @@
 
 
                 </div>
+            </div>
 
-
-
+  <!-- DOTS -->
                 <div
                     class="carousel-dots"
                     id="dots-1">
@@ -1657,16 +1766,9 @@
 
                 </div>
 
-                <p class="project-description">
-
-                    DESCRIPTION OF PROJECT 2 GOES HERE.
-
-                </p>
-
-
             </div>
-
-
+        </div>
+    </div>
         </section>
 
 
@@ -1675,179 +1777,238 @@
              PROJECT 3
         ===================================================== -->
 
-        <section
-            class="portfolio-section"
-            data-project="2">
+<!-- =====================================================
+PROJECT 3
+===================================================== -->
 
-   <!-- FONDO DE P3 -->
+<section
+    class="portfolio-section"
+    data-project="2">
+
+    <!-- FONDO DE P3 -->
+
     <div class="section-background">
-        <img src="images/p3-bg.jpg" alt="">
+
+        <img
+            src="images/p3-bg.jpg"
+            alt="">
+
     </div>
 
-        <!-- AUDIO DE P3 -->
-        <audio
+
+    <!-- AUDIO DE P3 -->
+
+    <audio
         class="section-audio"
         src="sounds/p3.mp3"
         preload="auto"
         loop>
-        </audio>
-
-            <div class="project-container">
+    </audio>
 
 
-                <h2 class="project-title">
+    <!-- PROJECT CONTAINER -->
 
-                    PROJECT TITLE 3
-
-                </h2>
+    <div class="project-container project-layout">
 
 
-                <p class="project-subtitle">
+        <!-- =========================
+        PROJECT HEADER
+        ========================== -->
 
-                    PROJECT TYPE
-                    · ROLE
-                    · TECHNOLOGIES
+        <div class="project-header">
 
-                </p>
+            <h2 class="project-title">
 
+                PROJECT TITLE 3
 
-
-                <div class="carousel-wrapper">
-
-
-                    <button
-                        class="carousel-button prev"
-                        onclick="moveCarousel(2, -1)">
-
-                        ←
-
-                    </button>
+            </h2>
 
 
+            <p class="project-subtitle">
 
-                    <div class="carousel-stage">
+                PROJECT TYPE
+                · ROLE
+                · TECHNOLOGIES
 
+            </p>
 
-                        <div
-                            class="carousel-slide center"
-                            data-index="0"
-                            onclick="selectSlide(2, 0)">
-
-                            <div class="placeholder">
-
-                                IMAGEN 1
-
-                            </div>
-
-                        </div>
+        </div>
 
 
-                        <div
-                            class="carousel-slide next"
-                            data-index="1"
-                            onclick="selectSlide(2, 1)">
+        <!-- =========================
+        PROJECT DESCRIPTION
+        ========================== -->
 
-                            <div class="placeholder">
+        <div class="project-info">
 
-                                IMAGEN 2
+            <p class="project-description">
 
-                            </div>
+                DESCRIPTION OF PROJECT 3 GOES HERE.
+                This is where the project description will go.
+                Here we can explain what the project is,
+                what my role was, the systems I worked on,
+                design decisions, development, narrative,
+                localization or any other relevant work.
 
-                        </div>
+            </p>
 
-
-                        <div
-                            class="carousel-slide hidden-right"
-                            data-index="2"
-                            onclick="selectSlide(2, 2)">
-
-                            <div class="placeholder">
-
-                                IMAGEN 3
-
-                            </div>
-
-                        </div>
+        </div>
 
 
-                        <div
-                            class="carousel-slide hidden-right"
-                            data-index="3"
-                            onclick="selectSlide(2, 3)">
+        <!-- =========================
+        PROJECT GALLERY
+        ========================== -->
 
-                            <div class="placeholder">
-
-                                VIDEO
-
-                            </div>
-
-                        </div>
+        <div class="project-gallery">
 
 
-                    </div>
+            <!-- =========================
+            CAROUSEL
+            ========================== -->
+
+            <div class="carousel-wrapper">
 
 
+                <!-- PREVIOUS -->
 
-                    <button
-                        class="carousel-button next"
-                        onclick="moveCarousel(2, 1)">
+                <button
+                    class="carousel-button prev"
+                    onclick="moveCarousel(2, -1)">
 
-                        →
+                    ←
 
-                    </button>
-
-
-                </div>
+                </button>
 
 
+                <!-- STAGE -->
 
-                <div
-                    class="carousel-dots"
-                    id="dots-2">
+                <div class="carousel-stage">
 
+
+                    <!-- IMAGEN 1 -->
 
                     <div
-                        class="carousel-dot active"
+                        class="carousel-slide center"
+                        data-index="0"
                         onclick="selectSlide(2, 0)">
+
+                        <div class="placeholder">
+
+                            IMAGEN 1
+
+                        </div>
+
                     </div>
 
 
+                    <!-- IMAGEN 2 -->
+
                     <div
-                        class="carousel-dot"
+                        class="carousel-slide next"
+                        data-index="1"
                         onclick="selectSlide(2, 1)">
+
+                        <div class="placeholder">
+
+                            IMAGEN 2
+
+                        </div>
+
                     </div>
 
 
+                    <!-- IMAGEN 3 -->
+
                     <div
-                        class="carousel-dot"
+                        class="carousel-slide hidden-right"
+                        data-index="2"
                         onclick="selectSlide(2, 2)">
+
+                        <div class="placeholder">
+
+                            IMAGEN 3
+
+                        </div>
+
                     </div>
 
 
+                    <!-- VIDEO -->
+
                     <div
-                        class="carousel-dot"
+                        class="carousel-slide hidden-right"
+                        data-index="3"
                         onclick="selectSlide(2, 3)">
+
+                        <div class="placeholder">
+
+                            VIDEO
+
+                        </div>
+
                     </div>
 
 
                 </div>
 
 
+                <!-- NEXT -->
 
-                <p class="project-description">
+                <button
+                    class="carousel-button next"
+                    onclick="moveCarousel(2, 1)">
 
-                    DESCRIPTION OF PROJECT 3 GOES HERE.
+                    →
 
-                </p>
+                </button>
 
 
             </div>
 
 
-        </section>
+            <!-- =========================
+            DOTS
+            ========================== -->
+
+            <div
+                class="carousel-dots"
+                id="dots-2">
 
 
-    </main>
+                <div
+                    class="carousel-dot active"
+                    onclick="selectSlide(2, 0)">
+                </div>
+
+
+                <div
+                    class="carousel-dot"
+                    onclick="selectSlide(2, 1)">
+                </div>
+
+
+                <div
+                    class="carousel-dot"
+                    onclick="selectSlide(2, 2)">
+                </div>
+
+
+                <div
+                    class="carousel-dot"
+                    onclick="selectSlide(2, 3)">
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
 
 
 
@@ -2561,9 +2722,6 @@ function changeSectionAudio(newIndex) {
 /* =========================================================
    AUDIO SETTINGS FOR USER
 ========================================================= */
-
-const allAudio =
-    document.querySelectorAll("audio");
 
 const audioToggle =
     document.getElementById("audio-toggle");
