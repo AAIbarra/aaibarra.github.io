@@ -417,10 +417,14 @@
     max-width: 1150px;
     height: 100%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+
+    grid-template-rows:
+        90px
+        260px
+        1fr;
+
+    justify-items: center;
 
     box-sizing: border-box;
     text-align: center;
@@ -434,10 +438,6 @@
 .project-header {
     width: 100%;
     max-width: 705px;
-
-    flex-shrink: 0;
-
-    margin-bottom: 12px;
 
     text-align: center;
 }
@@ -480,19 +480,26 @@
     width: 100%;
     max-width: 950px;
 
-    margin: 0 auto 50px;
+    margin: 0;
 
     text-align: center;
+
+    height: 260px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
 /* =========================================================
    PROJECT DESCRIPTION
    ========================================================= */
-
 .project-description {
     margin: 0;
     padding: 0;
+
+    width: 100%;
 
     font-size: 1.2em;
     line-height: 1.8;
@@ -508,7 +515,10 @@
 
 .project-gallery {
     width: 100%;
-    margin-top: 170px;
+
+    margin: 0;
+
+    align-self: start;
 }
 
         /* =========================================================
@@ -885,55 +895,6 @@
         }
 
 
-/* =========================================================
-   PROJECT INFO
-========================================================= */
-
-.project-info {
-
-    width: 100%;
-
-    max-width: 900px;
-
-    margin-bottom: 25px;
-
-}
-
-
-/* =========================================================
-   DESCRIPTION
-========================================================= */
-
-.project-description {
-
-    margin: 0;
-
-    max-width: none;
-
-    padding: 0;
-
-    color: #b0b0b0;
-
-    font-size: 1em;
-
-    line-height: 1.6;
-
-    text-align: left;
-
-}
-
-
-/* =========================================================
-   PROJECT GALLERY
-========================================================= */
-
-.project-gallery {
-
-    width: 100%;
-
-}
-
-
         /* =========================================================
            MOBILE
         ========================================================= */
@@ -1302,6 +1263,18 @@
         <p class="project-description">
 
             DESCRIPTION OF PROJECT 1 GOES HERE.
+            This is where the project description will go.
+            We can later use this space to explain your role,
+            narrative design, Unity development,
+            localization, systems, dialogue and other work.            DESCRIPTION OF PROJECT 1 GOES HERE.
+            This is where the project description will go.
+            We can later use this space to explain your role,
+            narrative design, Unity development,
+            localization, systems, dialogue and other work.            DESCRIPTION OF PROJECT 1 GOES HERE.
+            This is where the project description will go.
+            We can later use this space to explain your role,
+            narrative design, Unity development,
+            localization, systems, dialogue and other work.            DESCRIPTION OF PROJECT 1 GOES HERE.
             This is where the project description will go.
             We can later use this space to explain your role,
             narrative design, Unity development,
