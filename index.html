@@ -17,6 +17,7 @@
 
     <style>
 
+
         /* =========================================================
            GENERAL
         ========================================================= */
@@ -50,7 +51,81 @@
 
         }
 
+/* =========================================================
+ LANGUAGE SELECTOR
+========================================================= */
 
+#language-control {
+
+    position: fixed;
+
+    top: 20px;
+    left: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    z-index: 1000;
+
+    touch-action: auto;
+
+}
+
+
+#language-control button {
+
+    border: none;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    padding: 2px 8px;
+
+    opacity: 0.6;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+#language-control button:hover {
+
+    opacity: 1;
+
+    transform: scale(1.15);
+
+}
+
+
+#current-language {
+
+    min-width: 90px;
+
+    text-align: center;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    color: #ffffff;
+
+    user-select: none;
+
+}
         /* =========================================================
            INTRO
         ========================================================= */
@@ -102,43 +177,95 @@
  * Visualmente sigue estando ahí.
  */
 
-        #intro-content {
+#intro-content {
+    width: 100%;
+    padding: 40px;
+    box-sizing: border-box;
 
-            width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-            padding: 40px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-            box-sizing: border-box;
-
-        }
-
-
-        #typing-name {
-
-            margin: 0;
-
-            font-size: 3em;
-
-            font-weight: 500;
-
-            letter-spacing: 1px;
-
-        }
+    text-align: center;
+}
 
 
-        #typing-subtitle {
+/* =========================================================
+   INTRO — ROLE
+========================================================= */
 
-            margin-top: 18px;
+#typing-role {
 
-            padding: 0 20px;
+    margin: 0;
 
-            font-size: 1.4em;
+    font-size: 1.2em;
+    font-weight: 400;
 
-            font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
 
-            line-height: 1.5;
+}
 
-        }
+
+/* =========================================================
+   INTRO — NAME
+========================================================= */
+
+#typing-name {
+
+    margin: 8px 0 0;
+
+    font-size: 3em;
+    font-weight: 500;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* =========================================================
+   INTRO — SKILLS
+========================================================= */
+
+#typing-subtitle {
+
+    max-width: 800px;
+
+    margin-top: 28px;
+    padding: 0 20px;
+
+    font-size: 1.15em;
+    font-weight: 400;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   INTRO — QUOTE
+========================================================= */
+
+#typing-quote {
+
+    max-width: 700px;
+
+    margin-top: 28px;
+    padding: 0 20px;
+
+    font-size: 1.1em;
+    font-weight: 400;
+
+    font-style: italic;
+
+    line-height: 1.5;
+
+}
 
     /* =========================================================
            AUDIO SETTINGS FOR USER CSS
@@ -902,6 +1029,11 @@
         @media (max-width: 1100px) {
 
 
+#typing-role {
+    font-size: 1em;
+}
+
+
             #typing-name {
 
                 font-size: 2.5em;
@@ -915,6 +1047,10 @@
 
             }
 
+
+#typing-quote {
+    font-size: 1em;
+}
 
             .carousel-wrapper {
 
@@ -1001,6 +1137,10 @@
 
             }
 
+#typing-role {
+    font-size: 0.9em;
+    letter-spacing: 2px;
+}
 
             #typing-name {
 
@@ -1015,6 +1155,9 @@
 
             }
 
+#typing-quote {
+    font-size: 0.9em;
+}
 
             .portfolio-section {
 
@@ -1154,6 +1297,35 @@
         aria-label="Volume">
 
 </div>
+<!-- =========================================================
+ LANGUAGE SELECTOR
+========================================================= -->
+
+<div id="language-control">
+
+  <button
+    id="language-up"
+    type="button"
+    aria-label="Previous language">
+
+    ▲
+
+  </button>
+
+  <div id="current-language">
+    English
+  </div>
+
+  <button
+    id="language-down"
+    type="button"
+    aria-label="Next language">
+
+    ▼
+
+  </button>
+
+</div>
 
     <!-- =========================================================
          INTRO
@@ -1174,13 +1346,17 @@
         loop>
         </audio>
 
-        <div id="intro-content">
+<div id="intro-content">
 
-            <h1 id="typing-name"></h1>
+    <div id="typing-role"></div>
 
-            <h2 id="typing-subtitle"></h2>
+    <h1 id="typing-name"></h1>
 
-        </div>
+    <div id="typing-subtitle"></div>
+
+    <div id="typing-quote"></div>
+
+</div>
 
 
         <div id="scroll-indicator">
@@ -1242,15 +1418,24 @@
 
 <div class="project-header">
 
-        <h2 class="project-title">
-            FOAM TRAVELER GO!
-        </h2>
+<h2
+    class="project-title"
+    data-translation="project1Title">
 
-        <p class="project-subtitle">
-            2D Narrative Exploration / Puzzle
-            · Unity · C# · Narrative Design
-            · Localization
-        </p>
+    FOAM TRAVELER GO!
+
+</h2>
+
+
+<p
+    class="project-subtitle"
+    data-translation="project1Subtitle">
+
+    2D Narrative Exploration / Puzzle
+    · Unity · C# · Narrative Design
+    · Localization
+
+</p>
 
     </div>
 
@@ -1260,27 +1445,13 @@
 
     <div class="project-info">
 
-        <p class="project-description">
+<p
+    class="project-description"
+    data-translation="project1Description">
 
-            DESCRIPTION OF PROJECT 1 GOES HERE.
-            This is where the project description will go.
-            We can later use this space to explain your role,
-            narrative design, Unity development,
-            localization, systems, dialogue and other work.            DESCRIPTION OF PROJECT 1 GOES HERE.
-            This is where the project description will go.
-            We can later use this space to explain your role,
-            narrative design, Unity development,
-            localization, systems, dialogue and other work.            DESCRIPTION OF PROJECT 1 GOES HERE.
-            This is where the project description will go.
-            We can later use this space to explain your role,
-            narrative design, Unity development,
-            localization, systems, dialogue and other work.            DESCRIPTION OF PROJECT 1 GOES HERE.
-            This is where the project description will go.
-            We can later use this space to explain your role,
-            narrative design, Unity development,
-            localization, systems, dialogue and other work.
+    DESCRIPTION OF PROJECT 1 GOES HERE.
 
-        </p>
+</p>
 
     </div>
 
@@ -1549,20 +1720,24 @@
 
     <div class="project-header">
 
-                <h2 class="project-title">
+<h2
+    class="project-title"
+    data-translation="project2Title">
 
-                    PROJECT TITLE 2
+    PROJECT TITLE 2
 
-                </h2>
+</h2>
 
 
-                <p class="project-subtitle">
+<p
+    class="project-subtitle"
+    data-translation="project2Subtitle">
 
-                    PROJECT TYPE
-                    · ROLE
-                    · TECHNOLOGIES
+    PROJECT TYPE
+    · ROLE
+    · TECHNOLOGIES
 
-                </p>
+</p>
     </div>
   <!-- =========================
     PROJECT DESCRIPTION
@@ -1570,15 +1745,13 @@
 
     <div class="project-info">
 
-        <p class="project-description">
+<p
+    class="project-description"
+    data-translation="project2Description">
 
-            DESCRIPTION OF PROJECT 1 GOES HERE.
-            This is where the project description will go.
-            We can later use this space to explain your role,
-            narrative design, Unity development,
-            localization, systems, dialogue and other work.
+    DESCRIPTION OF PROJECT 2 GOES HERE.
 
-        </p>
+</p>
 
     </div>
 
@@ -1797,20 +1970,24 @@ PROJECT 3
 
         <div class="project-header">
 
-            <h2 class="project-title">
+<h2
+    class="project-title"
+    data-translation="project3Title">
 
-                PROJECT TITLE 3
+    PROJECT TITLE 3
 
-            </h2>
+</h2>
 
 
-            <p class="project-subtitle">
+<p
+    class="project-subtitle"
+    data-translation="project3Subtitle">
 
-                PROJECT TYPE
-                · ROLE
-                · TECHNOLOGIES
+    PROJECT TYPE
+    · ROLE
+    · TECHNOLOGIES
 
-            </p>
+</p>
 
         </div>
 
@@ -1821,16 +1998,13 @@ PROJECT 3
 
         <div class="project-info">
 
-            <p class="project-description">
+<p
+    class="project-description"
+    data-translation="project3Description">
 
-                DESCRIPTION OF PROJECT 3 GOES HERE.
-                This is where the project description will go.
-                Here we can explain what the project is,
-                what my role was, the systems I worked on,
-                design decisions, development, narrative,
-                localization or any other relevant work.
+    DESCRIPTION OF PROJECT 3 GOES HERE.
 
-            </p>
+</p>
 
         </div>
 
@@ -1990,24 +2164,348 @@ PROJECT 3
 
 </section>
 
-
+</main>
 
     <!-- =========================================================
          JAVASCRIPT
     ========================================================= -->
 
     <script>
+/* =========================================================
+ LANGUAGE SYSTEM
+========================================================= */
+
+const languages = [
+
+    {
+        code: "en",
+        name: "English"
+    },
+
+    {
+        code: "es",
+        name: "Español"
+    },
+
+    {
+        code: "ja",
+        name: "日本語"
+    }
+
+];
+
+
+let currentLanguageIndex = 0;
+
+
+const languageUp =
+    document.getElementById("language-up");
+
+
+const languageDown =
+    document.getElementById("language-down");
+
+
+const currentLanguageElement =
+    document.getElementById("current-language");
+
+function updateLanguage() {
+
+    const language =
+        languages[currentLanguageIndex];
+
+
+    currentLanguageElement.textContent =
+        language.name;
+
+
+    const languageData =
+        translations[language.code];
+
+
+    /* =====================================================
+       INTRO
+    ===================================================== */
+
+    role =
+        languageData.role;
+
+    name =
+        languageData.name;
+
+    subtitle =
+        languageData.subtitle;
+
+    quote =
+        languageData.quote;
+
+
+    /* =====================================================
+       PROJECT TEXTS
+    ===================================================== */
+
+    document
+        .querySelectorAll("[data-translation]")
+        .forEach(element => {
+
+            const key =
+                element.dataset.translation;
+
+            if (languageData[key]) {
+
+                element.textContent =
+                    languageData[key];
+
+            }
+
+        });
+
+
+    /* =====================================================
+       IF INTRO HAS NOT STARTED
+    ===================================================== */
+
+    if (!typingStarted) {
+
+        roleElement.innerHTML =
+            '<span class="cursor">|</span>';
+
+        titleElement.innerHTML =
+            "";
+
+        subtitleElement.innerHTML =
+            "";
+
+        quoteElement.innerHTML =
+            "";
+
+    }
+
+
+    /* =====================================================
+       IF INTRO HAS ALREADY FINISHED
+    ===================================================== */
+
+    if (typingFinished) {
+
+        roleElement.textContent =
+            role;
+
+        titleElement.textContent =
+            name;
+
+        subtitleElement.textContent =
+            subtitle;
+
+        quoteElement.textContent =
+            quote;
+
+    }
+
+}
+
+languageUp.addEventListener(
+    "click",
+    () => {
+
+        currentLanguageIndex--;
+
+        if (currentLanguageIndex < 0) {
+
+            currentLanguageIndex =
+                languages.length - 1;
+
+        }
+
+        updateLanguage();
+
+    }
+);
+
+
+languageDown.addEventListener(
+    "click",
+    () => {
+
+        currentLanguageIndex++;
+
+        if (
+            currentLanguageIndex >=
+            languages.length
+        ) {
+
+            currentLanguageIndex = 0;
+
+        }
+
+        updateLanguage();
+
+    }
+);
 
 /* =========================================================
    TYPEWRITER
 ========================================================= */
 
-const name =
-    "Agustín Andrés Ibarra";
+/* =========================================================
+   TRANSLATIONS
+========================================================= */
 
-const subtitle =
-    "Integral videogame narrative designer | Linguistics & Literature Graduate | Unity Developer | Game Localization";
+const translations = {
 
+    en: {
+
+        role:
+            "Narrative Design",
+
+        name:
+            "Agustín Andrés Ibarra",
+
+        subtitle:
+            "Integral Narrative Developer: Unity, C#, Localization professional, Text and UI implementation.",
+
+        quote:
+            "— Mechanics, movements, choices; everything within the game tells a part of the story, or raises questions about new ones.",
+
+
+        project1Title:
+            "FOAM TRAVELER GO!",
+
+        project1Subtitle:
+            "2D Narrative Exploration / Puzzle · Unity · C# · Narrative Design · Localization",
+
+        project1Description:
+            "DESCRIPTION OF PROJECT 1 GOES HERE.",
+
+
+        project2Title:
+            "PROJECT TITLE 2",
+
+        project2Subtitle:
+            "PROJECT TYPE · ROLE · TECHNOLOGIES",
+
+        project2Description:
+            "DESCRIPTION OF PROJECT 2 GOES HERE.",
+
+
+        project3Title:
+            "PROJECT TITLE 3",
+
+        project3Subtitle:
+            "PROJECT TYPE · ROLE · TECHNOLOGIES",
+
+        project3Description:
+            "DESCRIPTION OF PROJECT 3 GOES HERE."
+
+    },
+
+
+    es: {
+
+        role:
+            "Diseño Narrativo",
+
+        name:
+            "Agustín Andrés Ibarra",
+
+        subtitle:
+            "Desarrollador Narrativo Integral: Unity, C#, profesional de localización e implementación de texto y UI.",
+
+        quote:
+            "— Las mecánicas, los movimientos y las decisiones; todo dentro del juego cuenta una parte de la historia o plantea nuevas preguntas.",
+
+
+        project1Title:
+            "FOAM TRAVELER GO!",
+
+        project1Subtitle:
+            "Exploración Narrativa 2D / Puzzle · Unity · C# · Diseño Narrativo · Localización",
+
+        project1Description:
+            "DESCRIPCIÓN DEL PROYECTO 1 AQUÍ.",
+
+
+        project2Title:
+            "TÍTULO DEL PROYECTO 2",
+
+        project2Subtitle:
+            "TIPO DE PROYECTO · ROL · TECNOLOGÍAS",
+
+        project2Description:
+            "DESCRIPCIÓN DEL PROYECTO 2 AQUÍ.",
+
+
+        project3Title:
+            "TÍTULO DEL PROYECTO 3",
+
+        project3Subtitle:
+            "TIPO DE PROYECTO · ROL · TECNOLOGÍAS",
+
+        project3Description:
+            "DESCRIPCIÓN DEL PROYECTO 3 AQUÍ."
+
+    },
+
+
+    ja: {
+
+        role:
+            "ナラティブデザイン",
+
+        name:
+            "Agustín Andrés Ibarra",
+
+        subtitle:
+            "Unity、C#、ローカライゼーション、テキストおよびUI実装を専門とするナラティブ開発者。",
+
+        quote:
+            "— メカニクス、動き、選択。ゲーム内のすべての要素が物語の一部を語り、新たな問いを生み出します。",
+
+
+        project1Title:
+            "FOAM TRAVELER GO!",
+
+        project1Subtitle:
+            "2Dナラティブ探索 / パズル · Unity · C# · ナラティブデザイン · ローカライゼーション",
+
+        project1Description:
+            "プロジェクト1の説明がここに入ります。",
+
+
+        project2Title:
+            "プロジェクト2",
+
+        project2Subtitle:
+            "プロジェクトタイプ · 役割 · 使用技術",
+
+        project2Description:
+            "プロジェクト2の説明がここに入ります。",
+
+
+        project3Title:
+            "プロジェクト3",
+
+        project3Subtitle:
+            "プロジェクトタイプ · 役割 · 使用技術",
+
+        project3Description:
+            "プロジェクト3の説明がここに入ります。"
+
+    }
+
+};
+
+let role =
+    translations.en.role;
+
+let name =
+    translations.en.name;
+
+let subtitle =
+    translations.en.subtitle;
+
+let quote =
+    translations.en.quote;
 
 /*
  * Velocidad normal.
@@ -2035,11 +2533,17 @@ const subtitlePause = 1200;
 const typeSound =
     document.getElementById("typeSound");
 
+const roleElement =
+    document.getElementById("typing-role");
+
 const titleElement =
     document.getElementById("typing-name");
 
 const subtitleElement =
     document.getElementById("typing-subtitle");
+
+const quoteElement =
+    document.getElementById("typing-quote");
 
 const scrollIndicator =
     document.getElementById("scroll-indicator");
@@ -2047,10 +2551,13 @@ const scrollIndicator =
 const intro =
     document.getElementById("intro");
 
+let roleIndex = 0;
 
 let index = 0;
 
 let subIndex = 0;
+
+let quoteIndex = 0;
 
 
 /*
@@ -2094,10 +2601,72 @@ function startTyping() {
 
     typingStarted = true;
 
-    typeName();
+    typeRole();
 
 }
 
+/* =========================================================
+   TYPE ROLE
+========================================================= */
+
+function typeRole() {
+
+    if (typingFinished) {
+        return;
+    }
+
+    roleElement.innerHTML =
+        role.substring(0, roleIndex) +
+        '<span class="cursor">|</span>';
+
+    /*
+     * Sonido
+     */
+
+    if (roleIndex < role.length) {
+        playTypeSound();
+    }
+
+    roleIndex++;
+
+    /*
+     * Todavía falta escribir
+     */
+
+    if (roleIndex <= role.length) {
+
+        const speed =
+            mouseHeld
+                ? fastSpeed
+                : normalSpeed;
+
+        typingTimer = setTimeout(
+            typeRole,
+            speed
+        );
+
+        return;
+    }
+
+    /*
+     * Terminó Narrative Design.
+     */
+
+    roleElement.innerHTML =
+        role;
+
+    /*
+     * Pasamos al nombre.
+     */
+
+    typingTimer = setTimeout(
+        typeName,
+        mouseHeld
+            ? 300
+            : subtitlePause
+    );
+
+}
 
 /* =========================================================
    TYPE NAME
@@ -2221,18 +2790,69 @@ function typeSubtitle() {
     }
 
 
+subtitleElement.innerHTML =
+    subtitle;
+
+typingTimer = setTimeout(
+    typeQuote,
+    mouseHeld
+        ? 300
+        : subtitlePause
+);
+}
+/* =========================================================
+   TYPE QUOTE
+========================================================= */
+
+function typeQuote() {
+
+    if (typingFinished) {
+        return;
+    }
+
+    quoteElement.innerHTML =
+        quote.substring(0, quoteIndex) +
+        '<span class="cursor">|</span>';
+
     /*
-     * Terminó todo.
+     * Sonido
      */
 
-    subtitleElement.innerHTML =
-        subtitle;
+    if (quoteIndex < quote.length) {
+        playTypeSound();
+    }
 
+    quoteIndex++;
+
+    /*
+     * Todavía falta escribir
+     */
+
+    if (quoteIndex <= quote.length) {
+
+        const speed =
+            mouseHeld
+                ? fastSpeed
+                : normalSpeed;
+
+        typingTimer = setTimeout(
+            typeQuote,
+            speed
+        );
+
+        return;
+    }
+
+    /*
+     * Terminó la cita.
+     */
+
+    quoteElement.innerHTML =
+        quote;
 
     finishIntro();
 
 }
-
 
 /* =========================================================
    TYPE SOUND
@@ -2266,19 +2886,29 @@ function finishTypingImmediately() {
     /*
      * Escribimos todo directamente.
      */
+roleElement.innerHTML =
+    role;
 
-    titleElement.innerHTML =
-        name;
+titleElement.innerHTML =
+    name;
 
-    subtitleElement.innerHTML =
-        subtitle;
+subtitleElement.innerHTML =
+    subtitle;
 
+quoteElement.innerHTML =
+    quote;
 
-    index =
-        name.length;
+roleIndex =
+    role.length;
 
-    subIndex =
-        subtitle.length;
+index =
+    name.length;
+
+subIndex =
+    subtitle.length;
+
+quoteIndex =
+    quote.length;
 
 
     /*
@@ -2319,8 +2949,8 @@ function finishIntro() {
            INITIAL CURSOR
         ========================================================= */
 
-        titleElement.innerHTML =
-            '<span class="cursor">|</span>';
+roleElement.innerHTML =
+    '<span class="cursor">|</span>';
 
 
 
