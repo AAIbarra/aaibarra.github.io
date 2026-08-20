@@ -91,13 +91,16 @@
 
     cursor: pointer;
 
-    padding: 2px 8px;
+    padding: 2px 0;
 
     opacity: 0.6;
 
     transition:
         opacity 0.2s ease,
         transform 0.2s ease;
+
+         width: 100%;
+    text-align: center;
 
 }
 
@@ -192,6 +195,19 @@
     transform: translate(-50%, -50%);
 
     text-align: center;
+}
+
+#press-start {
+    font-size: 0.75em;
+    letter-spacing: 4px;
+    opacity: 0.8;
+    margin-bottom: 25px;
+    animation: pressBlink 1.2s infinite;
+}
+
+@keyframes pressBlink {
+    0%, 50% { opacity: 0.8; }
+    51%, 100% { opacity: 0.2; }
 }
 
 
@@ -306,6 +322,11 @@
 #audio-toggle,
 #audio-volume {
     touch-action: auto;
+}
+
+#audio-control,
+#language-control {
+    display: none;
 }
 
         /* =========================================================
@@ -1327,6 +1348,8 @@
 
 </div>
 
+
+
     <!-- =========================================================
          INTRO
     ========================================================= -->
@@ -1347,6 +1370,8 @@
         </audio>
 
 <div id="intro-content">
+
+    <div id="press-start">PRESS ANY BUTTON</div>
 
     <div id="typing-role"></div>
 
@@ -2267,9 +2292,6 @@ function updateLanguage() {
 
     if (!typingStarted) {
 
-        roleElement.innerHTML =
-            '<span class="cursor">|</span>';
-
         titleElement.innerHTML =
             "";
 
@@ -2594,16 +2616,23 @@ let typingTimer = null;
 ========================================================= */
 
 function startTyping() {
-
-    if (typingStarted) {
-        return;
-    }
+    if (typingStarted) return;
 
     typingStarted = true;
 
-    typeRole();
+    // Ocultar PRESS ANY BUTTON
+    document.getElementById("press-start").style.display = "none";
 
+    // Mostrar audio + idioma
+    const audioControl = document.getElementById("audio-control");
+    if (audioControl) audioControl.style.display = "flex";
+
+    const languageSelector = document.getElementById("language-control");
+    if (languageSelector) languageSelector.style.display = "block";
+
+    typeRole();
 }
+
 
 /* =========================================================
    TYPE ROLE
@@ -2943,15 +2972,6 @@ function finishIntro() {
     );
 
 }
-
-
-        /* =========================================================
-           INITIAL CURSOR
-        ========================================================= */
-
-roleElement.innerHTML =
-    '<span class="cursor">|</span>';
-
 
 
 /* =========================================================
