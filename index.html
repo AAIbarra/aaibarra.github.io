@@ -939,13 +939,7 @@
 
             border: none;
 
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.08
-                );
+            background:transparent;
 
             color: #ffffff;
 
@@ -969,13 +963,7 @@
 
         .carousel-button:hover {
 
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.18
-                );
+            background:transparent;
 
         }
 
@@ -1396,7 +1384,7 @@
 
 
     <!-- =========================================================
-         TYPEWRITER SOUND
+         TYPEWRITER SOUND and Foam sound
     ========================================================= -->
 
     <audio
@@ -1405,6 +1393,11 @@
         preload="auto">
     </audio>
 
+    <audio 
+        id="arrow-sound" 
+        src="sounds/foamclick.mp3" 
+        preload="auto">
+    </audio>
 
 
     <!-- =========================================================
@@ -1489,12 +1482,16 @@
                 <div class="carousel-wrapper">
 
 
-                    <button
-                        class="carousel-button prev"
-                        onclick="moveCarousel(0, -1)">
-
-                        ←
-
+                    <button class="carousel-button prev"
+                        onclick="
+                            pressArrow(
+                                document.getElementById('arrowP1-prev-img'),
+                                'images/ui/arrowP1-prev.png',
+                                'images/ui/arrowP1-prev-pressed.png'
+                            );
+                            moveCarousel(0, -1);
+                        ">
+                        <img id="arrowP1-prev-img" src="images/ui/arrowP1-prev.png" alt=""style="width: 120px; height: 108px;">
                     </button>
 
                     <div class="carousel-stage">
@@ -1637,12 +1634,16 @@
 
 
 
-                    <button
-                        class="carousel-button next"
-                        onclick="moveCarousel(0, 1)">
-
-                        →
-
+                    <button class="carousel-button next"
+                        onclick="
+                            pressArrow(
+                                document.getElementById('arrowP1-next-img'),
+                                'images/ui/arrowP1-next.png',
+                                'images/ui/arrowP1-next-pressed.png'
+                            );
+                            moveCarousel(0, 1);
+                        ">
+                        <img id="arrowP1-next-img" src="images/ui/arrowP1-next.png" alt=""style="width: 120px; height: 108px;">
                     </button>
 
 
@@ -4339,6 +4340,22 @@ setInitialVerticalState();
 
         updateCarousel(2);
 
+        /* =========================================================
+          SONIDO CLICK MATAFUEGO
+        ========================================================= */
+
+        const arrowSound = document.getElementById("arrow-sound");
+
+function pressArrow(imgElement, normalSrc, pressedSrc) {
+    imgElement.src = pressedSrc;
+
+    arrowSound.currentTime = 0;
+    arrowSound.play().catch(() => {});
+
+    setTimeout(() => {
+        imgElement.src = normalSrc;
+    }, 150); // tiempo de “click”
+}
 
     </script>
     
