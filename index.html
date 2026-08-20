@@ -1790,11 +1790,16 @@
                 <div class="carousel-wrapper">
 
 
-                    <button
-                        class="carousel-button prev"
-                        onclick="moveCarousel(1, -1)">
-
-                        ←
+                    <button class="carousel-button prev"
+                        onclick="
+                            pressArrow(
+                                document.getElementById('arrowP2-prev-img'),
+                                'images/ui/arrowP2-prev.png',
+                                'images/ui/arrowP2-prev-pressed.png'
+                            );
+                            moveCarousel(1, -1);
+                        ">
+                        <img id="arrowP2-prev-img" src="images/ui/arrowP2-prev.png" alt=""style="width: 120px; height: 108px;">
                     </button>
 
                     <div class="carousel-stage">
@@ -1879,16 +1884,17 @@
 
                         </div>
 
-                    <button
-                        class="carousel-button next"
-                        onclick="moveCarousel(1, 1)">
-
-                        →
-
+                    <button class="carousel-button next"
+                        onclick="
+                            pressArrow(
+                                document.getElementById('arrowP2-next-img'),
+                                'images/ui/arrowP2-next.png',
+                                'images/ui/arrowP2-next-pressed.png'
+                            );
+                            moveCarousel(1, 1);
+                        ">
+                        <img id="arrowP2-next-img" src="images/ui/arrowP2-next.png" alt=""style="width: 120px; height: 108px;">
                     </button>
-
-
-                </div>
             </div>
 
   <!-- DOTS -->
