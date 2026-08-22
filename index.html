@@ -431,17 +431,25 @@
            PORTFOLIO
         ========================================================= */
 
-        #portfolio {
+#portfolio {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+}
 
-            position: fixed;
+        /* =========================================================
+           PAGE WRAPPER
+        ========================================================= */
 
-            inset: 0;
+.page-wrapper {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: relative;
+}
 
-            overflow: hidden;
-
-            background: #000000;
-
-        }
 
 
         /* =========================================================
@@ -457,7 +465,7 @@
     justify-content: center;
 
     box-sizing: border-box;
-    padding: 70px 40px;
+    padding: clamp(25px, 5vh, 70px) clamp(20px, 2.5vw, 40px);
 
     opacity: 0;
     transform: translateY(100%);
@@ -561,21 +569,15 @@
    ========================================================= */
 
 .project-container {
-    width: 100%;
-    max-width: 1150px;
+    width: min(94vw, 1550px);
     height: 100%;
-
-    display: grid;
-
-    grid-template-rows:
-        90px
-        260px
-        1fr;
-
-    justify-items: center;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     box-sizing: border-box;
     text-align: center;
+    padding: clamp(20px, 4vh, 60px) 0;
 }
 
 
@@ -585,8 +587,7 @@
 
 .project-header {
     width: 100%;
-    max-width: 705px;
-
+    max-width: none;
     text-align: center;
 }
 
@@ -596,13 +597,19 @@
    ========================================================= */
 
 .project-title {
-    margin: 0 0 6px;
-
-    font-size: 2.4em;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-size: clamp(
+    1.7rem,
+    max(2.2vw, 4.5vh),
+    2.8rem
+);
     font-weight: 500;
     letter-spacing: 0.5px;
-
     text-align: center;
+    white-space: nowrap;
+    transform: translateY(-20px);
 }
 
 
@@ -611,13 +618,17 @@
    ========================================================= */
 
 .project-subtitle {
-    margin: 0;
-
+    margin: 4px 0 0;
+    padding: 0;
     color: #888888;
-    font-size: 1em;
-    line-height: 1.5;
-
+    font-size: clamp(
+    0.9rem,
+    max(1vw, 1.6vh),
+    1.1rem
+);
     text-align: center;
+    white-space: nowrap; /* evita saltos */
+    transform: translateY(-10px); /* lo acerca al título */
 }
 
 /* =========================================================
@@ -625,20 +636,14 @@
    ========================================================= */
 
 .project-info {
-    width: 100%;
-    max-width: 950px;
-
-    margin: 0;
-
-    text-align: center;
-
-    height: 260px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: min(90vw, 1550px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(25px, 2.5vw, 45px);
+    align-items: start;
+    text-align: left;
 }
-
 
 /* =========================================================
    PROJECT DESCRIPTION
@@ -646,16 +651,50 @@
 .project-description {
     margin: 0;
     padding: 0;
-
     width: 100%;
-
-    font-size: 1.2em;
-    line-height: 1.8;
-
+    font-size: clamp(1rem, 1.35rem + 0.5vh, 1.5rem);
+    line-height: 1.65;
     color: #b0b0b0;
-
     text-align: center;
 }
+
+.desc-left, .desc-right {
+    width: 100%; max-width: 680px;
+}
+
+.desc-quote {
+    font-size: clamp(1.05rem, 1.15rem + 0.35vh, 1.3rem);
+    font-style: italic;
+    line-height: 1.55;
+    margin-bottom: clamp(15px, 2vh, 25px);
+    text-align: justify;
+}
+
+.desc-paragraph {
+    font-size: clamp(0.95rem, 1rem + 0.3vh, 1.15rem);
+    line-height: 1.55;
+    text-align: justify;
+}
+
+.desc-title {
+    font-size: clamp(1.1rem, 1.2rem + 0.3vh, 1.4rem);
+    font-weight: 600;
+    margin-bottom: clamp(10px, 1.5vh, 18px);
+    text-align: left;
+}
+
+.desc-list {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.desc-list li {
+    margin-bottom: clamp(8px, 1.2vh, 14px);
+    font-size: clamp(0.95rem, 1rem + 0.25vh, 1.15rem);
+    line-height: 1.5;
+    text-align: justify;
+}
+
 
 /* =========================================================
    PROJECT GALLERY
@@ -673,35 +712,28 @@
            COVERFLOW CAROUSEL
         ========================================================= */
 
-        .carousel-wrapper {
+.carousel-wrapper {
+    --gallery-size: clamp(
+        300px,
+    min(43vw, 58vh),
+    580px
+    );
 
-            position: relative;
+    position: relative;
+    width: 100%;
+    height: calc(var(--gallery-size) * 0.56);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    touch-action: none;
+}
 
-            width: 100%;
-
-            height: 253px;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            overflow: visible;
-
-            touch-action: none;
-
-        }
-
-
-        .carousel-stage {
-
-            position: relative;
-
-            width: 100%;
-
-            height: 253px;
-        }
+.carousel-stage {
+    position: relative;
+    width: 100%;
+    height: calc(var(--gallery-size) * 0.56);
+}
 
 
         /* =========================================================
@@ -715,8 +747,8 @@
             top: 50%;
             left: 50%;
 
-            width: 450px;
-            height: 253px;
+width: var(--gallery-size);
+height: calc(var(--gallery-size) * 0.56);
 
             background: #111111;
 
@@ -779,46 +811,36 @@
            PREVIOUS SLIDE
         ========================================================= */
 
-        .carousel-slide.previous {
-
-            transform:
-                translate(
-                    calc(-50% - 330px),
-                    -50%
-                )
-                scale(0.65);
-
-            opacity: 0.45;
-
-            z-index: 3;
-
-            filter:
-                brightness(0.6);
-
-        }
+.carousel-slide.previous {
+    transform:
+        translate(
+            calc(-50% - 75%),
+            -50%
+        )
+        scale(0.7);
+    opacity: 0.45;
+    z-index: 3;
+    filter:
+        brightness(0.6);
+}
 
 
         /* =========================================================
            NEXT SLIDE
         ========================================================= */
 
-        .carousel-slide.next {
-
-            transform:
-                translate(
-                    calc(-50% + 330px),
-                    -50%
-                )
-                scale(0.65);
-
-            opacity: 0.45;
-
-            z-index: 3;
-
-            filter:
-                brightness(0.6);
-
-        }
+.carousel-slide.next {
+    transform:
+        translate(
+            calc(-50% + 75%),
+            -50%
+        )
+        scale(0.7);
+    opacity: 0.45;
+    z-index: 3;
+    filter:
+        brightness(0.6);
+}
 
 
         /* =========================================================
@@ -827,12 +849,7 @@
 
         .carousel-slide.hidden-left {
 
-            transform:
-                translate(
-                    calc(-50% - 700px),
-                    -50%
-                )
-                scale(0.45);
+            transform: translate(calc(-50% - 45%), -50%) scale(0.5);
 
             opacity: 0;
 
@@ -843,12 +860,7 @@
 
         .carousel-slide.hidden-right {
 
-            transform:
-                translate(
-                    calc(-50% + 700px),
-                    -50%
-                )
-                scale(0.45);
+            transform: translate(calc(-50% + 45%), -50%) scale(0.5);
 
             opacity: 0;
 
@@ -1178,14 +1190,14 @@
 
             .project-title {
 
-                font-size: 1.7em;
+                font-size: clamp(1.8rem, 3vw, 3.5rem);
 
             }
 
 
             .project-subtitle {
 
-                font-size: 0.85em;
+                font-size: clamp(0.9rem, 1.4vw, 1.4rem);
 
                 margin-bottom: 15px;
 
@@ -1276,6 +1288,14 @@
 
         }
 
+        @media (max-width: 900px) {
+    .project-info {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+
 
     </style>
 
@@ -1283,7 +1303,7 @@
 
 
 <body>
-
+<div class="page-wrapper">
         <!-- =========================================================
          AUDIO SETTINGS FOR USER
     ========================================================= -->
@@ -1439,39 +1459,44 @@
 <h2
     class="project-title"
     data-translation="project1Title">
-
-    FOAM TRAVELER GO!
-
 </h2>
 
 
 <p
     class="project-subtitle"
     data-translation="project1Subtitle">
-
-    2D Narrative Exploration / Puzzle
-    · Unity · C# · Narrative Design
-    · Localization
-
 </p>
-
     </div>
 
   <!-- =========================
     PROJECT DESCRIPTION
     ========================== -->
 
-    <div class="project-info">
+<div class="project-info">
 
-<p
-    class="project-description"
-    data-translation="project1Description">
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="desc-left">
+        <p class="desc-quote" data-translation="project1Quote">
+            <!-- La cita va aquí -->
+        </p>
 
-    DESCRIPTION OF PROJECT 1 GOES HERE.
-
-</p>
-
+        <p class="desc-paragraph" data-translation="project1Paragraph">
+            <!-- El párrafo siguiente va aquí -->
+        </p>
     </div>
+
+    <!-- COLUMNA DERECHA -->
+    <div class="desc-right">
+        <h3 class="desc-title">Mis contribuciones y rol técnico</h3>
+
+        <ul class="desc-list">
+            <li data-translation="project1Bullet1"></li>
+            <li data-translation="project1Bullet2"></li>
+            <li data-translation="project1Bullet3"></li>
+        </ul>
+    </div>
+
+</div>
 
                 <!-- =========================
                      CAROUSEL
@@ -2373,10 +2398,6 @@ languageDown.addEventListener(
 );
 
 /* =========================================================
-   TYPEWRITER
-========================================================= */
-
-/* =========================================================
    TRANSLATIONS
 ========================================================= */
 
@@ -2398,23 +2419,35 @@ const translations = {
 
 
         project1Title:
-            "FOAM TRAVELER GO!",
+            "Foam Traveler Go! | 2D Narrative-Driven Game with Casual Mechanics",
 
         project1Subtitle:
-            "2D Narrative Exploration / Puzzle · Unity · C# · Narrative Design · Localization",
+            "Unity 2D • C# • Localization Manager • Narrative Design • Worldbuilding • Quest Design",
 
-        project1Description:
-            "DESCRIPTION OF PROJECT 1 GOES HERE.",
+        project1Quote: `"What is the character's story? What challenges will they face, and how will the player embody this character to overcome them?"`,
+
+        project1Paragraph: `These are the core questions driving my research in Foam Traveler Go!, a narrative-driven 2D game where players unravel cosmic mysteries through engaging levels, exploring the character's internal growth and bonds with companions.`,
+
+        project1Bullet1: "Game & Level Design: Architected the core systems and level flow optimized for narrative-first gameplay.",
+        project1Bullet2: "Localization Management: Implemented Unity's Localization Manager for 11 languages with full LQA.",
+        project1Bullet3: "Gameplay Programming: Developed mechanics, UI menus, and cinematic cutscenes in C#.",
 
 
         project2Title:
-            "PROJECT TITLE 2",
+            "Ahora soy un fantasma | 3D Narrative-Driven Psychological Horror & Identity Quest",
 
         project2Subtitle:
-            "PROJECT TYPE · ROLE · TECHNOLOGIES",
+            "Unity 3D • C# • Level Design • Narrative Design • Character Design • Puzzle Design",
 
         project2Description:
-            "DESCRIPTION OF PROJECT 2 GOES HERE.",
+            `"How do you construct an environment that harbors a deep, terrifying, and captivating story all at once? How do we navigate spaces heavy with meaning, and how do we express that impact?"
+These questions form the core foundation of Ahora soy un fantasma, a 3D experience where mechanics, environmental design, and audio design converge to build pure atmospheric horror. Through dim lighting and deliberate, cautious movement, the game evokes a constant state of tension that intertwines with the protagonist's existential crisis—an identity that is not just sought after, but actively reshaped through every spectral action. The journey begins with a stark mystery: a murder, and a return from the afterlife driven by a single directive: seek revenge.
+
+My Contributions & Technical Role:
+Narrative Design & Chronotope: Developed the deep background lore, dialogue trees, and environmental storytelling, effectively integrating time and space as active narrative devices.
+→3D Worldbuilding & Asset Integration: Structured the 3D environments, integrated and modified 3D assets, set up interactive elements, and crafted the game's claustrophobic visual atmosphere.
+→C# Programming & Puzzle Logic: Programmed the 3D character movement, core gameplay mechanics, and the underlying logic systems for the game's environmental puzzles.
+→UI & Menu Systems: Designed and implemented user interface (UI) elements and game menus tailored to preserve player immersion.`,
 
 
         project3Title:
@@ -2445,23 +2478,36 @@ const translations = {
 
 
         project1Title:
-            "FOAM TRAVELER GO!",
+            "Foam Traveler Go! | Juego 2D enfocado en la narrativa con mecánicas simples",
 
         project1Subtitle:
-            "Exploración Narrativa 2D / Puzzle · Unity · C# · Diseño Narrativo · Localización",
+            " Unity 2D • C# • Localization Manager • Diseño Narrativo • Worldbuilding • Diseño de Quests",
 
-        project1Description:
-            "DESCRIPCIÓN DEL PROYECTO 1 AQUÍ.",
+        project1Quote: "«¿Qué historia propone el juego? ¿Qué desafíos encontrará el protagonista y cómo el jugador se unirá a él para superarlos?»",
+
+        project1Paragraph: "Estas son las preguntas fundamentales que guían mi investigación en Foam Traveler Go!, un juego 2D narrativo donde el jugador explora misterios cósmicos y el crecimiento interno del protagonista.",
+
+        project1Bullet1: "Diseño de niveles y sistemas: Arquitectura de flujo y mecánicas centradas en la narrativa.",
+        project1Bullet2: "Gestión de localización: Implementación del Localization Manager con soporte para 11 idiomas y pruebas LQA.",
+        project1Bullet3: "Programación de gameplay: Desarrollo de mecánicas, menús y cinemáticas en C#.",
+
 
 
         project2Title:
-            "TÍTULO DEL PROYECTO 2",
+            "Ahora soy un fantasma | Juego narrativo 3D de terror psicológico y búsqueda de identidad",
 
         project2Subtitle:
-            "TIPO DE PROYECTO · ROL · TECNOLOGÍAS",
+            "Unity 3D • C# • Diseño de Niveles • Diseño Narrativo • Diseño de Personajes • Diseño de Puzzles",
 
         project2Description:
-            "DESCRIPCIÓN DEL PROYECTO 2 AQUÍ.",
+            `«¿Cómo crear un entorno que albergue una historia profunda, terrorífica y atrapante al mismo tiempo? ¿Cómo transitar estos espacios cargados de significado y de qué manera expresar su impacto en el jugador?».
+Estas preguntas fundamentan el desarrollo de Ahora soy un fantasma, una experiencia en 3D donde las mecánicas, los espacios y la atmósfera sonora convergen para edificar el terror. A través de una iluminación tenue y un movimiento lento y cauteloso, el juego evoca una constante tensión que se entrelaza con la crisis existencial del protagonista: una identidad que no solo se busca, sino que se transforma con cada acto en su nueva forma espectral. La aventura arranca con un misterio absoluto: un asesinato y un retorno del más allá con un mensaje claro: la venganza.
+
+Mis Contribuciones y Rol Técnico:
+→Diseño Narrativo y Cronotopo: Desarrollé el trasfondo del mundo (background story), la estructura de los diálogos y la narrativa ambiental, integrando el espacio y el tiempo como elementos activos del relato.
+→Diseño de Espacios y Assets 3D: Construí los escenarios tridimensionales utilizando y adaptando assets 3D, configurando elementos interactivos y diseñando la atmósfera visual del juego.
+→Programación y Puzzles en C#: Programé el sistema de movimiento en 3D, las mecánicas principales y la lógica detrás de los acertijos del juego.
+→Interfaz y Menús: Diseñé e implementé los menús del juego y los elementos de la interfaz de usuario (UI) para mantener la inmersión de la experiencia.`,
 
 
         project3Title:
@@ -2492,23 +2538,36 @@ const translations = {
 
 
         project1Title:
-            "FOAM TRAVELER GO!",
+            "Foam Traveler Go! | カジュアルなメカニクスを持つ2Dストーリー主導型ゲーム",
 
         project1Subtitle:
-            "2Dナラティブ探索 / パズル · Unity · C# · ナラティブデザイン · ローカライゼーション",
+            "Unity 2D • C# • Localization Manager • ナラティブデザイン • ワールドビルディング • クエストデザイン",
 
-        project1Description:
-            "プロジェクト1の説明がここに入ります。",
+project1Quote: "「キャラクターの物語とは何か？彼らはどのような試練に立ち向かい、プレイヤーはどのようにそのキャラクターになりきって試練を乗り越えるのか？」",
+
+project1Paragraph: "『Foam Traveler Go!』は、こうした問いを追求するために制作した2Dナラティブゲームです。プレイヤーは魅力的なステージを進みながら宇宙の謎を解き明かし、キャラクターの内面的な成長や仲間との絆を体験していきます。",
+
+project1Bullet1: "ゲーム＆レベルデザイン：物語への没入感を最優先にしたゲームシステムおよびステージフローの設計・構築。",
+project1Bullet2: "ローカライズ管理：UnityのLocalization Managerを実装し、11言語に対応するテキストとスプライトの動的切り替えシステムを構築。表示や機能の厳格なLQA（ローカライズ品質保証）を実施。",
+project1Bullet3: "ゲームプレイプログラミング：UnityエンジンとC#を使用し、コアメカニクス、UIメニュー、シネマティックカットシーンの実装を担当。",
+
 
 
         project2Title:
-            "プロジェクト2",
+            "Ahora soy un fantasma | 3Dナラティブ型サイコロジカルホラー＆アイデンティティ追究ゲーム",
 
         project2Subtitle:
-            "プロジェクトタイプ · 役割 · 使用技術",
+            "Unity 3D • C# • レベルデザイン • ナラティブデザイン • キャラクターデザイン • パズルデザイン",
 
         project2Description:
-            "プロジェクト2の説明がここに入ります。",
+            `「深く、恐ろしく、同時にプレイヤーを惹きつける物語を内包する空間を、どのように構築すべきか？意味に満ちたこれらの空間をどのように進み、その影響をどう表現するのか？」
+本プロジェクト『Ahora soy un fantasma』は、こうした問いを原点に開発された3D作品です。メカニクス、空間設計、そしてサウンドデザインが融合し、独自のホラー空間を作り出しています。薄暗い照明と、あえて速度を落とした慎重な移動システムにより、常に緊張感が漂う雰囲気を演出。これは、自身の殺害という謎から始まり、幽霊として復讐を果たす過程で、主人公が直面するアイデンティティの葛藤（存在論的危機）と深く結びついています。
+
+主な担当業務と技術的役割:
+→ナラティブデザイン＆クロノトープ: 世界観の背景設定、会話ツリーの構築、環境ストーリーテリングの設計を担当。空間と時間を物語の能動的な要素として統合。
+→3Dワールドビルディング＆アセット統合: 3D空間の構築、3Dアセットの配置・最適化、インタラクティブ要素の実装、および没入感を高めるビジュアル表現の演出。
+→C#プログラミング＆パズルロジック: 3Dキャラクターの移動システム、コアメカニクス、および環境パズルを制御するロジックシステムの構築。
+→UI＆メニューシステム: プレイヤーの没入感を損なわないように設計された、ユーザーインターフェース（UI）およびゲームメニューの実装。`,
 
 
         project3Title:
@@ -2601,7 +2660,9 @@ let typingStarted = false;
  */
 
 let typingFinished = false;
-
+// Inicializamos todos los textos del portfolio
+// con el idioma actualmente seleccionado.
+updateLanguage();
 
 /*
  * ¿El mouse está siendo mantenido?
@@ -4364,7 +4425,7 @@ function pressArrow(imgElement, normalSrc, pressedSrc) {
 }
 
     </script>
-    
+</div>
 </body>
 
 </html>
