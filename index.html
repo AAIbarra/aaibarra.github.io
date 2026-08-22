@@ -624,21 +624,80 @@
 
 
 /* =========================================================
-   PROJECT SUBTITLE
+   PROJECT SKILLS
    ========================================================= */
 
-.project-subtitle {
+.project-skills {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
     margin: 4px 0 0;
+
     padding: 0;
-    color: #888888;
+
+    transform: translateY(-10px);
+
+}
+
+
+/* =========================================================
+   INDIVIDUAL SKILL
+   ========================================================= */
+
+.skill-tag {
+
+    --skill-color: #888888;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        5px
+        10px;
+
+    border:
+        1px
+        solid
+        var(--skill-color);
+
+    border-radius: 6px;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--skill-color) 16%,
+            transparent
+        );
+
+    color: #d8d8d8;
+
     font-size: clamp(
-    0.9rem,
-    max(1vw, 1.6vh),
-    1.1rem
-);
-    text-align: center;
-    white-space: nowrap; /* evita saltos */
-    transform: translateY(-10px); /* lo acerca al título */
+        0.75rem,
+        max(0.85vw, 1.25vh),
+        0.95rem
+    );
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+
 }
 
 /* =========================================================
@@ -1204,15 +1263,21 @@ height: calc(var(--gallery-size) * 0.56);
 
             }
 
+.project-skills {
 
-            .project-subtitle {
+    margin-bottom: 15px;
 
-                font-size: clamp(0.9rem, 1.4vw, 1.4rem);
+}
 
-                margin-bottom: 15px;
+.skill-tag {
 
-            }
+    font-size: clamp(
+        0.75rem,
+        1.4vw,
+        0.95rem
+    );
 
+}
 
             .carousel-wrapper {
 
@@ -1478,10 +1543,10 @@ height: calc(var(--gallery-size) * 0.56);
 </h2>
 
 
-<p
-    class="project-subtitle"
-    data-translation="project1Subtitle">
-</p>
+<div
+    class="project-skills"
+    data-project="0">
+</div>
     </div>
 
   <!-- =========================
@@ -1790,20 +1855,14 @@ height: calc(var(--gallery-size) * 0.56);
     class="project-title"
     data-translation="project2Title">
 
-    PROJECT TITLE 2
-
 </h2>
 
 
-<p
-    class="project-subtitle"
-    data-translation="project2Subtitle">
+<div
+    class="project-skills"
+    data-project="1">
+</div>
 
-    PROJECT TYPE
-    · ROLE
-    · TECHNOLOGIES
-
-</p>
     </div>
   <!-- =========================
     PROJECT DESCRIPTION
@@ -2065,21 +2124,13 @@ PROJECT 3
 <h2
     class="project-title"
     data-translation="project3Title">
-
-    PROJECT TITLE 3
-
 </h2>
 
 
-<p
-    class="project-subtitle"
-    data-translation="project3Subtitle">
-
-    PROJECT TYPE
-    · ROLE
-    · TECHNOLOGIES
-
-</p>
+<div
+    class="project-skills"
+    data-project="2">
+</div>
 
         </div>
 
@@ -2301,6 +2352,62 @@ const languageDown =
 const currentLanguageElement =
     document.getElementById("current-language");
 
+    /* =========================================================
+   RENDER SKILLS
+========================================================= */
+
+function renderSkills() {
+
+    const languageCode =
+        languages[currentLanguageIndex].code;
+
+
+    document
+        .querySelectorAll(".project-skills")
+        .forEach(container => {
+
+            const projectId =
+                container.dataset.project;
+
+
+            const projectSkillList =
+                projectSkills[projectId];
+
+
+            container.innerHTML = "";
+
+
+            projectSkillList.forEach(skillId => {
+
+                const skill =
+                    skills[skillId];
+
+
+                const tag =
+                    document.createElement("span");
+
+
+                tag.classList.add("skill-tag");
+
+
+                tag.textContent =
+                    skill.translations[languageCode];
+
+
+                tag.style.setProperty(
+                    "--skill-color",
+                    skill.color
+                );
+
+
+                container.appendChild(tag);
+
+            });
+
+        });
+
+}
+
 function updateLanguage() {
 
     const language =
@@ -2390,7 +2497,7 @@ function updateLanguage() {
             quote;
 
     }
-
+renderSkills();
 }
 
 languageUp.addEventListener(
@@ -2624,6 +2731,251 @@ project2Bullet4: "UI＆メニューシステム：プレイヤーの没入感を
             "プロジェクト3の説明がここに入ります。"
 
     }
+};
+
+/* =========================================================
+   SKILL DICTIONARY
+========================================================= */
+
+const skills = {
+
+    /* =========================
+       TECHNOLOGY
+    ========================== */
+
+    unity2D: {
+        color: "#3B82A8",
+        translations: {
+            en: "Unity 2D",
+            es: "Unity 2D",
+            ja: "Unity 2D"
+        }
+    },
+
+    unity3D: {
+        color: "#3B82A8",
+        translations: {
+            en: "Unity 3D",
+            es: "Unity 3D",
+            ja: "Unity 3D"
+        }
+    },
+
+
+    /* =========================
+       PROGRAMMING
+    ========================== */
+
+    csharp: {
+        color: "#C94B4B",
+        translations: {
+            en: "C#",
+            es: "C#",
+            ja: "C#"
+        }
+    },
+
+
+    /* =========================
+       LOCALIZATION
+    ========================== */
+
+    localizationManager: {
+        color: "#7656A8",
+        translations: {
+            en: "Localization Manager",
+            es: "Localization Manager",
+            ja: "ローカライゼーション管理"
+        }
+    },
+
+    localization: {
+        color: "#7656A8",
+        translations: {
+            en: "Localization",
+            es: "Localización",
+            ja: "ローカライゼーション"
+        }
+    },
+
+    lqa: {
+        color: "#A05C8F",
+        translations: {
+            en: "LQA",
+            es: "LQA",
+            ja: "LQA"
+        }
+    },
+
+
+    /* =========================
+       NARRATIVE
+    ========================== */
+
+    narrativeDesign: {
+        color: "#C9824A",
+        translations: {
+            en: "Narrative Design",
+            es: "Diseño Narrativo",
+            ja: "ナラティブデザイン"
+        }
+    },
+
+    storytelling: {
+        color: "#B96F45",
+        translations: {
+            en: "Storytelling",
+            es: "Narración",
+            ja: "ストーリーテリング"
+        }
+    },
+
+    worldbuilding: {
+        color: "#3D8C7A",
+        translations: {
+            en: "Worldbuilding",
+            es: "Worldbuilding",
+            ja: "ワールドビルディング"
+        }
+    },
+
+    literature: {
+        color: "#9A7748",
+        translations: {
+            en: "Literature",
+            es: "Literatura",
+            ja: "文学"
+        }
+    },
+
+
+    /* =========================
+       GAME DESIGN
+    ========================== */
+
+    levelDesign: {
+        color: "#4D9B68",
+        translations: {
+            en: "Level Design",
+            es: "Diseño de Niveles",
+            ja: "レベルデザイン"
+        }
+    },
+
+    questDesign: {
+        color: "#668F45",
+        translations: {
+            en: "Quest Design",
+            es: "Diseño de Quests",
+            ja: "クエストデザイン"
+        }
+    },
+
+    puzzleDesign: {
+        color: "#3F9292",
+        translations: {
+            en: "Puzzle Design",
+            es: "Diseño de Puzzles",
+            ja: "パズルデザイン"
+        }
+    },
+
+
+    /* =========================
+       CHARACTER DESIGN
+    ========================== */
+
+    characterDesign: {
+        color: "#A85B7B",
+        translations: {
+            en: "Character Design",
+            es: "Diseño de Personajes",
+            ja: "キャラクターデザイン"
+        }
+    },
+
+
+    /* =========================
+       LEADERSHIP
+    ========================== */
+
+    leadership: {
+        color: "#B8954A",
+        translations: {
+            en: "Leadership",
+            es: "Liderazgo",
+            ja: "リーダーシップ"
+        }
+    },
+
+    teamManagement: {
+        color: "#9E7C45",
+        translations: {
+            en: "Team Management",
+            es: "Gestión de Equipos",
+            ja: "チームマネジメント"
+        }
+    },
+
+
+    /* =========================
+       ACADEMIC
+    ========================== */
+
+    academia: {
+        color: "#527C9B",
+        translations: {
+            en: "Academia",
+            es: "Academia",
+            ja: "アカデミア"
+        }
+    },
+
+    didactics: {
+        color: "#4D8C88",
+        translations: {
+            en: "Didactics",
+            es: "Didáctica",
+            ja: "教育学"
+        }
+    }
+
+};
+
+/* =========================================================
+   PROJECT SKILLS
+========================================================= */
+
+const projectSkills = {
+
+    0: [
+        "unity2D",
+        "csharp",
+        "localizationManager",
+        "narrativeDesign",
+        "worldbuilding",
+        "questDesign"
+    ],
+
+    1: [
+        "unity3D",
+        "csharp",
+        "levelDesign",
+        "narrativeDesign",
+        "characterDesign",
+        "puzzleDesign"
+    ],
+
+    2: [
+        "leadership",
+        "localization",
+        "academia",
+        "literature",
+        "storytelling",
+        "teamManagement",
+        "didactics",
+        "lqa"
+    ]
 
 };
 
