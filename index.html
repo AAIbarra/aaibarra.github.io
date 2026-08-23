@@ -490,6 +490,106 @@
 }
 
 /* =========================================================
+   PROJECT 3 — LAYOUT ESPECIAL
+   ========================================================= */
+
+.project3-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================================
+   PROJECT 3 — CARRUSEL GRANDE
+   ========================================================= */
+
+.project3-layout .project-gallery {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* El carrusel ocupa todo el espacio disponible */
+
+.project3-layout .carousel-wrapper {
+    flex: 1;
+    min-height: 0;
+}
+
+
+/* El escenario del carrusel también crece */
+
+.project3-layout .carousel-stage {
+    height: 100%;
+}
+
+
+/* Los slides de P3 pueden ocupar todo el área */
+
+.project3-layout .carousel-slide {
+    height: 100%;
+}
+
+/* =========================================================
+   PROJECT 3 — CONTENIDO DE LOS SLIDES
+   ========================================================= */
+
+.project3-layout .p3-slide-content {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 40px 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project3-layout .p3-slide-number {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    opacity: 0.6;
+}
+
+
+.project3-layout .p3-slide-content h3 {
+    margin: 0 0 10px 0;
+    font-size: 36px;
+    letter-spacing: 2px;
+}
+
+
+.project3-layout .p3-slide-content h4 {
+    margin: 0 0 25px 0;
+    font-size: 16px;
+    letter-spacing: 2px;
+    opacity: 0.7;
+}
+
+
+.project3-layout .p3-slide-content p {
+    margin: 0 0 20px 0;
+    line-height: 1.7;
+}
+
+
+.project3-layout .p3-slide-section {
+    margin-bottom: 20px;
+}
+
+
+.project3-layout .p3-slide-section strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+/* =========================================================
    VERTICAL CAROUSEL STATES
    ========================================================= */
 
@@ -2075,12 +2175,6 @@ height: calc(var(--gallery-size) * 0.56);
     </div>
         </section>
 
-
-
-        <!-- =====================================================
-             PROJECT 3
-        ===================================================== -->
-
 <!-- =====================================================
 PROJECT 3
 ===================================================== -->
@@ -2112,7 +2206,7 @@ PROJECT 3
 
     <!-- PROJECT CONTAINER -->
 
-    <div class="project-container project-layout">
+    <div class="project-container project-layout project3-layout">
 
 
         <!-- =========================
@@ -2133,24 +2227,6 @@ PROJECT 3
 </div>
 
         </div>
-
-
-        <!-- =========================
-        PROJECT DESCRIPTION
-        ========================== -->
-
-        <div class="project-info">
-
-<p
-    class="project-description"
-    data-translation="project3Description">
-
-    DESCRIPTION OF PROJECT 3 GOES HERE.
-
-</p>
-
-        </div>
-
 
         <!-- =========================
         PROJECT GALLERY
@@ -2182,71 +2258,150 @@ PROJECT 3
                 <div class="carousel-stage">
 
 
-                    <!-- IMAGEN 1 -->
+<!-- SLIDE 01 — ABOUT ME -->
 
-                    <div
-                        class="carousel-slide center"
-                        data-index="0"
-                        onclick="selectSlide(2, 0)">
+<div
+    class="carousel-slide center"
+    data-index="0"
+    onclick="selectSlide(2, 0)">
 
-                        <div class="placeholder">
+    <div class="p3-slide-content">
 
-                            IMAGEN 1
+        <span class="p3-slide-number">01</span>
 
-                        </div>
+        <h3>ABOUT ME</h3>
 
-                    </div>
+        <h4>NARRATIVE PHILOSOPHY</h4>
 
+        <p>
+            Literature → Narrative → Video Games →
+            Implementation → Localization
+        </p>
 
-                    <!-- IMAGEN 2 -->
+    </div>
 
-                    <div
-                        class="carousel-slide next"
-                        data-index="1"
-                        onclick="selectSlide(2, 1)">
-
-                        <div class="placeholder">
-
-                            IMAGEN 2
-
-                        </div>
-
-                    </div>
+</div>
 
 
-                    <!-- IMAGEN 3 -->
+<!-- SLIDE 02 — DIGITAL HEARTS -->
 
-                    <div
-                        class="carousel-slide hidden-right"
-                        data-index="2"
-                        onclick="selectSlide(2, 2)">
+<div
+    class="carousel-slide next"
+    data-index="1"
+    onclick="selectSlide(2, 1)">
 
-                        <div class="placeholder">
+    <div class="p3-slide-content">
 
-                            IMAGEN 3
+        <span class="p3-slide-number">02</span>
 
-                        </div>
+        <h3>DIGITAL HEARTS</h3>
 
-                    </div>
+        <h4>LOCALIZATION PROJECT LEADER</h4>
+
+        <div class="p3-slide-section">
+
+            <strong>ROLE</strong>
+
+            <p>
+                Localization Project Leader — Tokyo
+            </p>
+
+        </div>
+
+        <div class="p3-slide-section">
+
+            <strong>RESPONSIBILITIES</strong>
+
+            <p>
+                Project management, localization,
+                communication and quality assurance.
+            </p>
+
+        </div>
+
+        <div class="p3-slide-section">
+
+            <strong>SKILLS</strong>
+
+            <p>
+                Leadership • Localization • LQA •
+                Team Management
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
 
 
-                    <!-- VIDEO -->
+<!-- SLIDE 03 — TEACHING -->
 
-                    <div
-                        class="carousel-slide hidden-right"
-                        data-index="3"
-                        onclick="selectSlide(2, 3)">
+<div
+    class="carousel-slide hidden-right"
+    data-index="2"
+    onclick="selectSlide(2, 2)">
 
-                        <div class="placeholder">
+    <div class="p3-slide-content">
 
-                            VIDEO
+        <span class="p3-slide-number">03</span>
 
-                        </div>
+        <h3>TEACHING</h3>
 
-                    </div>
+        <h4>DIDACTICS &amp; EDUCATION</h4>
+
+        <div class="p3-slide-section">
+
+            <strong>LITERATURE</strong>
+
+            <p>
+                Teaching literature and narrative,
+                developing ways to communicate
+                complex ideas through storytelling.
+            </p>
+
+        </div>
+
+        <div class="p3-slide-section">
+
+            <strong>VIDEO GAMES</strong>
+
+            <p>
+                Teaching game design and exploring
+                how interactive media can be used
+                as a tool for learning.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
 
 
-                </div>
+<!-- SLIDE 04 — ACADEMIA -->
+
+<div
+    class="carousel-slide hidden-right"
+    data-index="3"
+    onclick="selectSlide(2, 3)">
+
+    <div class="p3-slide-content">
+
+        <span class="p3-slide-number">04</span>
+
+        <h3>ACADEMIA</h3>
+
+        <h4>LITERATURE • GAME DESIGN • STORYTELLING</h4>
+
+        <p>
+            Literature → Narrative Theory →
+            Game Design → Interactive Storytelling
+        </p>
+
+    </div>
+
+</div>
 
 
                 <!-- NEXT -->
