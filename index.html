@@ -1491,7 +1491,256 @@ height: calc(var(--gallery-size) * 0.56);
     }
 }
 
+/* =========================================================
+   OUTRO / CONTACT
+   ========================================================= */
 
+.outro-section {
+    background: #000;
+}
+
+.outro-section .section-background {
+    display: none;
+}
+
+.outro-content {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    padding: 8vh 8vw;
+
+    color: #fff;
+}
+
+.outro-title {
+    position: absolute;
+
+    top: 12%;
+    right: 8%;
+
+    font-size: clamp(2rem, 4vw, 4rem);
+
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+.outro-contact {
+    position: absolute;
+
+    left: 8%;
+    bottom: 10%;
+
+    max-width: 600px;
+}
+
+.outro-heading {
+    margin-bottom: 35px;
+
+    font-size: clamp(1.3rem, 2vw, 2rem);
+
+    letter-spacing: 0.08em;
+
+    font-weight: 500;
+}
+
+.outro-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+}
+
+.outro-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.outro-label {
+    font-size: 0.7rem;
+
+    letter-spacing: 0.15em;
+
+    opacity: 0.5;
+}
+
+.outro-value {
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    white-space: pre-line;
+    line-height: 1.5;
+}
+
+.outro-final-message {
+    position: absolute;
+
+    right: 8%;
+    bottom: 10%;
+
+    width: min(34vw, 480px);
+
+    font-size: clamp(1rem, 1.4vw, 1.3rem);
+
+    letter-spacing: 0.05em;
+
+    opacity: 0.7;
+}
+
+.outro-link {
+    text-decoration: none;
+
+    color: inherit;
+
+    transition:
+        opacity 0.2s ease;
+}
+
+
+.outro-link:hover {
+    opacity: 0.55;
+}
+
+/* =========================================================
+   OUTRO STORY CLOSING
+   ========================================================= */
+
+.outro-story-message,
+.outro-story-final {
+
+    opacity: 0;
+
+}
+
+
+.outro-story-final {
+
+    margin-top: 12px;
+
+    opacity: 0.7;
+
+}
+
+/* =========================================================
+   OUTRO CONTACT FORM
+   ========================================================= */
+
+.outro-form {
+    position: absolute;
+
+    right: 8%;
+    bottom: 10%;
+
+    width: min(34vw, 480px);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 22px;
+
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.outro-form.visible {
+    opacity: 1;
+}
+
+.outro-form-field {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.outro-form-field label {
+    font-size: 0.7rem;
+
+    letter-spacing: 0.15em;
+
+    opacity: 0.5;
+}
+
+
+.outro-form-field input,
+.outro-form-field textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px 0;
+
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+
+    background: transparent;
+
+    color: #fff;
+
+    font-family: inherit;
+
+    font-size: 1rem;
+
+    outline: none;
+
+    resize: vertical;
+}
+
+
+.outro-form-field input:focus,
+.outro-form-field textarea:focus {
+
+    border-bottom-color: #fff;
+
+}
+
+
+#contact-submit {
+
+    align-self: flex-start;
+
+    margin-top: 5px;
+
+    padding: 9px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    background: transparent;
+
+    color: #fff;
+
+    font-family: inherit;
+
+    font-size: 0.7rem;
+
+    letter-spacing: 0.12em;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+#contact-submit:hover {
+
+    background: #fff;
+
+    color: #000;
+
+}
 
     </style>
 
@@ -2482,6 +2731,178 @@ PROJECT 3
 
 
 </section>
+
+        <!-- =====================================================
+             OUTRO / CONTACT
+        ===================================================== -->
+
+        <section
+            id="outro"
+            class="portfolio-section outro-section">
+
+<div class="outro-content">
+
+    <div
+        id="outro-title"
+        class="outro-title">
+    </div>
+
+
+    <div
+        id="outro-contact"
+        class="outro-contact">
+
+        <div
+            id="outro-heading"
+            class="outro-heading">
+        </div>
+
+
+        <div class="outro-info">
+
+            <div class="outro-item">
+
+                <span
+                    id="outro-email-label"
+                    class="outro-label">
+                </span>
+
+<a
+    id="outro-email"
+    class="outro-value outro-link"
+    href="mailto:ibarraagustinandres@gmail.com">
+</a>
+
+            </div>
+
+
+            <div class="outro-item">
+
+                <span
+                    id="outro-linkedin-label"
+                    class="outro-label">
+                </span>
+
+<a
+    id="outro-linkedin"
+    class="outro-value outro-link"
+    href="https://www.linkedin.com/in/aaibarra"
+    target="_blank"
+    rel="noopener noreferrer">
+</a>
+
+            </div>
+
+
+            <div class="outro-item">
+
+                <span
+                    id="outro-location-label"
+                    class="outro-label">
+                </span>
+
+                <span
+                    id="outro-location"
+                    class="outro-value">
+                </span>
+
+            </div>
+
+
+            <div class="outro-item">
+
+                <span
+                    id="outro-availability-label"
+                    class="outro-label">
+                </span>
+
+                <span
+                    id="outro-availability"
+                    class="outro-value">
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+    id="outro-form"
+    class="outro-form">
+
+    <div class="outro-form-field">
+
+        <label for="contact-name">
+            NAME
+        </label>
+
+        <input
+            id="contact-name"
+            type="text"
+            autocomplete="name">
+            
+    </div>
+
+
+    <div class="outro-form-field">
+
+        <label for="contact-email">
+            EMAIL
+        </label>
+
+        <input
+            id="contact-email"
+            type="email"
+            autocomplete="email">
+
+    </div>
+
+
+    <div class="outro-form-field">
+
+        <label for="contact-message">
+            MESSAGE
+        </label>
+
+        <textarea
+            id="contact-message"
+            rows="4">
+        </textarea>
+
+    </div>
+
+
+    <button
+        id="contact-submit"
+        type="button">
+
+        SEND MESSAGE
+
+    </button>
+
+</div>
+
+
+<div
+    id="outro-final-message"
+    class="outro-final-message">
+
+    <div
+        id="outro-story-message"
+        class="outro-story-message">
+    </div>
+
+    <div
+        id="outro-story-final"
+        class="outro-story-final">
+    </div>
+
+</div>
+
+</div>
+
+        </section>
 
 </main>
 
@@ -3738,6 +4159,518 @@ document.body.addEventListener(
 );
 
 /* =========================================================
+   OUTRO TYPEWRITER
+   ========================================================= */
+
+const outroTitle =
+    document.getElementById("outro-title");
+
+const outroHeading =
+    document.getElementById("outro-heading");
+
+const outroEmailLabel =
+    document.getElementById("outro-email-label");
+
+const outroEmail =
+    document.getElementById("outro-email");
+
+const outroLinkedinLabel =
+    document.getElementById("outro-linkedin-label");
+
+const outroLinkedin =
+    document.getElementById("outro-linkedin");
+
+const outroLocationLabel =
+    document.getElementById("outro-location-label");
+
+const outroLocation =
+    document.getElementById("outro-location");
+
+const outroAvailabilityLabel =
+    document.getElementById("outro-availability-label");
+
+const outroAvailability =
+    document.getElementById("outro-availability");
+
+const outroFinalMessage =
+    document.getElementById("outro-final-message");
+
+    const outroStoryMessage =
+    document.getElementById("outro-story-message");
+
+const outroStoryFinal =
+    document.getElementById("outro-story-final");
+
+    const outroForm =
+    document.getElementById("outro-form");
+
+    const contactName =
+    document.getElementById("contact-name");
+
+const contactEmail =
+    document.getElementById("contact-email");
+
+const contactMessage =
+    document.getElementById("contact-message");
+
+const contactSubmit =
+    document.getElementById("contact-submit");
+
+let outroTypingStarted = false;
+
+let outroTypingFinished = false;
+
+let outroTypingTimeout = null;
+
+
+/* =========================================================
+   TYPEWRITER INDIVIDUAL
+   ========================================================= */
+
+function typeOutroText(
+    element,
+    text,
+    speed = 45
+) {
+
+    return new Promise(resolve => {
+
+        element.textContent = "";
+
+        let index = 0;
+
+
+        function typeCharacter() {
+
+            if (index >= text.length) {
+
+                resolve();
+
+                return;
+            }
+
+
+element.textContent +=
+    text[index];
+
+
+/*
+ * Sonido de máquina de escribir.
+ */
+
+if (
+    typeSound &&
+    text[index] !== " "
+) {
+
+    typeSound.currentTime = 0;
+
+    typeSound.play()
+        .catch(() => {});
+
+}
+
+
+index++;
+
+
+            outroTypingTimeout =
+                setTimeout(
+                    typeCharacter,
+                    speed
+                );
+        }
+
+
+        typeCharacter();
+
+    });
+}
+
+
+/* =========================================================
+   START OUTRO TYPEWRITER
+   ========================================================= */
+
+async function startOutroTyping() {
+
+    if (outroTypingStarted) {
+        return;
+    }
+
+
+    outroTypingStarted = true;
+
+
+    /*
+     * Esperamos 1 segundo después
+     * de entrar a la OUTRO.
+     */
+
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            1000
+        );
+
+    });
+
+
+    /*
+     * CONTACT
+     */
+
+    await typeOutroText(
+        outroTitle,
+        "CONTACT",
+        70
+    );
+
+
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            500
+        );
+
+    });
+
+
+    /*
+     * HABLEMOS
+     */
+
+    await typeOutroText(
+        outroHeading,
+        "HABLEMOS:",
+        60
+    );
+
+
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            350
+        );
+
+    });
+
+
+    /*
+     * EMAIL
+     */
+
+    await typeOutroText(
+        outroEmailLabel,
+        "EMAIL",
+        45
+    );
+
+
+    await typeOutroText(
+        outroEmail,
+        "ibarraagustinandres@gmail.com",
+        40
+    );
+
+    await new Promise(resolve => {
+
+    setTimeout(
+        resolve,
+        450
+    );
+
+});
+
+    /*
+     * LINKEDIN
+     */
+
+    await typeOutroText(
+        outroLinkedinLabel,
+        "LINKEDIN",
+        45
+    );
+
+
+    await typeOutroText(
+        outroLinkedin,
+        "https://www.linkedin.com/in/aaibarra",
+        40
+    );
+
+await new Promise(resolve => {
+
+    setTimeout(
+        resolve,
+        450
+    );
+
+});
+    /*
+     * LOCATION
+     */
+
+    await typeOutroText(
+        outroLocationLabel,
+        "LOCATION",
+        45
+    );
+
+
+    await typeOutroText(
+        outroLocation,
+        "Currently in Tokyo, Japan\nOpen to European and US time zones",
+        35
+    );
+
+await new Promise(resolve => {
+
+    setTimeout(
+        resolve,
+        500
+    );
+
+});
+    /*
+     * AVAILABILITY
+     */
+
+    await typeOutroText(
+        outroAvailabilityLabel,
+        "AVAILABILITY",
+        45
+    );
+
+
+    await typeOutroText(
+        outroAvailability,
+        "Open to full-time and freelance opportunities",
+        35
+    );
+
+await new Promise(resolve => {
+
+    setTimeout(
+        resolve,
+        1200
+    );
+
+});
+/*
+ * APARECE EL FORMULARIO
+ */
+
+await new Promise(resolve => {
+
+    setTimeout(
+        resolve,
+        700
+    );
+
+});
+
+
+outroForm.classList.add(
+    "visible"
+);
+
+    outroTypingFinished = true;
+
+}
+/*
+ * ENVIAMOS EL MENSAJE AL GOOGLE FORMS
+ */
+contactSubmit.addEventListener(
+    "click",
+    async () => {
+
+        const name =
+            contactName.value.trim();
+
+        const email =
+            contactEmail.value.trim();
+
+        const message =
+            contactMessage.value.trim();
+
+
+        /*
+         * Comprobamos que los tres campos
+         * tengan contenido.
+         */
+
+        if (
+            !name ||
+            !email ||
+            !message
+        ) {
+
+            alert(
+                "Please complete all fields."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Datos que vamos a enviar
+         * a Google Forms.
+         */
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "entry.1320834936",
+            name
+        );
+
+
+        formData.append(
+            "entry.86991854",
+            email
+        );
+
+
+        formData.append(
+            "entry.619759869",
+            message
+        );
+
+
+        /*
+         * Desactivamos temporalmente
+         * el botón para evitar
+         * múltiples envíos.
+         */
+
+        contactSubmit.disabled = true;
+
+        contactSubmit.textContent =
+            "SENDING...";
+
+
+        try {
+
+            await fetch(
+                "https://docs.google.com/forms/d/e/1FAIpQLSeMWIl0ddp3jkqKetPPTNGZ8v3UBtktV2cl15imCTVq37Xzzg/formResponse",
+                {
+                    method: "POST",
+
+                    mode: "no-cors",
+
+                    body: formData
+                }
+            );
+
+
+            /*
+             * Google Forms recibió
+             * la petición.
+             */
+
+contactSubmit.textContent =
+    "MESSAGE SENT";
+
+
+contactName.value = "";
+contactEmail.value = "";
+contactMessage.value = "";
+
+
+/*
+ * Dejamos que el usuario vea
+ * MESSAGE SENT durante un instante.
+ */
+
+await new Promise(resolve => {
+
+    setTimeout(
+        resolve,
+        900
+    );
+
+});
+
+
+/*
+ * Ocultamos el formulario.
+ */
+
+outroForm.classList.remove(
+    "visible"
+);
+
+
+/*
+ * Esperamos a que termine
+ * el fade-out.
+ */
+
+await new Promise(resolve => {
+
+    setTimeout(
+        resolve,
+        900
+    );
+
+});
+
+outroStoryMessage.style.opacity = "1";
+await typeOutroText(
+    outroStoryMessage,
+    "Your message has become part of the story.",
+    50
+);
+
+await new Promise(resolve => {
+
+    setTimeout(
+        resolve,
+        900
+    );
+
+});
+
+outroStoryFinal.style.opacity = "1";
+await typeOutroText(
+    outroStoryFinal,
+    "Let's write the next one.",
+    55
+);
+
+        } catch (error) {
+
+            console.error(
+                "Contact form error:",
+                error
+            );
+
+
+            contactSubmit.disabled =
+                false;
+
+            contactSubmit.textContent =
+                "SEND MESSAGE";
+
+
+            alert(
+                "Something went wrong. Please try again."
+            );
+
+        }
+
+    }
+);
+
+/* =========================================================
    VERTICAL CAROUSEL
    ========================================================= */
 
@@ -4404,6 +5337,19 @@ function showVerticalSection(newIndex) {
                     section.classList.add(
                         "vertical-current"
                     );
+
+                    /*
+ * Si la sección actual es la OUTRO,
+ * iniciamos su máquina de escribir.
+ */
+
+if (
+    section.id === "outro"
+) {
+
+    startOutroTyping();
+
+}
 
                 }
 
