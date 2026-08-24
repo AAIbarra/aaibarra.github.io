@@ -488,7 +488,6 @@
     position: relative;
     z-index: 1;
 }
-
 /* =========================================================
    PROJECT 3 — LAYOUT ESPECIAL
    ========================================================= */
@@ -500,48 +499,98 @@
 
 
 /* =========================================================
-   PROJECT 3 — CARRUSEL GRANDE
+   PROJECT 3 — LARGE CONTENT SLIDES
    ========================================================= */
 
 .project3-layout .project-gallery {
     flex: 1;
     min-height: 0;
+    width: 100%;
+
     display: flex;
     flex-direction: column;
 }
 
 
-/* El carrusel ocupa todo el espacio disponible */
-
 .project3-layout .carousel-wrapper {
     flex: 1;
     min-height: 0;
+
+    height: auto;
+
+    --gallery-size: clamp(
+        850px,
+        76vw,
+        1400px
+    );
 }
 
-
-/* El escenario del carrusel también crece */
 
 .project3-layout .carousel-stage {
-    height: 100%;
+    width: 100%;
+
+    height: clamp(
+        500px,
+        62vh,
+        720px
+    );
 }
 
-
-/* Los slides de P3 pueden ocupar todo el área */
 
 .project3-layout .carousel-slide {
-    height: 100%;
+    width: clamp(
+        850px,
+        76vw,
+        1400px
+    );
+
+    height: clamp(
+        500px,
+        62vh,
+        720px
+    );
 }
 
+
 /* =========================================================
-   PROJECT 3 — CONTENIDO DE LOS SLIDES
+   PROJECT 3 — COVERFLOW POSITION
+   ========================================================= */
+
+.project3-layout .carousel-slide.previous {
+    transform:
+        translate(
+            calc(-50% - 42vw),
+            -50%
+        )
+        scale(0.55);
+
+    opacity: 0.45;
+}
+
+
+.project3-layout .carousel-slide.next {
+    transform:
+        translate(
+            calc(-50% + 42vw),
+            -50%
+        )
+        scale(0.55);
+
+    opacity: 0.45;
+}
+
+
+/* =========================================================
+   PROJECT 3 — SLIDE CONTENT
    ========================================================= */
 
 .project3-layout .p3-slide-content {
     width: 100%;
     height: 100%;
+
     box-sizing: border-box;
 
-    padding: 55px 70px;
+    padding: 40px 80px;
 
     display: flex;
     flex-direction: column;
@@ -550,10 +599,9 @@
     text-align: left;
 }
 
-.project3-layout .p3-slide-number {
-    display: block;
 
-    margin-bottom: 14px;
+.project3-layout .p3-slide-number {
+    margin-bottom: 2px;
 
     font-size: 13px;
     letter-spacing: 4px;
@@ -563,9 +611,9 @@
 
 
 .project3-layout .p3-slide-content h3 {
-    margin: 0 0 8px 0;
+    margin: 0 0 4px 0;
 
-    font-size: 38px;
+    font-size: clamp(30px, 2.4vw, 42px);
     line-height: 1.1;
 
     letter-spacing: 2px;
@@ -573,9 +621,9 @@
 
 
 .project3-layout .p3-slide-content h4 {
-    margin: 0 0 35px 0;
+    margin: 0 0 20px 0;
 
-    font-size: 14px;
+    font-size: clamp(14px, 1vw, 18px);
     line-height: 1.4;
 
     letter-spacing: 2px;
@@ -584,31 +632,57 @@
 }
 
 
-.project3-layout .p3-slide-content p {
-    margin: 0 0 24px 0;
+/* =========================================================
+   PROJECT 3 — MAIN PARAGRAPHS
+   ========================================================= */
 
-    max-width: 760px;
+.project3-layout .p3-slide-paragraph {
+    width: 100%;
+    max-width: 1300px;
 
-    font-size: 16px;
+    margin: 0 0 12px 0;
+
+    font-size: clamp(14px, 1vw, 17px);
     line-height: 1.7;
+
+    text-align: justify;
 }
 
 
-.project3-layout .p3-slide-section {
-    margin-bottom: 20px;
+/* =========================================================
+   PROJECT 3 — CORE FOCUS
+   ========================================================= */
+
+.project3-layout .p3-core-focus {
+    margin-top: 6px;
+
+    width: 100%;
+    max-width: 1300px;
 }
 
 
-.project3-layout .p3-slide-section strong {
-    display: block;
+.project3-layout .p3-core-focus h5 {
+    margin: 0 0 8px 0;
 
-    margin-bottom: 7px;
-
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 3px;
 
     opacity: 0.6;
 }
+
+
+.project3-layout .p3-focus-item {
+    width: 100%;
+    max-width: 1300px;
+
+    margin-bottom: 9px;
+
+    font-size: clamp(13px, 0.9vw, 16px);
+    line-height: 1.6;
+
+    overflow-wrap: break-word;
+}
+
 
 /* =========================================================
    VERTICAL CAROUSEL STATES
@@ -2528,7 +2602,9 @@ PROJECT 3
                 <div class="carousel-stage">
 
 
-<!-- SLIDE 01 — ABOUT ME -->
+<!-- =====================================================
+     SLIDE 01 — ABOUT ME
+===================================================== -->
 
 <div
     class="carousel-slide center"
@@ -2537,23 +2613,82 @@ PROJECT 3
 
     <div class="p3-slide-content">
 
-        <span class="p3-slide-number">01</span>
 
-        <h3>ABOUT ME</h3>
+        <!-- NUMBER -->
 
-        <h4>NARRATIVE PHILOSOPHY</h4>
+        <span
+            class="p3-slide-number">
+            01
+        </span>
 
-        <p>
-            Literature → Narrative → Video Games →
-            Implementation → Localization
+
+        <!-- TITLE -->
+
+        <h3
+            data-translation="project3Slide1Title">
+        </h3>
+
+
+        <!-- SUBTITLE -->
+
+        <h4
+            data-translation="project3Slide1Subtitle">
+        </h4>
+
+
+        <!-- INTRO PARAGRAPH -->
+
+        <p
+            class="p3-slide-paragraph"
+            data-translation="project3Slide1Paragraph1">
         </p>
+
+
+        <!-- SECOND PARAGRAPH -->
+
+        <p
+            class="p3-slide-paragraph"
+            data-translation="project3Slide1Paragraph2">
+        </p>
+
+
+        <!-- CORE FOCUS -->
+
+        <div class="p3-core-focus">
+
+            <h5
+                data-translation="project3Slide1CoreFocusTitle">
+            </h5>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide1Focus1">
+            </div>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide1Focus2">
+            </div>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide1Focus3">
+            </div>
+
+        </div>
+
 
     </div>
 
 </div>
 
 
-<!-- SLIDE 02 — DIGITAL HEARTS -->
+<!-- =====================================================
+     SLIDE 02 — DIGITAL HEARTS
+===================================================== -->
 
 <div
     class="carousel-slide next"
@@ -2562,50 +2697,82 @@ PROJECT 3
 
     <div class="p3-slide-content">
 
-        <span class="p3-slide-number">02</span>
 
-        <h3>DIGITAL HEARTS</h3>
+        <!-- NUMBER -->
 
-        <h4>LOCALIZATION PROJECT LEADER</h4>
+        <span
+            class="p3-slide-number">
+            02
+        </span>
 
-        <div class="p3-slide-section">
 
-            <strong>ROLE</strong>
+        <!-- TITLE -->
 
-            <p>
-                Localization Project Leader — Tokyo
-            </p>
+        <h3
+            data-translation="project3Slide2Title">
+        </h3>
+
+
+        <!-- SUBTITLE -->
+
+        <h4
+            data-translation="project3Slide2Subtitle">
+        </h4>
+
+
+        <!-- INTRO PARAGRAPH -->
+
+        <p
+            class="p3-slide-paragraph"
+            data-translation="project3Slide2Paragraph1">
+        </p>
+
+
+        <!-- SECOND PARAGRAPH -->
+
+        <p
+            class="p3-slide-paragraph"
+            data-translation="project3Slide2Paragraph2">
+        </p>
+
+
+        <!-- KEY RESPONSIBILITIES -->
+
+        <div class="p3-core-focus">
+
+            <h5
+                data-translation="project3Slide2CoreFocusTitle">
+            </h5>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide2Focus1">
+            </div>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide2Focus2">
+            </div>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide2Focus3">
+            </div>
 
         </div>
 
-        <div class="p3-slide-section">
-
-            <strong>RESPONSIBILITIES</strong>
-
-            <p>
-                Project management, localization,
-                communication and quality assurance.
-            </p>
-
-        </div>
-
-        <div class="p3-slide-section">
-
-            <strong>SKILLS</strong>
-
-            <p>
-                Leadership • Localization • LQA •
-                Team Management
-            </p>
-
-        </div>
 
     </div>
 
 </div>
 
 
-<!-- SLIDE 03 — TEACHING -->
+<!-- =====================================================
+     SLIDE 03 — TEACHING
+===================================================== -->
 
 <div
     class="carousel-slide hidden-right"
@@ -2614,42 +2781,82 @@ PROJECT 3
 
     <div class="p3-slide-content">
 
-        <span class="p3-slide-number">03</span>
 
-        <h3>TEACHING</h3>
+        <!-- NUMBER -->
 
-        <h4>DIDACTICS &amp; EDUCATION</h4>
+        <span
+            class="p3-slide-number">
+            03
+        </span>
 
-        <div class="p3-slide-section">
 
-            <strong>LITERATURE</strong>
+        <!-- TITLE -->
 
-            <p>
-                Teaching literature and narrative,
-                developing ways to communicate
-                complex ideas through storytelling.
-            </p>
+        <h3
+            data-translation="project3Slide3Title">
+        </h3>
+
+
+        <!-- SUBTITLE -->
+
+        <h4
+            data-translation="project3Slide3Subtitle">
+        </h4>
+
+
+        <!-- INTRO PARAGRAPH -->
+
+        <p
+            class="p3-slide-paragraph"
+            data-translation="project3Slide3Paragraph1">
+        </p>
+
+
+        <!-- SECOND PARAGRAPH -->
+
+        <p
+            class="p3-slide-paragraph"
+            data-translation="project3Slide3Paragraph2">
+        </p>
+
+
+        <!-- CORE EXPERIENCE -->
+
+        <div class="p3-core-focus">
+
+            <h5
+                data-translation="project3Slide3CoreFocusTitle">
+            </h5>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide3Focus1">
+            </div>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide3Focus2">
+            </div>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide3Focus3">
+            </div>
 
         </div>
 
-        <div class="p3-slide-section">
-
-            <strong>VIDEO GAMES</strong>
-
-            <p>
-                Teaching game design and exploring
-                how interactive media can be used
-                as a tool for learning.
-            </p>
-
-        </div>
 
     </div>
 
 </div>
 
 
-<!-- SLIDE 04 — ACADEMIA -->
+<!-- =====================================================
+     SLIDE 04 — ACADEMIA
+===================================================== -->
 
 <div
     class="carousel-slide hidden-right"
@@ -2658,16 +2865,72 @@ PROJECT 3
 
     <div class="p3-slide-content">
 
-        <span class="p3-slide-number">04</span>
 
-        <h3>ACADEMIA</h3>
+        <!-- NUMBER -->
 
-        <h4>LITERATURE • GAME DESIGN • STORYTELLING</h4>
+        <span
+            class="p3-slide-number">
+            04
+        </span>
 
-        <p>
-            Literature → Narrative Theory →
-            Game Design → Interactive Storytelling
+
+        <!-- TITLE -->
+
+        <h3
+            data-translation="project3Slide4Title">
+        </h3>
+
+
+        <!-- SUBTITLE -->
+
+        <h4
+            data-translation="project3Slide4Subtitle">
+        </h4>
+
+
+        <!-- INTRO PARAGRAPH -->
+
+        <p
+            class="p3-slide-paragraph"
+            data-translation="project3Slide4Paragraph1">
         </p>
+
+
+        <!-- SECOND PARAGRAPH -->
+
+        <p
+            class="p3-slide-paragraph"
+            data-translation="project3Slide4Paragraph2">
+        </p>
+
+        <!-- SELECTED RESEARCH -->
+
+        <div class="p3-core-focus">
+
+            <h5
+                data-translation="project3Slide4CoreFocusTitle">
+            </h5>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide4Focus1">
+            </div>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide4Focus2">
+            </div>
+
+
+            <div
+                class="p3-focus-item"
+                data-translation="project3Slide4Focus3">
+            </div>
+
+        </div>
+
 
     </div>
 
@@ -3190,18 +3453,104 @@ project2Bullet2: "3D Worldbuilding & Asset Integration: Structured the 3D enviro
 project2Bullet3: "C# Programming & Puzzle Logic: Programmed 3D character movement, core gameplay mechanics, and the underlying logic systems for environmental puzzles.",
 project2Bullet4: "UI & Menu Systems: Designed and implemented UI elements and game menus tailored to preserve player immersion.",
 
+project3Title:
+    "Narrative Architecture | Localization, Game Design & Academic Expertise",
 
+project3Slide1Title:
+    "01. ABOUT ME",
 
-        project3Title:
-            "PROJECT TITLE 3",
+project3Slide1Subtitle:
+    "INTEGRAL NARRATIVE DESIGNER",
 
-        project3Subtitle:
-            "PROJECT TYPE · ROLE · TECHNOLOGIES",
+project3Slide1Paragraph1:
+    "I bridge the gap between narrative structure and technical execution. As a Literature and Linguistics graduate from UBA, I transitioned into video game development to design interactive experiences where narrative operates thoroughly across every single layer of the game.",
 
-        project3Description:
-            "DESCRIPTION OF PROJECT 3 GOES HERE."
+project3Slide1Paragraph2:
+    "My approach focuses on integral narrative design, ensuring that story isn't just written, but deeply embedded into the gameplay experience. My expertise in Unity functions as a major technical asset: it allows me to conceptually design mechanics, menus, UI elements, and cinematics that perfectly align with the game's core tone, knowing exactly how they will operate inside the engine. Additionally, I oversee technical localization workflows to guarantee that text engines and world-sprites are integrated seamlessly without breaking player immersion.",
 
-    },
+project3Slide1CoreFocusTitle:
+    "CORE FOCUS:",
+
+project3Slide1Focus1:
+    "→ From Linguistics to Systems: Applying structural language and narrative theory to design interactive logic, environmental storytelling, and player agency.",
+
+project3Slide1Focus2:
+    "→ Integral Narrative Architecture: Conceptualizing gameplay loops, UI thematic elements, and cinematic pacing specifically to reinforce the story context.",
+
+project3Slide1Focus3:
+    "→ Technical Asset: Leveraging a strong understanding of engine workflows (Unity) to bridge the gap between creative writing, technical implementation, and multi-language localization.",
+project3Slide2Title:
+    "02. DIGITAL HEARTS",
+
+project3Slide2Subtitle:
+    "LOCALIZATION PROJECT LEADER",
+
+project3Slide2Paragraph1:
+    "Localization is where narrative design meets global execution. Based in Tokyo, Japan, I work as a Localization Project Leader, managing the complex pipelines where creative content satisfies technical constraints and cultural adaptation.",
+
+project3Slide2Paragraph2:
+    "My role centers on high-level leadership to protect the game's original creative vision and narrative integration. While I directly oversee English and Spanish content from sources both in Japanese and English, my main responsibility is leading international squads and working in close alignment with internal Translation and QA departments, as well as external clients—including developers, art teams, and publishers—to ensure that linguistic precision, structural text limits, and regional adjustments always match the developer’s core intent.",
+
+project3Slide2CoreFocusTitle:
+    "KEY RESPONSIBILITIES:",
+
+project3Slide2Focus1:
+    "→ Project Direction: Leading international squads through major gaming localization cycles, coordinating seamlessly with translation departments and QA teams.",
+
+project3Slide2Focus2:
+    "→ Narrative Guardianship: Supervising the adaptation process so the game's tone, humor, and depth remain cohesive, serving as the bridge between the original developers and worldwide markets.",
+
+project3Slide2Focus3:
+    "→ Technical Workflows: Collaborating across production, art, and development teams to solve engine-level localization challenges, from text layout constraints to asset and variable integration.",
+
+project3Slide3Title:
+    "03. TEACHING",
+
+project3Slide3Subtitle:
+    "DIDACTICS & GAME DESIGN",
+
+project3Slide3Paragraph1:
+    "Education is an extension of my narrative work. My teaching experience focuses on breaking down complex structural theories and technical systems into clear, actionable methodologies for students and creative minds.",
+
+project3Slide3Paragraph2:
+    "At St. Andrew’s Scots School, I designed and hosted a School Game Jam focused entirely on interactive narrative, where students utilized Twine to architect branching stories, learning how player choice impacts structural design. Additionally, at UTN (Universidad Tecnológica Nacional), I served as an Assistant Professor of Game Design within the University Degree in Video Game Development, teaching core game loop mechanics, balance, and how to harness interactive media for immersive storytelling.",
+
+project3Slide3CoreFocusTitle:
+    "CORE EXPERIENCE:",
+
+project3Slide3Focus1:
+    "→ Interactive Narrative Mentorship: Teaching students to use Twine as a framework to master branching paths, variables, and player agency.",
+
+project3Slide3Focus2:
+    "→ Game Design Academia (UTN): Guiding future developers through engine workflows, system mechanics, and the conceptualization of gameplay loops.",
+
+project3Slide3Focus3:
+    "→ Didactic Communication: Translating academic narrative theory into practical design tools for multi-disciplinary teams.",
+
+project3Slide4Title:
+    "04. ACADEMIA",
+
+project3Slide4Subtitle:
+    "LITERARY THEORY & NARRATIVE ARCHITECTURE",
+
+project3Slide4Paragraph1:
+    "My academic background focuses on how stories are built and adapted across media and languages. I completed a long-track degree in Literature and Linguistics at UBA (Universidad de Buenos Aires), complemented by advanced postgraduate coursework in Literary Translation. To connect theory with production, I later completed a Diploma in Creative Video Game Design at UNCUYO and a Video Game Development Bootcamp at UTN, integrating narrative and design foundations directly into Unity 3D development.",
+
+project3Slide4Paragraph2:
+    "My research combines structural language analysis with interactive design, examining how narrative devices, tropes, and storytelling structures operate across global media.",
+
+project3Slide4CoreFocusTitle:
+    "SELECTED RESEARCH & ACADEMIC PAPERS:",
+
+project3Slide4Focus1:
+    "→ The Wartime Chronotope in Modern Chinese Fiction: A comparative study of Eileen Chang’s \"Sealed Off\" (1943) and Ling Shuhua’s \"Calm\" (1932), exploring how war transforms public spaces into liminal environments that reshape social behavior and identity.",
+
+project3Slide4Focus2:
+    "→ The Rashomon Device – A Structural Analysis: An examination of the multi-perspective narrative structure behind Akira Kurosawa’s Rashomon and its relationship with Ryunosuke Akutagawa’s original stories, exploring how shifting perspectives reshape narrative architecture.",
+
+project3Slide4Focus3:
+    "→ Medievalism in Final Fantasy IX – Narrative Mechanics: An analysis of how medieval tropes, aesthetics, and literary archetypes are adapted and reimagined through the game’s characters and narrative structure.",
+},
 
 
     es: {
@@ -3254,17 +3603,104 @@ project2Bullet3: "Programación y Puzzles en C#: Programé el sistema de movimie
 project2Bullet4: "Interfaz y Menús: Diseñé e implementé los menús del juego y los elementos de la interfaz de usuario (UI) para mantener la inmersión de la experiencia.",
 
 
+project3Title:
+    "Arquitectura Narrativa | Localización, Diseño de Juegos y Experiencia Académica",
 
-        project3Title:
-            "TÍTULO DEL PROYECTO 3",
+project3Slide1Title:
+    "01. SOBRE MÍ",
 
-        project3Subtitle:
-            "TIPO DE PROYECTO · ROL · TECNOLOGÍAS",
+project3Slide1Subtitle:
+    "DISEÑADOR DE NARRATIVA INTEGRAL",
 
-        project3Description:
-            "DESCRIPCIÓN DEL PROYECTO 3 AQUÍ."
+project3Slide1Paragraph1:
+    "Conecto la estructura narrativa con la ejecución técnica. Como graduado en Letras y Lingüística por la UBA, di el salto al desarrollo de videojuegos para diseñar experiencias interactivas donde la narrativa opera de forma integral en cada capa del juego.",
 
-    },
+project3Slide1Paragraph2:
+    "Mi enfoque se centra en el diseño de narrativa integral, asegurando que la historia no sea solo un texto escrito, sino un elemento profundamente arraigado en la experiencia de juego. Mi experiencia en Unity funciona como una ventaja técnica clave: me permite diseñar conceptualmente mecánicas, menús, elementos de interfaz y cinemáticas que se alinean perfectamente con el tono central del juego, sabiendo con precisión cómo van a operar dentro del motor. Asimismo, superviso los flujos de localización técnica para garantizar que los motores de texto y los sprites del entorno se integren de manera fluida sin romper la inmersión del jugador.",
+
+project3Slide1CoreFocusTitle:
+    "ENFOQUE CENTRAL:",
+
+project3Slide1Focus1:
+    "→ De la Lingüística a los Sistemas: Aplicación de la teoría lingüística estructural y narrativa para diseñar la lógica interactiva, la narrativa ambiental y el player agency (capacidad de elección del jugador).",
+
+project3Slide1Focus2:
+    "→ Arquitectura Narrativa Integral: Conceptualización de bucles de juego (gameplay loops), elementos temáticos de interfaz y ritmo cinemático diseñados específicamente para reforzar el contexto de la historia.",
+
+project3Slide1Focus3:
+    "→ Valor Técnico Añadido: Aprovechamiento de un sólido conocimiento de los flujos de trabajo en motores gráficos (Unity) para acortar la distancia entre la escritura creativa, la implementación técnica y la localización multiidioma.",
+
+project3Slide2Title:
+    "02. DIGITAL HEARTS",
+
+project3Slide2Subtitle:
+    "LÍDER DE PROYECTOS DE LOCALIZACIÓN",
+
+project3Slide2Paragraph1:
+    "La localización es el punto donde el diseño narrativo se encuentra con la ejecución global. Desde Tokio, Japón, me desempeño como Líder de Proyectos de Localización, gestionando flujos de trabajo donde el contenido creativo se adapta a limitaciones técnicas y contextos culturales.",
+
+project3Slide2Paragraph2:
+    "Mi rol se centra en proteger la visión creativa original y su integración narrativa. Superviso contenido en inglés y español a partir de fuentes en japonés e inglés, mientras lidero equipos internacionales y coordino con los departamentos de Traducción y QA, así como con desarrolladores, equipos de arte y publishers, para asegurar que la precisión lingüística, las limitaciones de texto y los ajustes regionales respeten siempre la intención del desarrollador.",
+
+project3Slide2CoreFocusTitle:
+    "RESPONSABILIDADES CLAVE:",
+
+project3Slide2Focus1:
+    "→ Dirección de Proyectos: Liderazgo de equipos internacionales durante ciclos de localización de videojuegos, coordinando con departamentos de traducción y equipos de QA.",
+
+project3Slide2Focus2:
+    "→ Custodia Narrativa: Supervisión de la adaptación para preservar el tono, el humor y la profundidad del juego, actuando como puente entre desarrolladores y mercados internacionales.",
+
+project3Slide2Focus3:
+    "→ Flujos de Trabajo Técnicos: Colaboración con equipos de producción, arte y desarrollo para resolver desafíos de localización, desde límites de texto hasta la integración de variables y assets.",
+project3Slide3Title:
+    "03. DOCENCIA",
+
+project3Slide3Subtitle:
+    "DIDÁCTICA Y DISEÑO DE JUEGOS",
+
+project3Slide3Paragraph1:
+    "La educación es una extensión de mi trabajo narrativo. Mi experiencia docente se centra en desglosar teorías estructurales complejas y sistemas técnicos en metodologías claras y aplicables para estudiantes y mentes creativas.",
+
+project3Slide3Paragraph2:
+    "En el St. Andrew’s Scots School, diseñé y lideré una Game Jam escolar centrada completamente en la narrativa interactiva, donde los estudiantes utilizaron Twine para arquitecturar historias ramificadas, aprendiendo cómo la elección del jugador impacta en el diseño estructural. Asimismo, en la UTN (Universidad Tecnológica Nacional), me desempeñé como Docente Adjunto de Diseño de Juegos dentro de la Tecnicatura Universitaria en Desarrollo de Videojuegos, enseñando mecánicas centrales del bucle de juego (game loops), balance y cómo aprovechar los medios interactivos para la narración inmersiva.",
+
+project3Slide3CoreFocusTitle:
+    "EXPERIENCIA CENTRAL:",
+
+project3Slide3Focus1:
+    "→ Mentoría en Narrativa Interactiva: Instrucción a estudiantes en el uso de Twine como marco de trabajo para dominar ramificaciones, variables y la agencia del jugador.",
+
+project3Slide3Focus2:
+    "→ Docencia en Diseño de Juegos (UTN): Guía a futuros desarrolladores a través de flujos de trabajo en motores gráficos, mecánicas de sistemas y la conceptualización de bucles de juego.",
+
+project3Slide3Focus3:
+    "→ Comunicación Didáctica: Traducción de la teoría académica de la narrativa en herramientas de diseño prácticas para equipos multidisciplinarios.",
+
+project3Slide4Title:
+    "04. ACADEMIA",
+
+project3Slide4Subtitle:
+    "TEORÍA LITERARIA Y ARQUITECTURA NARRATIVA",
+
+project3Slide4Paragraph1:
+    "Mi recorrido académico se centra en comprender cómo se construyen las historias y cómo esas estructuras se adaptan a través de diferentes medios e idiomas. Completé una carrera de grado de plan largo en Letras en la UBA (Universidad de Buenos Aires), complementada con cursos avanzados de posgrado en Traducción Literaria. Para conectar la teoría con la producción, posteriormente cursé una Diplomatura en Diseño Creativo de Videojuegos en la UNCUYO y un Bootcamp de Desarrollo de Videojuegos en la UTN, integrando directamente las bases de diseño y narrativa en el desarrollo con Unity 3D.",
+
+project3Slide4Paragraph2:
+    "Mi investigación fusiona el análisis estructural del lenguaje con el diseño interactivo, explorando cómo operan los dispositivos narrativos, los tropos y las estructuras narrativas en los medios globales.",
+
+project3Slide4CoreFocusTitle:
+    "INVESTIGACIONES Y ARTÍCULOS ACADÉMICOS SELECCIONADOS:",
+
+project3Slide4Focus1:
+    "→ El Cronotopo de Guerra en la Ficción China Moderna: Un estudio comparativo sobre \"Bloqueo\" (1943) de Eileen Chang y \"Calma\" (1932) de Ling Shuhua, que explora cómo la guerra transforma espacios públicos en entornos liminales capaces de alterar el comportamiento social y la identidad.",
+
+project3Slide4Focus2:
+    "→ El Dispositivo Rashomon – Un Análisis Estructural: Un estudio sobre la estructura narrativa de perspectivas múltiples utilizada en Rashomon de Akira Kurosawa y su relación con los relatos originales de Ryunosuke Akutagawa, analizando cómo el cambio de perspectivas transforma la arquitectura narrativa.",
+
+project3Slide4Focus3:
+    "→ Medievalismo en Final Fantasy IX – Mecánicas Narrativas: Un análisis sobre cómo los tropos, la estética y los arquetipos literarios medievales son adaptados y reinterpretados a través de los personajes y la estructura narrativa del juego.",
+},
 
 
     ja: {
@@ -3317,17 +3753,105 @@ project2Bullet3: "C#プログラミング＆パズルロジック：3Dキャラ�
 project2Bullet4: "UI＆メニューシステム：プレイヤーの没入感を損なわないよう設計されたユーザーインターフェース（UI）およびゲームメニューを実装。",
 
 
+project3Title:
+    "ナラティブアーキテクチャ | ローカライズ・ゲームデザイン＆学術的専門性",
 
-        project3Title:
-            "プロジェクト3",
+project3Slide1Title:
+    "01. 自己紹介",
 
-        project3Subtitle:
-            "プロジェクトタイプ · 役割 · 使用技術",
+project3Slide1Subtitle:
+    "総合ナラティブデザイナー",
 
-        project3Description:
-            "プロジェクト3の説明がここに入ります。"
+project3Slide1Paragraph1:
+    "私は、物語の構造（ナラティブ）と技術的な実装（インゲーム・エグゼキューション）をつなぐ存在です。ブエノスアイレス大学（UBA）で文学と言語学を学んだ後、ゲームのあらゆるレイヤーでナラティブが機能するインタラクティブな体験を設計するため、ゲーム開発の世界へ進みました。",
 
-    }
+project3Slide1Paragraph2:
+    "私のアプローチの核は「総合的なナラティブデザイン（Integral Narrative Designer）」です。ストーリーを単なるテキストとして書くのではなく、ゲーム体験そのものに深く組み込むことを追求しています。Unityの専門知識を活かし、ゲームのトーンや世界観に合ったメカニクス、メニュー、UI、シネマティクスを設計し、それらがゲームエンジン内でどう機能するかを理解した上で制作します。さらに、テキストや背景スプライトが没入感を損なわず統合されるよう、技術的なローカライズのワークフローも統括しています。",
+
+project3Slide1CoreFocusTitle:
+    "主なフォーカス（CORE FOCUS）：",
+
+project3Slide1Focus1:
+    "→ 言語学からシステムへ（From Linguistics to Systems）：構造言語学とナラティブ理論を応用し、インタラクティブなロジック、環境ストーリーテリング、プレイヤーの意思決定を設計します。",
+
+project3Slide1Focus2:
+    "→ 総合的なナラティブアーキテクチャ（Integral Narrative Architecture）：ゲームループ、テーマ性のあるUI、シネマティクスのテンポを設計し、ストーリーの世界観をより強固にします。",
+
+project3Slide1Focus3:
+    "→ 技術的な強み（Technical Asset）：Unityのワークフローへの深い理解を活かし、クリエイティブなライティング、技術的な実装、多言語ローカライズの間をつなぎます。",
+
+    project3Slide2Title:
+    "02. DIGITAL HEARTS",
+
+project3Slide2Subtitle:
+    "ローカライズ・プロジェクトリーダー",
+
+project3Slide2Paragraph1:
+    "ローカライズとは、ナラティブデザインがグローバルな実行力と出会う領域です。私は東京を拠点にローカライズ・プロジェクトリーダーとして従事し、クリエイティブなコンテンツが技術的制約や文化的適応（カルチャライズ）と交差する、複雑なパイプラインの管理・統括を担っています。",
+
+project3Slide2Paragraph2:
+    "私の役割の核心は、作品が持つ本来のクリエイティブ・ビジョンとナラティブの整合性を死守するための「ハイレベルな牽引（リーダーシップ）」にあります。日本語および英語の原文・テキストから、英語・スペイン語圏への展開を直接監修するだけでなく、最大のミッションとして、開発元（デベロッパー）、アートチーム、パブリッシャーなどの外部クライアント、そして社内の翻訳部やQA部と密に連携するグローバルチームを指揮しています。これにより、言語的な精度、UI上の文字数制限、地域ごとのカルチャライズ調整が、常に開発者の意図（オリジナル）と完全に合致するよう全体をオーケストレートしています。",
+
+project3Slide2CoreFocusTitle:
+    "主な職務（KEY RESPONSIBILITIES）：",
+
+project3Slide2Focus1:
+    "→ プロジェクトの統括・ディレクション（Project Direction）：大規模なゲームタイトルのローカライズサイクルにおいて、多国籍チームを牽引。社内の翻訳とQA部門の間に立ち、スムーズな窓口・ブリッジ対応を行います。",
+
+project3Slide2Focus2:
+    "→ ナラティブの守護者（Narrative Guardianship）：作品の持つトーン、ユーモア、深みがグローバル市場でもブレないよう適応プロセスを監督。オリジナル開発陣の想いをそのまま世界へ届ける架け橋となります。",
+
+project3Slide2Focus3:
+    "→ 技術的ワークフローの最適化（Technical Workflows）：プロダクション、アート、開発の各チームとクロスファンクショナルに連携し、テキストレイアウトの制約からゲームエンジン内での変数・アセットの組み込みにいたるまで、システム・実装レベルのローカライズ課題を解決します。",
+
+project3Slide3Title:
+    "03. 教育実績",
+
+project3Slide3Subtitle:
+    "教育工学＆ゲームデザイン",
+
+project3Slide3Paragraph1:
+    "私にとって教育とは、ナラティブワーク（物語設計）の延長線上にあります。私の指導経験は、複雑な構造理論や技術的システムを分解し、学生やクリエイターが実践できる明確なメソッドへと落とし込むことに特化しています。",
+
+project3Slide3Paragraph2:
+    "セント・アンドリュース・スコッツ・スクール（St. Andrew’s Scots School）では、インタラクティブ・ナラティブ（双方向の物語）に特化した学内ゲームジャムを企画・運営しました。学生たちはTwineを活用して分岐型ストーリーを構築し、プレイヤーの選択がゲームの構造設計にどう影響するかを実践的に学びました。また、アルゼンチン国立技術大学（UTN）のゲーム開発学位課程では、ゲームデザインの助教授（Assistant Professor）として教鞭を執り、コアとなるゲームループのメカニクス、ゲームバランス、そして没入感のあるストーリーテリングのためのインタラクティブメディアの活用方法を指導しました。",
+
+project3Slide3CoreFocusTitle:
+    "主な指導実績（CORE EXPERIENCE）：",
+
+project3Slide3Focus1:
+    "→ インタラクティブ・ナラティブのメンターシップ：分岐シナリオ、変数、そしてプレイヤーの意思決定（Player Agency）を体系的に理解するためのフレームワークとして、Twineを用いた物語設計を指導。",
+
+project3Slide3Focus2:
+    "→ ゲームデザインの高等教育（UTN大学）：未来のゲーム開発者たちに向けて、ゲームエンジンを用いたワークフロー、システムメカニクス、およびゲームループの概念設計をナビゲート。",
+
+project3Slide3Focus3:
+    "→ 教育的コミュニケーション（Didactic Communication）：学術的なナラティブ理論を、多角的な専門チーム（ゲーム開発現場）が実際に活用できる実践的なデザインツールへと翻訳・伝達。",
+
+project3Slide4Title:
+    "04. 学術活動",
+
+project3Slide4Subtitle:
+    "文学理論＆ナラティブアーキテクチャ",
+
+project3Slide4Paragraph1:
+    "私の学術的なキャリアは、物語がどのように構築され、異なるメディアや言語へいかに適応するかを探求することに根ざしています。ブエノスアイレス大学（UBA）で文学・言語学の長期学位課程を修了し、文学翻訳の高度な大学院課程にも従事しました。その後、理論と制作を結びつけるため、UNCUYOでクリエイティブゲームデザインを学び、UTNのゲーム開発ブートキャンプを通じて、ナラティブとデザインの基盤をUnity 3D開発へ統合しました。",
+
+project3Slide4Paragraph2:
+    "私の研究は、構造言語学的アプローチとインタラクティブデザインを融合し、ナラティブの仕掛け、トロープ、そして物語構造がグローバルメディアの中でどのように機能するかを分析しています。",
+
+project3Slide4CoreFocusTitle:
+    "主な研究実績・学術論文（SELECTED RESEARCH & ACADEMIC PAPERS）：",
+
+project3Slide4Focus1:
+    "→ 近代中国小説における戦時下のクロノトープ：張愛玲の『封鎖』（1943年）と凌叔華の『静』（1932年）を比較し、戦争が公共空間を境界的な環境へ変容させ、社会的行動やアイデンティティをいかに再構築するかを分析。",
+
+project3Slide4Focus2:
+    "→ 『羅生門』の仕掛け — 構造的分析：黒澤明監督の『羅生門』と芥川龍之介の原作を基に、多角的な主観視点が物語の構造をどのように変化させるかを分析。",
+
+project3Slide4Focus3:
+    "→ 『ファイナルファンタジーIX』における中世主義 — ナラティブ・メカニクス：中世的なトロープ、美学、文学的アーキタイプが、ゲームのキャラクターとナラティブの中でどのように再構築されているかを分析。",
+}
 };
 
 /* =========================================================
