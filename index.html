@@ -3096,9 +3096,13 @@ PROJECT 3
 
     <div class="outro-form-field">
 
-        <label for="contact-name">
-            NAME
-        </label>
+<label
+    for="contact-name"
+    data-translation="outroFormName">
+
+    NAME
+
+</label>
 
         <input
             id="contact-name"
@@ -3110,9 +3114,13 @@ PROJECT 3
 
     <div class="outro-form-field">
 
-        <label for="contact-email">
-            EMAIL
-        </label>
+<label
+    for="contact-email"
+    data-translation="outroFormEmail">
+
+    EMAIL
+
+</label>
 
         <input
             id="contact-email"
@@ -3124,9 +3132,13 @@ PROJECT 3
 
     <div class="outro-form-field">
 
-        <label for="contact-message">
-            MESSAGE
-        </label>
+<label
+    for="contact-message"
+    data-translation="outroFormMessage">
+
+    MESSAGE
+
+</label>
 
         <textarea
             id="contact-message"
@@ -3136,13 +3148,14 @@ PROJECT 3
     </div>
 
 
-    <button
-        id="contact-submit"
-        type="button">
+<button
+    id="contact-submit"
+    type="button"
+    data-translation="outroFormSubmit">
 
-        SEND MESSAGE
+    SEND MESSAGE
 
-    </button>
+</button>
 
 </div>
 
@@ -3357,7 +3370,17 @@ function updateLanguage() {
             quote;
 
     }
+
+setTimeout(() => {
+
+    if (outroTypingFinished) {
+        updateOutroTranslations();
+    }
+
+}, 0);
+
 renderSkills();
+
 }
 
 languageUp.addEventListener(
@@ -3406,7 +3429,7 @@ languageDown.addEventListener(
 const translations = {
 
     en: {
-
+            /*----- INTRO --------*/
         role:
             "Narrative Design",
 
@@ -3418,6 +3441,8 @@ const translations = {
 
         quote:
             "— Mechanics, movements, choices; everything within the game tells a part of the story, or raises questions about new ones.",
+
+              /*----- PROJECT 1 --------*/
 
         project1Title:
             "Foam Traveler Go! | Story-Driven 2D Adventure & Exploration Game",
@@ -3435,6 +3460,7 @@ const translations = {
         project1Bullet2: "Technical Localization: Managed the implementation and structure of Unity's Localization Manager across 11 languages, coordinating localized text, assets, and LQA workflows to ensure cultural and structural coherence.",
         project1Bullet3: "Narrative Systems Programming: Developed interactive mechanics, thematic UI menus, and cinematic cutscenes in C# to reinforce player immersion.",
 
+          /*----- PROJECT 2 --------*/
 
         project2Title:
             "Ahora soy un fantasma | 3D Narrative-Driven Psychological Horror & Identity Quest",
@@ -3452,6 +3478,8 @@ const translations = {
         project2Bullet2: "3D Worldbuilding & Asset Integration: Structured the 3D environments, integrated and modified assets, set up interactive elements, and crafted the game's claustrophobic visual atmosphere.",
         project2Bullet3: "Gameplay Logic & Puzzle Implementation: Programmed 3D character movement, core gameplay mechanics, and the underlying C# logic systems for environmental puzzles.",
         project2Bullet4: "Narrative UI & Menu Systems: Designed and implemented UI elements and game menus tailored to preserve player immersion and reflect the world's lore.",
+
+          /*----- ABOUT ME --------*/
 
         project3Title:
     "Narrative Architecture | Localization, Game Design & Academic Expertise",
@@ -3550,10 +3578,66 @@ project3Slide4Focus2:
 
 project3Slide4Focus3:
     "→ Medievalism in Final Fantasy IX – Narrative Mechanics: An analysis of how medieval tropes, aesthetics, and literary archetypes are adapted and reimagined through the game’s characters and narrative structure.",
+
+  /*----- OUTRO --------*/
+
+        outroTitle:
+            "CONTACT",
+
+        outroHeading:
+            "HABLEMOS:",
+
+        outroEmailLabel:
+            "EMAIL",
+
+        outroLinkedinLabel:
+            "LINKEDIN",
+
+        outroLocationLabel:
+            "LOCATION",
+
+        outroLocation:
+            "Currently in Tokyo, Japan\nOpen to European and US time zones",
+
+        outroAvailabilityLabel:
+            "AVAILABILITY",
+
+        outroAvailability:
+            "Open to full-time and freelance opportunities",
+
+        outroFormName:
+            "NAME",
+
+        outroFormEmail:
+            "EMAIL",
+
+        outroFormMessage:
+            "MESSAGE",
+
+        outroFormSubmit:
+            "SEND MESSAGE",
+
+        outroFormSending:
+            "SENDING...",
+
+        outroFormSent:
+            "MESSAGE SENT",
+
+        outroFormValidation:
+            "Please complete all fields.",
+
+        outroStoryMessage:
+            "Your message has become part of the story.",
+
+        outroStoryFinal:
+            "Let's write the next chapter.",
+
 },
 
 
     es: {
+
+        /*----- INTRO --------*/
 
         role:
             "Diseño Narrativo",
@@ -3566,6 +3650,8 @@ project3Slide4Focus3:
 
         quote:
             "— Las mecánicas, los movimientos y las decisiones; todo dentro del juego cuenta una parte de la historia o plantea nuevas preguntas.",
+
+            /*----- PROJECT 1 --------*/
 
 
         project1Title:
@@ -3584,6 +3670,7 @@ project3Slide4Focus3:
         project1Bullet2: "Localización Técnica: Gestión de la implementación y estructura del Localization Manager de Unity para 11 idiomas, coordinando textos localizados, assets y workflows de LQA para garantizar la coherencia cultural y estructural.",
         project1Bullet3: "Programación de Sistemas Narrativos: Desarrollo de mecánicas interactivas, menús de interfaz temáticos y cinemáticas en C# para reforzar la inmersión del jugador.",
 
+        /*----- PROJECT 2 --------*/
 
         project2Title:
             "Ahora soy un fantasma | Horror Psicológico 3D Narrativo y Búsqueda de Identidad",
@@ -3601,6 +3688,9 @@ project3Slide4Focus3:
         project2Bullet2: "Construcción de Mundos 3D e Integración de Assets: Estructuración de los entornos 3D, integración y modificación de assets, configuración de elementos interactivos y creación de la atmósfera visual claustrofóbica del juego.",
         project2Bullet3: "Lógica de Gameplay e Implementación de Puzzles: Programación del movimiento del personaje en 3D, mecánicas centrales de juego y los sistemas de lógica subyacentes en C# para los acertijos ambientales.",
         project2Bullet4: "UI Narrativa y Sistemas de Menús: Diseño e implementación de elementos de interfaz y menús de juego diseñados a medida para preservar la inmersión del jugador y reflejar el lore del mundo.",
+
+
+        /*----- ABOUT ME --------*/
 
 project3Title:
     "Arquitectura Narrativa | Localización, Diseño de Juegos y Experiencia Académica",
@@ -3699,10 +3789,66 @@ project3Slide4Focus2:
 
 project3Slide4Focus3:
     "→ Medievalismo en Final Fantasy IX – Mecánicas Narrativas: Un análisis sobre cómo los tropos, la estética y los arquetipos literarios medievales son adaptados y reinterpretados a través de los personajes y la estructura narrativa del juego.",
+
+/*----- OUTRO --------*/
+
+        outroTitle:
+            "CONTACTO",
+
+        outroHeading:
+            "HABLEMOS:",
+
+        outroEmailLabel:
+            "EMAIL",
+
+        outroLinkedinLabel:
+            "LINKEDIN",
+
+        outroLocationLabel:
+            "UBICACIÓN",
+
+        outroLocation:
+            "Actualmente en Tokio, Japón\nDisponible para trabajar con los husos horarios de Europa y Estados Unidos",
+
+        outroAvailabilityLabel:
+            "DISPONIBILIDAD",
+
+        outroAvailability:
+            "Abierto a oportunidades full-time y freelance",
+
+        outroFormName:
+            "NOMBRE",
+
+        outroFormEmail:
+            "EMAIL",
+
+        outroFormMessage:
+            "MENSAJE",
+
+        outroFormSubmit:
+            "ENVIAR MENSAJE",
+
+        outroFormSending:
+            "ENVIANDO...",
+
+        outroFormSent:
+            "MENSAJE ENVIADO",
+
+        outroFormValidation:
+            "Por favor, completá todos los campos.",
+
+        outroStoryMessage:
+            "Tu mensaje se ha convertido en parte de la historia.",
+
+        outroStoryFinal:
+            "Escribamos el próximo capítulo.",
+
 },
 
 
     ja: {
+
+        /*----- INTRO --------*/
 
         role:
             "ナラティブデザイン",
@@ -3716,6 +3862,7 @@ project3Slide4Focus3:
         quote:
             "— メカニクス、動き、選択。ゲーム内のすべての要素が物語の一部を語り、新たな問いを生み出します。",
 
+/*----- PROJECT 1 --------*/
 
         project1Title:
             "Foam Traveler Go! | 2Dアドベンチャー＆探索 • 物語を軸としたゲームプレイ",
@@ -3733,6 +3880,7 @@ project3Slide4Focus3:
         project1Bullet2: "技術的ローカライズ（Technical Localization）：UnityのLocalization Managerにおける11言語対応の実装・構造設計を管理し、ローカライズされたテキスト、アセット、LQAワークフローを統括することで、文化的・構造的な整合性を確保。",
         project1Bullet3: "ナラティブシステムのプログラミング：プレイヤーの没入感を高めるため、C#を用いたインタラクティブなメカニクス、テーマ性を持たせたUIメニュー、およびインゲーム・シネマティクス（演出）の開発。",
 
+/*----- PROJECT 2 --------*/
 
         project2Title:
             "Ahora soy un fantasma | ナラティブ主導型3D心理ホラー＆アイデンティティ・クエスト",
@@ -3750,6 +3898,8 @@ project3Slide4Focus3:
         project2Bullet2: "3Dワールドビルディング＆アセット統合：3D環境の構築、アセットの統合および調整、インタラクティブ要素のセットアップ、そしてゲームの閉塞的な視覚的アトモスフィアの創出。",
         project2Bullet3: "ゲームプレイロジック＆パズル実装：3Dキャラクターの移動、コアとなるゲームプレイメカニクス、および環境パズルのためのC#ロジックシステムのプログラミング。",
         project2Bullet4: "ナラティブUI＆メニューシステム：プレイヤーの没入感を維持し、世界観のロア（設定）を反映させるためにカスタマイズされたUI要素およびゲームメニューの設計・実装。",
+
+        /*----- ABOUT ME --------*/
 
         project3Title:
     "ナラティブアーキテクチャ | ローカライズ・ゲームデザイン＆学術的専門性",
@@ -3849,6 +3999,59 @@ project3Slide4Focus2:
 
 project3Slide4Focus3:
     "→ 『ファイナルファンタジーIX』における中世主義 — ナラティブ・メカニクス：中世的なトロープ、美学、文学的アーキタイプが、ゲームのキャラクターとナラティブの中でどのように再構築されているかを分析。",
+
+    /*----- OUTRO --------*/
+
+        outroTitle:
+            "お問い合わせ",
+
+        outroHeading:
+            "お話ししましょう：",
+
+        outroEmailLabel:
+            "EMAIL",
+
+        outroLinkedinLabel:
+            "LINKEDIN",
+
+        outroLocationLabel:
+            "所在地",
+
+        outroLocation:
+            "現在、東京（日本）を拠点にしています。\nヨーロッパ・米国のタイムゾーンにも対応可能です。",
+
+        outroAvailabilityLabel:
+            "対応可能",
+
+        outroAvailability:
+            "フルタイム・フリーランスの案件に対応可能です。",
+
+        outroFormName:
+            "お名前",
+
+        outroFormEmail:
+            "メール",
+
+        outroFormMessage:
+            "メッセージ",
+
+        outroFormSubmit:
+            "メッセージを送信",
+
+        outroFormSending:
+            "送信中...",
+
+        outroFormSent:
+            "メッセージを送信しました",
+
+        outroFormValidation:
+            "すべての項目を入力してください。",
+
+        outroStoryMessage:
+            "あなたのメッセージは、物語の一部になりました。",
+
+        outroStoryFinal:
+            "次のチャプターを書きましょう。",
 }
 };
 
@@ -4744,6 +4947,67 @@ let outroTypingFinished = false;
 
 let outroTypingTimeout = null;
 
+let outroMessageSent = false;
+
+let outroMouseHeld = false;
+
+let outroSkipRequested = false;
+
+let outroTypingResolve = null;
+
+const outroTranslationElements = {
+
+    title: {
+        element: outroTitle,
+        key: "outroTitle"
+    },
+
+    heading: {
+        element: outroHeading,
+        key: "outroHeading"
+    },
+
+    emailLabel: {
+        element: outroEmailLabel,
+        key: "outroEmailLabel"
+    },
+
+    linkedinLabel: {
+        element: outroLinkedinLabel,
+        key: "outroLinkedinLabel"
+    },
+
+    locationLabel: {
+        element: outroLocationLabel,
+        key: "outroLocationLabel"
+    },
+
+    location: {
+        element: outroLocation,
+        key: "outroLocation"
+    },
+
+    availabilityLabel: {
+        element: outroAvailabilityLabel,
+        key: "outroAvailabilityLabel"
+    },
+
+    availability: {
+        element: outroAvailability,
+        key: "outroAvailability"
+    },
+
+    storyMessage: {
+        element: outroStoryMessage,
+        key: "outroStoryMessage"
+    },
+
+    storyFinal: {
+        element: outroStoryFinal,
+        key: "outroStoryFinal"
+    }
+
+};
 
 /* =========================================================
    TYPEWRITER INDIVIDUAL
@@ -4757,6 +5021,22 @@ function typeOutroText(
 
     return new Promise(resolve => {
 
+        /*
+         * Si se pidió SKIP,
+         * escribimos directamente.
+         */
+        if (outroSkipRequested) {
+
+            element.textContent = text;
+
+            resolve();
+
+            return;
+        }
+
+
+        outroTypingResolve = resolve;
+
         element.textContent = "";
 
         let index = 0;
@@ -4764,7 +5044,14 @@ function typeOutroText(
 
         function typeCharacter() {
 
-            if (index >= text.length) {
+            /*
+             * SKIP DURANTE LA ESCRITURA
+             */
+            if (outroSkipRequested) {
+
+                element.textContent = text;
+
+                outroTypingResolve = null;
 
                 resolve();
 
@@ -4772,49 +5059,162 @@ function typeOutroText(
             }
 
 
-element.textContent +=
-    text[index];
+            if (index >= text.length) {
+
+                outroTypingResolve = null;
+
+                resolve();
+
+                return;
+            }
 
 
-/*
- * Sonido de máquina de escribir.
- */
-
-if (
-    typeSound &&
-    text[index] !== " "
-) {
-
-    typeSound.currentTime = 0;
-
-    typeSound.play()
-        .catch(() => {});
-
-}
+            element.textContent += text[index];
 
 
-index++;
+            /*
+             * Sonido de máquina de escribir.
+             */
+            if (
+                typeSound &&
+                text[index] !== " "
+            ) {
+
+                typeSound.currentTime = 0;
+
+                typeSound.play()
+                    .catch(() => {});
+
+            }
+
+
+            index++;
+
+
+            const currentSpeed =
+                outroMouseHeld
+                    ? fastSpeed
+                    : speed;
 
 
             outroTypingTimeout =
                 setTimeout(
                     typeCharacter,
-                    speed
+                    currentSpeed
                 );
+
         }
 
 
         typeCharacter();
 
     });
+
 }
 
+/* =========================================================
+   FINISH OUTRO IMMEDIATELY
+========================================================= */
+
+function finishOutroImmediately() {
+
+    /*
+     * Si ya terminó,
+     * no hacemos nada.
+     */
+    if (
+        outroTypingFinished ||
+        !outroTypingStarted
+    ) {
+        return;
+    }
+
+
+    /*
+     * Activamos el modo SKIP.
+     */
+    outroSkipRequested = true;
+
+
+    /*
+     * Cancelamos el timeout actual.
+     */
+    clearTimeout(
+        outroTypingTimeout
+    );
+
+
+    /*
+     * Obtenemos el idioma actual.
+     */
+    const languageData =
+        translations[
+            languages[currentLanguageIndex].code
+        ];
+
+
+    /*
+     * Completamos todos los textos.
+     */
+    outroTitle.textContent =
+        languageData.outroTitle;
+
+    outroHeading.textContent =
+        languageData.outroHeading;
+
+    outroEmailLabel.textContent =
+        languageData.outroEmailLabel;
+
+    outroEmail.textContent =
+        "ibarraagustinandres@gmail.com";
+
+    outroLinkedinLabel.textContent =
+        languageData.outroLinkedinLabel;
+
+    outroLinkedin.textContent =
+        "https://www.linkedin.com/in/aaibarra";
+
+    outroLocationLabel.textContent =
+        languageData.outroLocationLabel;
+
+    outroLocation.textContent =
+        languageData.outroLocation;
+
+    outroAvailabilityLabel.textContent =
+        languageData.outroAvailabilityLabel;
+
+    outroAvailability.textContent =
+        languageData.outroAvailability;
+
+
+    /*
+     * Mostramos inmediatamente
+     * el formulario.
+     */
+    outroForm.classList.add(
+        "visible"
+    );
+
+
+    /*
+     * Marcamos la outro
+     * como terminada.
+     */
+    outroTypingFinished = true;
+
+}
 
 /* =========================================================
    START OUTRO TYPEWRITER
    ========================================================= */
 
+
 async function startOutroTyping() {
+
+       const languageData =
+        translations[
+            languages[currentLanguageIndex].code
+        ];
 
     if (outroTypingStarted) {
         return;
@@ -4843,11 +5243,11 @@ async function startOutroTyping() {
      * CONTACT
      */
 
-    await typeOutroText(
-        outroTitle,
-        "CONTACT",
-        70
-    );
+await typeOutroText(
+    outroTitle,
+    languageData.outroTitle,
+    70
+);
 
 
     await new Promise(resolve => {
@@ -4864,11 +5264,11 @@ async function startOutroTyping() {
      * HABLEMOS
      */
 
-    await typeOutroText(
-        outroHeading,
-        "HABLEMOS:",
-        60
-    );
+await typeOutroText(
+    outroHeading,
+    languageData.outroHeading,
+    70
+);
 
 
     await new Promise(resolve => {
@@ -4885,17 +5285,26 @@ async function startOutroTyping() {
      * EMAIL
      */
 
-    await typeOutroText(
-        outroEmailLabel,
-        "EMAIL",
-        45
-    );
+await typeOutroText(
+    outroEmailLabel,
+    languageData.outroEmailLabel,
+    70
+);
 
+
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            350
+        );
+
+    });
 
     await typeOutroText(
         outroEmail,
         "ibarraagustinandres@gmail.com",
-        40
+        70
     );
 
     await new Promise(resolve => {
@@ -4911,17 +5320,26 @@ async function startOutroTyping() {
      * LINKEDIN
      */
 
-    await typeOutroText(
-        outroLinkedinLabel,
-        "LINKEDIN",
-        45
-    );
+await typeOutroText(
+    outroLinkedinLabel,
+    languageData.outroLinkedinLabel,
+    70
+);
+
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            350
+        );
+
+    });
 
 
     await typeOutroText(
         outroLinkedin,
         "https://www.linkedin.com/in/aaibarra",
-        40
+        70
     );
 
 await new Promise(resolve => {
@@ -4936,18 +5354,27 @@ await new Promise(resolve => {
      * LOCATION
      */
 
-    await typeOutroText(
-        outroLocationLabel,
-        "LOCATION",
-        45
-    );
+await typeOutroText(
+    outroLocationLabel,
+    languageData.outroLocationLabel,
+    70
+);
+
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            350
+        );
+
+    });
 
 
-    await typeOutroText(
-        outroLocation,
-        "Currently in Tokyo, Japan\nOpen to European and US time zones",
-        35
-    );
+await typeOutroText(
+    outroLocation,
+    languageData.outroLocation,
+    70
+);
 
 await new Promise(resolve => {
 
@@ -4961,18 +5388,27 @@ await new Promise(resolve => {
      * AVAILABILITY
      */
 
-    await typeOutroText(
-        outroAvailabilityLabel,
-        "AVAILABILITY",
-        45
-    );
+await typeOutroText(
+    outroAvailabilityLabel,
+    languageData.outroAvailabilityLabel,
+    70
+);
+
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            350
+        );
+
+    });
 
 
-    await typeOutroText(
-        outroAvailability,
-        "Open to full-time and freelance opportunities",
-        35
-    );
+await typeOutroText(
+    outroAvailability,
+    languageData.outroAvailability,
+    70
+);
 
 await new Promise(resolve => {
 
@@ -4990,7 +5426,7 @@ await new Promise(resolve => {
 
     setTimeout(
         resolve,
-        700
+        500
     );
 
 });
@@ -5003,12 +5439,97 @@ outroForm.classList.add(
     outroTypingFinished = true;
 
 }
+
+/* =========================================================
+   OUTRO MOUSE CONTROLS
+========================================================= */
+
+document.body.addEventListener(
+    "mousedown",
+    (event) => {
+
+        if (event.button !== 0) {
+            return;
+        }
+
+        /*
+         * Solo aceleramos mientras
+         * la OUTRO se está escribiendo.
+         */
+        if (
+            !outroTypingStarted ||
+            outroTypingFinished
+        ) {
+            return;
+        }
+
+        outroMouseHeld = true;
+
+    }
+);
+
+
+document.body.addEventListener(
+    "mouseup",
+    (event) => {
+
+        if (event.button !== 0) {
+            return;
+        }
+
+        outroMouseHeld = false;
+
+    }
+);
+
+
+document.body.addEventListener(
+    "mouseleave",
+    () => {
+
+        outroMouseHeld = false;
+
+    }
+);
+
+document.body.addEventListener(
+    "dblclick",
+    (event) => {
+
+        if (event.button !== 0) {
+            return;
+        }
+
+
+        /*
+         * Solo funciona mientras
+         * la OUTRO está escribiéndose.
+         */
+        if (
+            !outroTypingStarted ||
+            outroTypingFinished
+        ) {
+            return;
+        }
+
+
+        finishOutroImmediately();
+
+    }
+);
+
+
 /*
  * ENVIAMOS EL MENSAJE AL GOOGLE FORMS
  */
 contactSubmit.addEventListener(
     "click",
     async () => {
+
+        const languageData =
+            translations[
+                languages[currentLanguageIndex].code
+            ];
 
         const name =
             contactName.value.trim();
@@ -5031,10 +5552,9 @@ contactSubmit.addEventListener(
             !message
         ) {
 
-            alert(
-                "Please complete all fields."
-            );
-
+alert(
+    languageData.outroFormValidation
+);
             return;
 
         }
@@ -5075,8 +5595,8 @@ contactSubmit.addEventListener(
 
         contactSubmit.disabled = true;
 
-        contactSubmit.textContent =
-            "SENDING...";
+contactSubmit.textContent =
+    languageData.outroFormSending;
 
 
         try {
@@ -5099,7 +5619,7 @@ contactSubmit.addEventListener(
              */
 
 contactSubmit.textContent =
-    "MESSAGE SENT";
+    languageData.outroFormSent;
 
 
 contactName.value = "";
@@ -5125,7 +5645,7 @@ await new Promise(resolve => {
 /*
  * Ocultamos el formulario.
  */
-
+outroMessageSent = true;
 outroForm.classList.remove(
     "visible"
 );
@@ -5146,10 +5666,11 @@ await new Promise(resolve => {
 });
 
 outroStoryMessage.style.opacity = "1";
+
 await typeOutroText(
     outroStoryMessage,
-    "Your message has become part of the story.",
-    50
+    languageData.outroStoryMessage,
+    70
 );
 
 await new Promise(resolve => {
@@ -5162,10 +5683,11 @@ await new Promise(resolve => {
 });
 
 outroStoryFinal.style.opacity = "1";
+
 await typeOutroText(
     outroStoryFinal,
-    "Let's write the next one.",
-    55
+    languageData.outroStoryFinal,
+    70
 );
 
         } catch (error) {
@@ -5179,8 +5701,8 @@ await typeOutroText(
             contactSubmit.disabled =
                 false;
 
-            contactSubmit.textContent =
-                "SEND MESSAGE";
+contactSubmit.textContent =
+    languageData.outroFormSubmit;
 
 
             alert(
@@ -5191,6 +5713,45 @@ await typeOutroText(
 
     }
 );
+
+function updateOutroTranslations() {
+
+    const languageData =
+        translations[
+            languages[currentLanguageIndex].code
+        ];
+
+
+Object.values(
+    outroTranslationElements
+).forEach(
+    ({ element, key }) => {
+
+        if (!element) {
+            return;
+        }
+
+        /*
+         * Los textos finales solo existen
+         * después de enviar el mensaje.
+         */
+        if (
+            !outroMessageSent &&
+            (
+                key === "outroStoryMessage" ||
+                key === "outroStoryFinal"
+            )
+        ) {
+            return;
+        }
+
+        element.textContent =
+            languageData[key];
+
+    }
+);
+
+}
 
 /* =========================================================
    VERTICAL CAROUSEL
