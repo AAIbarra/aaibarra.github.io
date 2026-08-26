@@ -129,6 +129,98 @@
     user-select: none;
 
 }
+
+/* =========================================================
+   MOBILE PHONE BLOCK
+========================================================= */
+
+#mobile-phone-block {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 99999;
+
+    box-sizing: border-box;
+
+    background: #000;
+    color: #fff;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+#mobile-phone-content {
+    width: min(88vw, 500px);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.mobile-phone-title {
+    font-size: 0.85rem;
+
+    letter-spacing: 0.18em;
+
+    text-transform: uppercase;
+
+    opacity: 0.55;
+
+    margin-bottom: 18px;
+}
+
+.mobile-phone-name {
+    font-size: clamp(
+        1.5rem,
+        6vw,
+        2.2rem
+    );
+
+    font-weight: 500;
+
+    letter-spacing: 0.04em;
+
+    margin-bottom: 10px;
+}
+
+.mobile-phone-subtitle {
+    font-size: clamp(
+        0.95rem,
+        3.5vw,
+        1.15rem
+    );
+
+    letter-spacing: 0.08em;
+
+    opacity: 0.7;
+
+    margin-bottom: 38px;
+}
+
+.mobile-phone-message {
+    max-width: 360px;
+
+    font-size: clamp(
+        0.9rem,
+        3.2vw,
+        1.05rem
+    );
+
+    line-height: 1.6;
+
+    opacity: 0.65;
+}
+
         /* =========================================================
            INTRO
         ========================================================= */
@@ -301,27 +393,36 @@
 }
 
 #audio-toggle {
-    width: 36px;
-    height: 36px;
+    width: 35px;
+    height: 35px;
 
-    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+
     background: transparent;
-
     color: #ffffff;
 
-    font-size: 20px;
+    font-family: inherit;
+    font-size: 18px;
+    line-height: 1;
 
     cursor: pointer;
-}
 
-#audio-volume {
-    width: 90px;
-    cursor: pointer;
-}
-
-#audio-toggle,
-#audio-volume {
     touch-action: auto;
+
+    transform: translateX(-4px);
+
+    transition:
+        opacity 0.2s ease,
+        border-color 0.2s ease;
+}
+
+#audio-toggle:hover {
+    opacity: 0.65;
 }
 
 #audio-control,
@@ -1413,151 +1514,6 @@ height: calc(var(--gallery-size) * 0.56);
         }
 
 
-        @media (max-width: 700px) {
-
-
-            #intro-content {
-
-                padding: 20px;
-
-            }
-
-#typing-role {
-    font-size: 0.9em;
-    letter-spacing: 2px;
-}
-
-            #typing-name {
-
-                font-size: 1.8em;
-
-            }
-
-
-            #typing-subtitle {
-
-                font-size: 0.95em;
-
-            }
-
-#typing-quote {
-    font-size: 0.9em;
-}
-
-            .portfolio-section {
-
-                padding:
-                    40px 20px 60px;
-
-            }
-
-
-            .project-title {
-
-                font-size: clamp(1.8rem, 3vw, 3.5rem);
-
-            }
-
-.project-skills {
-
-    margin-bottom: 15px;
-
-}
-
-.skill-tag {
-
-    font-size: clamp(
-        0.75rem,
-        1.4vw,
-        0.95rem
-    );
-
-}
-
-            .carousel-wrapper {
-
-                height:
-                    calc(
-                        (100vw - 40px)
-                        * 0.5625
-                    );
-
-            }
-
-
-            .carousel-stage {
-
-                height:
-                    calc(
-                        (100vw - 40px)
-                        * 0.5625
-                    );
-
-            }
-
-
-            .carousel-slide {
-
-                width:
-                    calc(
-                        100vw - 40px
-                    );
-
-                height:
-                    calc(
-                        (100vw - 40px)
-                        * 0.5625
-                    );
-
-            }
-
-
-            .carousel-slide.previous {
-
-                transform:
-                    translate(
-                        calc(-50% - 220px),
-                        -50%
-                    )
-                    scale(0.55);
-
-                opacity: 0.3;
-
-            }
-
-
-            .carousel-slide.next {
-
-                transform:
-                    translate(
-                        calc(-50% + 220px),
-                        -50%
-                    )
-                    scale(0.55);
-
-                opacity: 0.3;
-
-            }
-
-
-            .carousel-button {
-
-                width: 40px;
-                height: 40px;
-
-                font-size: 20px;
-
-            }
-
-
-            .project-description {
-
-                font-size: 0.9em;
-
-            }
-
-        }
-
         @media (max-width: 900px) {
     .project-info {
         grid-template-columns: 1fr;
@@ -1822,6 +1778,40 @@ height: calc(var(--gallery-size) * 0.56);
 
 
 <body>
+
+<!-- =========================================================
+     MOBILE PHONE BLOCK
+========================================================= -->
+
+<div id="mobile-phone-block">
+
+    <div id="mobile-phone-content">
+
+        <div
+            class="mobile-phone-title"
+            data-translation="mobileBlockTitle">
+        </div>
+
+        <div
+            class="mobile-phone-name"
+            data-translation="mobileBlockName">
+        </div>
+
+        <div
+            class="mobile-phone-subtitle"
+            data-translation="mobileBlockSubtitle">
+        </div>
+
+        <div
+            class="mobile-phone-message"
+            data-translation="mobileBlockMessage">
+        </div>
+
+    </div>
+
+</div>   
+
+
 <div class="page-wrapper">
         <!-- =========================================================
          AUDIO SETTINGS FOR USER
@@ -1832,17 +1822,8 @@ height: calc(var(--gallery-size) * 0.56);
         id="audio-toggle"
         type="button"
         aria-label="Mute audio">
-        🔊
+        ♪
     </button>
-
-    <input
-        id="audio-volume"
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
-        value="1"
-        aria-label="Volume">
 
 </div>
 <!-- =========================================================
@@ -3281,6 +3262,34 @@ function renderSkills() {
 
 }
 
+/* =========================================================
+   MOBILE PHONE DETECTION
+========================================================= */
+
+const isMobilePhone =
+    /iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|IEMobile/i
+        .test(navigator.userAgent);
+
+const mobilePhoneBlock =
+    document.getElementById(
+        "mobile-phone-block"
+    );
+
+if (isMobilePhone && mobilePhoneBlock) {
+
+    mobilePhoneBlock.style.display =
+        "flex";
+
+    document.documentElement.style.overflow =
+        "hidden";
+
+    document.body.style.overflow =
+        "hidden";
+}
+
+/* =========================================================
+   UPDATE LANGUAGE
+========================================================= */
 function updateLanguage() {
 
     const language =
@@ -3429,6 +3438,21 @@ languageDown.addEventListener(
 const translations = {
 
     en: {
+
+        /*----- MOBILE BLOCK --------*/
+
+mobileBlockTitle:
+    "WEB PORTFOLIO",
+
+mobileBlockName:
+    "Agustín Andrés Ibarra",
+
+mobileBlockSubtitle:
+    "Narrative Design",
+
+mobileBlockMessage:
+    "Please open this website from a computer.",
+
             /*----- INTRO --------*/
         role:
             "Narrative Design",
@@ -3440,12 +3464,12 @@ const translations = {
             "Integral Narrative Developer: Unity, C#, Localization professional, Text and UI implementation.",
 
         quote:
-            "— Mechanics, movements, choices; everything within the game tells a part of the story, or raises questions about new ones.",
+            "Everything becomes a part of the story.",
 
               /*----- PROJECT 1 --------*/
 
         project1Title:
-            "Foam Traveler Go! | Story-Driven 2D Adventure & Exploration Game",
+            "Foam Traveler Go! | 2D Adventure & Exploration Game",
 
         project1Subtitle:
             "Unity 2D • C# • Localization Manager • Narrative Design • Worldbuilding • Quest Design",
@@ -3463,7 +3487,7 @@ const translations = {
           /*----- PROJECT 2 --------*/
 
         project2Title:
-            "Ahora soy un fantasma | 3D Narrative-Driven Psychological Horror & Identity Quest",
+            "Ahora soy un fantasma | Identity Quest, Chronotope & Puzzles 3D Game",
 
         project2Subtitle:
             "Unity 3D • C# • Level Design • Narrative Design • Character Design • Puzzle Design",
@@ -3482,7 +3506,7 @@ const translations = {
           /*----- ABOUT ME --------*/
 
         project3Title:
-    "Narrative Architecture | Localization, Game Design & Academic Expertise",
+    "Experiences | Localization, Didactics & Academia",
 
 project3Slide1Title:
     "01. ABOUT ME",
@@ -3637,6 +3661,20 @@ project3Slide4Focus3:
 
     es: {
 
+        /*----- MOBILE BLOCK --------*/
+
+mobileBlockTitle:
+    "PORTFOLIO WEB",
+
+mobileBlockName:
+    "Agustín Andrés Ibarra",
+
+mobileBlockSubtitle:
+    "Diseño Narrativo",
+
+mobileBlockMessage:
+    "Por favor abra la página desde una computadora.",
+
         /*----- INTRO --------*/
 
         role:
@@ -3649,13 +3687,13 @@ project3Slide4Focus3:
             "Desarrollador Narrativo Integral: Unity, C#, profesional de localización e implementación de texto y UI.",
 
         quote:
-            "— Las mecánicas, los movimientos y las decisiones; todo dentro del juego cuenta una parte de la historia o plantea nuevas preguntas.",
+            "Todo forma parte de la historia.",
 
             /*----- PROJECT 1 --------*/
 
 
         project1Title:
-            "Foam Traveler Go! | Juego 2D de aventura y exploración enfocado en la narrativa",
+            "Foam Traveler Go! | Aventura y exploración 2D",
 
         project1Subtitle:
             "Unity 2D • C# • Localization Manager • Diseño Narrativo • Construcción de Mundo • Diseño de Misiones",
@@ -3673,7 +3711,7 @@ project3Slide4Focus3:
         /*----- PROJECT 2 --------*/
 
         project2Title:
-            "Ahora soy un fantasma | Horror Psicológico 3D Narrativo y Búsqueda de Identidad",
+            "Ahora soy un fantasma | Búsqueda de indentidad, cronotopo y puzzles 3D",
 
         project2Subtitle:
             "Unity 3D • C# • Diseño de Niveles • Diseño Narrativo • Diseño de Personajes • Diseño de Puzzles",
@@ -3693,7 +3731,7 @@ project3Slide4Focus3:
         /*----- ABOUT ME --------*/
 
 project3Title:
-    "Arquitectura Narrativa | Localización, Diseño de Juegos y Experiencia Académica",
+    "Experiencias | Localización, docencia y academia",
 
 project3Slide1Title:
     "01. SOBRE MÍ",
@@ -3838,7 +3876,7 @@ project3Slide4Focus3:
             "Por favor, completá todos los campos.",
 
         outroStoryMessage:
-            "Tu mensaje se ha convertido en parte de la historia.",
+            "Tu mensaje ya forma parte de la historia.",
 
         outroStoryFinal:
             "Escribamos el próximo capítulo.",
@@ -3847,6 +3885,20 @@ project3Slide4Focus3:
 
 
     ja: {
+
+                /*----- MOBILE BLOCK --------*/
+
+mobileBlockTitle:
+    "WEBポートフォリオ",
+
+mobileBlockName:
+    "Agustín Andrés Ibarra",
+
+mobileBlockSubtitle:
+    "ナラティブデザイン",
+
+mobileBlockMessage:
+    "このウェブサイトはコンピューターからご覧ください。",
 
         /*----- INTRO --------*/
 
@@ -3860,12 +3912,12 @@ project3Slide4Focus3:
             "Unity、C#、ローカライゼーション、テキストおよびUI実装を専門とするナラティブ開発者。",
 
         quote:
-            "— メカニクス、動き、選択。ゲーム内のすべての要素が物語の一部を語り、新たな問いを生み出します。",
+            "すべてが物語の一部になる。",
 
 /*----- PROJECT 1 --------*/
 
         project1Title:
-            "Foam Traveler Go! | 2Dアドベンチャー＆探索 • 物語を軸としたゲームプレイ",
+            "Foam Traveler Go! | 2Dアドベンチャー＆探索",
 
         project1Subtitle:
             "Unity 2D • C# • Localization Manager • ナラティブデザイン • ワールドビルディング • クエストデザイン",
@@ -3883,7 +3935,7 @@ project3Slide4Focus3:
 /*----- PROJECT 2 --------*/
 
         project2Title:
-            "Ahora soy un fantasma | ナラティブ主導型3D心理ホラー＆アイデンティティ・クエスト",
+            "Ahora soy un fantasma | アイデンティティ・クエスト、クロノトープ＆パズル3Dゲーム",
 
         project2Subtitle:
             "Unity 3D • C# • レベルデザイン • ナラティブデザイン • キャラクターデザイン • パズルデザイン",
@@ -3902,7 +3954,7 @@ project3Slide4Focus3:
         /*----- ABOUT ME --------*/
 
         project3Title:
-    "ナラティブアーキテクチャ | ローカライズ・ゲームデザイン＆学術的専門性",
+        "経験 | ローカライズ・教職＆学界",
 
 project3Slide1Title:
     "01. 自己紹介",
@@ -4048,7 +4100,7 @@ project3Slide4Focus3:
             "すべての項目を入力してください。",
 
         outroStoryMessage:
-            "あなたのメッセージは、物語の一部になりました。",
+            "メッセージはもう物語の一部になりました。",
 
         outroStoryFinal:
             "次のチャプターを書きましょう。",
@@ -4672,15 +4724,17 @@ function typeQuote() {
 /* =========================================================
    TYPE SOUND
 ========================================================= */
-
 function playTypeSound() {
+
+    if (!audioEnabled) {
+        return;
+    }
 
     typeSound.currentTime = 0;
 
     typeSound
         .play()
         .catch(() => {});
-
 }
 
 
@@ -5080,10 +5134,16 @@ function typeOutroText(
                 text[index] !== " "
             ) {
 
-                typeSound.currentTime = 0;
+if (
+    audioEnabled &&
+    typeSound &&
+    text[index] !== " "
+) {
+    typeSound.currentTime = 0;
 
-                typeSound.play()
-                    .catch(() => {});
+    typeSound.play()
+        .catch(() => {});
+}
 
             }
 
@@ -5775,14 +5835,14 @@ const sectionAudios = verticalSections.map(section =>
 
 const AUDIO_FADE_TIME = 800;
 
-let audioUserVolume = 1;
-let previousAudioVolume = 1;
+let audioEnabled = true;
 
 let audioUnlocked = false;
 
 let audioTransitionId = 0;
 
 const audioFadeLevels = new WeakMap();
+const audioPositions = new WeakMap();
 
 function fadeAudio(
     audio,
@@ -5849,9 +5909,10 @@ function fadeAudio(
          *
          * nivel del fade × volumen del usuario
          */
-        audio.volume =
-            currentLevel *
-            audioUserVolume;
+audio.volume =
+    audioEnabled
+        ? currentLevel
+        : 0;
 
 
         if (progress < 1) {
@@ -5867,20 +5928,23 @@ function fadeAudio(
                 targetLevel
             );
 
-            audio.volume =
-                targetLevel *
-                audioUserVolume;
+audio.volume =
+    audioEnabled
+        ? targetLevel
+        : 0;
 
 
-            if (
-                targetLevel === 0 &&
-                pauseWhenFinished
-            ) {
+if (
+    targetLevel === 0 &&
+    pauseWhenFinished
+) {
+    audioPositions.set(
+        audio,
+        audio.currentTime
+    );
 
-                audio.pause();
-                audio.currentTime = 0;
-
-            }
+    audio.pause();
+}
 
         }
     }
@@ -5960,11 +6024,16 @@ function changeSectionAudio(newIndex) {
     if (!newAudio) return;
 
 
-    /*
-     * El nuevo audio empieza
-     * SIEMPRE desde el principio.
-     */
-    newAudio.currentTime = 0;
+/*
+ * Recuperamos la posición anterior.
+ * Si es la primera vez que entramos,
+ * comienza desde 0.
+ */
+const savedTime =
+    audioPositions.get(newAudio) ?? 0;
+
+newAudio.currentTime =
+    savedTime;
 
     audioFadeLevels.set(
         newAudio,
@@ -6012,38 +6081,19 @@ function changeSectionAudio(newIndex) {
 const audioToggle =
     document.getElementById("audio-toggle");
 
-const audioVolume =
-    document.getElementById("audio-volume");
-
-
 /* =========================================================
-   VOLUME CONTROL
-========================================================= */
+   AUDIO ON / OFF
+   ========================================================= */
 
-audioVolume.addEventListener(
-    "input",
+audioToggle.addEventListener(
+    "click",
     () => {
 
-        audioUserVolume =
-            Number(
-                audioVolume.value
-            );
-
-
-        if (audioUserVolume > 0) {
-
-            previousAudioVolume =
-                audioUserVolume;
-
-        }
-
+        audioEnabled =
+            !audioEnabled;
 
         /*
-         * Actualizamos solamente
-         * el volumen audible.
-         *
-         * NO tocamos play/pause.
-         * NO tocamos currentTime.
+         * Música de las secciones
          */
         sectionAudios.forEach(
             audio => {
@@ -6051,106 +6101,39 @@ audioVolume.addEventListener(
                 if (!audio) return;
 
                 const fadeLevel =
-                    audioFadeLevels.get(
-                        audio
-                    ) ?? 0;
+                    audioFadeLevels.get(audio) ?? 0;
 
                 audio.volume =
-                    fadeLevel *
-                    audioUserVolume;
-
+                    audioEnabled
+                        ? fadeLevel
+                        : 0;
             }
         );
 
-
-        if (audioUserVolume === 0) {
-
-            audioToggle.textContent =
-                "🔇";
-
-        } else {
-
-            audioToggle.textContent =
-                "🔊";
-
+        /*
+         * Sonido de máquina de escribir
+         */
+        if (typeSound) {
+            typeSound.volume =
+                audioEnabled
+                    ? 1
+                    : 0;
         }
 
-    }
-);
-
-
-/* =========================================================
-   MUTE / UNMUTE
-========================================================= */
-
-audioToggle.addEventListener(
-    "click",
-    () => {
-
         /*
-         * DESMUTE
+         * Ícono
          */
-        if (audioUserVolume === 0) {
-
-            audioUserVolume =
-                previousAudioVolume;
-
-
-            audioVolume.value =
-                audioUserVolume;
-
-
-            sectionAudios.forEach(
-                audio => {
-
-                    if (!audio) return;
-
-                    const fadeLevel =
-                        audioFadeLevels.get(
-                            audio
-                        ) ?? 0;
-
-                    audio.volume =
-                        fadeLevel *
-                        audioUserVolume;
-
-                }
-            );
-
-
-            audioToggle.textContent =
-                "🔊";
-
-            return;
-        }
-
-
-        /*
-         * MUTE
-         */
-
-        previousAudioVolume =
-            audioUserVolume;
-
-        audioUserVolume = 0;
-
-        audioVolume.value = 0;
-
-
-        sectionAudios.forEach(
-            audio => {
-
-                if (!audio) return;
-
-                audio.volume = 0;
-
-            }
-        );
-
-
         audioToggle.textContent =
-            "🔇";
+            audioEnabled
+                ? "♪"
+                : "𝄾";
 
+        audioToggle.setAttribute(
+            "aria-label",
+            audioEnabled
+                ? "Mute audio"
+                : "Unmute audio"
+        );
     }
 );
 
