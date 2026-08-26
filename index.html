@@ -6481,6 +6481,10 @@ let wheelCooldownTimer = null;
 
 intro.addEventListener("touchstart", (event) => {
 
+        if (isMobilePhone) {
+        return;
+    }
+
     unlockAudio();
 
     if (typingFinished) {
@@ -6506,6 +6510,10 @@ intro.addEventListener("touchstart", (event) => {
 });
 
 intro.addEventListener("touchend", () => {
+
+        if (isMobilePhone) {
+        return;
+    }
 
     if (typingFinished) {
         return;
