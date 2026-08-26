@@ -3191,8 +3191,38 @@ const languages = [
 
 ];
 
+/* =========================================================
+   INITIAL LANGUAGE DETECTION
+========================================================= */
 
-let currentLanguageIndex = 0;
+function detectInitialLanguage() {
+
+    const browserLanguage =
+        navigator.language.toLowerCase();
+
+    if (browserLanguage.startsWith("es")) {
+        return "es";
+    }
+
+    if (browserLanguage.startsWith("ja")) {
+        return "ja";
+    }
+
+    return "en";
+}
+
+const initialLanguage =
+    detectInitialLanguage();
+
+let currentLanguageIndex =
+    languages.findIndex(
+        language =>
+            language.code === initialLanguage
+    );
+
+if (currentLanguageIndex === -1) {
+    currentLanguageIndex = 0;
+}
 
 
 const languageUp =
