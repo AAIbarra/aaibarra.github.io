@@ -247,6 +247,11 @@
             1
         ),
         opacity 0.8s ease;
+
+        -webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
 }
 
 /* =========================================================
@@ -1334,67 +1339,237 @@ height: calc(var(--gallery-size) * 0.56);
         }
 
 
-        /* =========================================================
-           ARROWS
-        ========================================================= */
+/* =========================================================
+   CAROUSEL ARROWS
+========================================================= */
 
-        .carousel-button {
+.carousel-button {
 
-            position: absolute;
+    position: absolute;
 
-            top: 50%;
+    top: 50%;
 
-            transform:
-                translateY(-50%);
+    z-index: 20;
 
-            z-index: 20;
+    width: 130px;
+    height: 120px;
 
-            width: 48px;
-            height: 48px;
+    border: none;
 
-            border: none;
+    background: transparent;
 
-            background:transparent;
+    color: #ffffff;
 
-            color: #ffffff;
+    font-size: 38px;
 
-            font-size: 25px;
+    cursor: pointer;
 
-            cursor: pointer;
+    display: flex;
 
-            display: flex;
+    justify-content: center;
+    align-items: center;
 
-            justify-content: center;
-            align-items: center;
+    padding: 0;
 
-            transition:
+    opacity: 0.72;
 
-                background 0.2s ease,
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease,
+        filter 0.25s ease;
 
-                opacity 0.2s ease;
-
-        }
-
-
-        .carousel-button:hover {
-
-            background:transparent;
-
-        }
+}
 
 
-        .carousel-button.prev {
+/* Las imágenes de las flechas-personaje */
 
-            left: 15px;
+.carousel-button img {
 
-        }
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+
+    pointer-events: none;
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+
+}
 
 
-        .carousel-button.next {
+/* =========================================================
+   POSITION
+========================================================= */
 
-            right: 15px;
+/* 
+   En lugar de mandarlas a los extremos de toda la página,
+   las colocamos a ambos lados de la imagen central.
+*/
 
-        }
+.carousel-button.prev {
+
+    left: calc(
+        50% -
+        (var(--gallery-size) / 2) -
+        150px
+    );
+
+    transform:
+        translateY(-50%);
+
+    animation:
+        arrowHintLeft 2.2s ease-in-out infinite;
+
+}
+
+
+.carousel-button.next {
+
+    right: calc(
+        50% -
+        (var(--gallery-size) / 2) -
+        150px
+    );
+
+    transform:
+        translateY(-50%);
+
+    animation:
+        arrowHintRight 2.2s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.carousel-button:hover {
+
+    opacity: 1;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255, 255, 255, 0.35)
+        );
+
+}
+
+
+/*
+   IMPORTANTE:
+
+   NO tocamos la animación del botón.
+
+   Así, aunque el mouse entre y salga,
+   las dos flechas siguen compartiendo
+   exactamente el mismo ritmo.
+*/
+
+
+.carousel-button.prev:hover img {
+
+    transform:
+        translateX(-8px)
+        scale(1.12);
+
+}
+
+
+.carousel-button.next:hover img {
+
+    transform:
+        translateX(8px)
+        scale(1.12);
+
+}
+
+
+.carousel-button:hover img {
+
+    filter:
+        brightness(1.2);
+
+}
+
+/* =========================================================
+   CLICK
+========================================================= */
+
+.carousel-button:active {
+
+    opacity: 0.85;
+
+}
+
+
+.carousel-button.prev:active img {
+
+    transform:
+        translateX(-14px)
+        scale(0.98);
+
+}
+
+
+.carousel-button.next:active img {
+
+    transform:
+        translateX(14px)
+        scale(0.98);
+
+}
+
+
+/* =========================================================
+   SUBTLE IDLE ANIMATION
+========================================================= */
+
+@keyframes arrowHintLeft {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(-50%)
+            translateX(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-50%)
+            translateX(-8px);
+
+    }
+
+}
+
+
+@keyframes arrowHintRight {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(-50%)
+            translateX(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-50%)
+            translateX(8px);
+
+    }
+
+}
 
 
         /* =========================================================
@@ -1698,6 +1873,29 @@ height: calc(var(--gallery-size) * 0.56);
 }
 
 /* =========================================================
+   PORTFOLIO FADE TO BLACK
+========================================================= */
+
+#portfolio-fade {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: #000000;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 999999;
+
+    transition:
+        opacity 1.2s ease;
+
+}
+
+/* =========================================================
    OUTRO CONTACT FORM
    ========================================================= */
 
@@ -1816,6 +2014,8 @@ height: calc(var(--gallery-size) * 0.56);
 
 
 <body>
+
+    <div id="portfolio-fade"></div>
 
 <!-- =========================================================
      MOBILE PHONE BLOCK
@@ -1963,6 +2163,11 @@ height: calc(var(--gallery-size) * 0.56);
     preload="auto">
 </audio>
 
+    <audio 
+    id="arrow-sound-p3" 
+    src="sounds/keyclick.mp3" 
+    preload="auto">
+</audio>
 
     <!-- =========================================================
          PORTFOLIO
@@ -2607,13 +2812,28 @@ PROJECT 3
 
                 <!-- PREVIOUS -->
 
-                <button
-                    class="carousel-button prev"
-                    onclick="moveCarousel(2, -1)">
+<!-- PREVIOUS -->
 
-                    ←
+<button
+    class="carousel-button prev"
+    onclick="
+        pressArrow(
+            document.getElementById('arrowP3-prev-img'),
+            'images/ui/arrowP3-prev.png',
+            'images/ui/arrowP3-prev-pressed.png'
+        );
+                        document.getElementById('arrow-sound-p3').currentTime = 0;
+                        document.getElementById('arrow-sound-p3').play();
+        moveCarousel(2, -1);
+    ">
 
-                </button>
+    <img
+        id="arrowP3-prev-img"
+        src="images/ui/arrowP3-prev.png"
+        alt=""
+        style="width: 120px; height: 108px;">
+
+</button>
 
 
                 <!-- STAGE -->
@@ -2958,13 +3178,28 @@ PROJECT 3
 
                 <!-- NEXT -->
 
-                <button
-                    class="carousel-button next"
-                    onclick="moveCarousel(2, 1)">
+<!-- NEXT -->
 
-                    →
+<button
+    class="carousel-button next"
+    onclick="
+        pressArrow(
+            document.getElementById('arrowP3-next-img'),
+            'images/ui/arrowP3-next.png',
+            'images/ui/arrowP3-next-pressed.png'
+        );
+                        document.getElementById('arrow-sound-p3').currentTime = 0;
+                        document.getElementById('arrow-sound-p3').play();
+        moveCarousel(2, 1);
+    ">
 
-                </button>
+    <img
+        id="arrowP3-next-img"
+        src="images/ui/arrowP3-next.png"
+        alt=""
+        style="width: 120px; height: 108px;">
+
+</button>
 
 
             </div>
@@ -5069,6 +5304,234 @@ let outroTypingFinished = false;
 
 let outroTypingTimeout = null;
 
+/* =========================================================
+   OUTRO CANCELLATION
+========================================================= */
+
+let outroTypingCancelled = false;
+
+let outroDelayTimeout = null;
+
+let outroDelayResolve = null;
+
+/* =========================================================
+   OUTRO WAIT
+========================================================= */
+
+function waitOutro(
+    duration
+) {
+
+    return new Promise(resolve => {
+
+        /*
+         * Si la escritura fue cancelada,
+         * no esperamos nada.
+         */
+        if (outroTypingCancelled) {
+
+            resolve(false);
+
+            return;
+        }
+
+
+        outroDelayResolve = resolve;
+
+
+        outroDelayTimeout =
+            setTimeout(() => {
+
+                outroDelayTimeout = null;
+
+                outroDelayResolve = null;
+
+                resolve(
+                    !outroTypingCancelled
+                );
+
+            }, duration);
+
+    });
+
+}
+
+/* =========================================================
+   CANCEL OUTRO TYPING
+========================================================= */
+
+function resetOutroVisuals() {
+
+    /*
+     * Borramos todos los textos
+     * que se escriben con el typewriter.
+     */
+
+    outroTitle.textContent = "";
+
+    outroHeading.textContent = "";
+
+    outroEmailLabel.textContent = "";
+
+    outroEmail.textContent = "";
+
+    outroLinkedinLabel.textContent = "";
+
+    outroLinkedin.textContent = "";
+
+    outroLocationLabel.textContent = "";
+
+    outroLocation.textContent = "";
+
+    outroAvailabilityLabel.textContent = "";
+
+    outroAvailability.textContent = "";
+
+
+    /*
+     * Ocultamos el formulario.
+     */
+
+    outroForm.classList.remove(
+        "visible"
+    );
+
+
+    /*
+     * Limpiamos también los mensajes
+     * finales por seguridad.
+     */
+
+    outroStoryMessage.textContent = "";
+
+    outroStoryFinal.textContent = "";
+
+    outroStoryMessage.style.opacity = "";
+
+    outroStoryFinal.style.opacity = "";
+
+
+    /*
+     * Reiniciamos el estado del formulario.
+     */
+
+    outroMessageSent = false;
+
+    contactName.value = "";
+
+    contactEmail.value = "";
+
+    contactMessage.value = "";
+
+    contactSubmit.disabled = false;
+
+
+    /*
+     * Restauramos el texto original
+     * del botón según el idioma actual.
+     */
+
+    const languageData =
+        translations[
+            languages[currentLanguageIndex].code
+        ];
+
+    contactSubmit.textContent =
+        languageData.outroFormSubmit;
+}
+
+function cancelOutroTyping() {
+
+    /*
+     * Solo cancelamos si realmente
+     * la OUTRO estaba escribiéndose.
+     */
+    if (
+        !outroTypingStarted ||
+        outroTypingFinished
+    ) {
+        return;
+    }
+
+
+    /*
+     * Marcamos la escritura como cancelada.
+     */
+    outroTypingCancelled = true;
+
+
+    /*
+     * Cancelamos la escritura
+     * del carácter actual.
+     */
+    clearTimeout(
+        outroTypingTimeout
+    );
+
+    outroTypingTimeout = null;
+
+
+    /*
+     * Cancelamos cualquier pausa
+     * entre textos.
+     */
+    clearTimeout(
+        outroDelayTimeout
+    );
+
+    outroDelayTimeout = null;
+
+
+    /*
+     * Liberamos la Promise actual
+     * si estaba esperando una letra.
+     */
+    if (outroTypingResolve) {
+
+        outroTypingResolve();
+
+        outroTypingResolve = null;
+
+    }
+
+
+    /*
+     * Liberamos también cualquier
+     * pausa que estuviera esperando.
+     */
+    if (outroDelayResolve) {
+
+        outroDelayResolve(false);
+
+        outroDelayResolve = null;
+
+    }
+
+
+    /*
+     * Permitimos que, si volvemos
+     * a entrar a la OUTRO,
+     * pueda comenzar nuevamente.
+     */
+outroTypingStarted = false;
+
+outroTypingFinished = false;
+
+outroSkipRequested = false;
+
+outroMouseHeld = false;
+
+
+/*
+ * Borramos completamente
+ * todo lo que se alcanzó a escribir.
+ */
+
+resetOutroVisuals();
+}
+
+/* ===================================================== */
+
 let outroMessageSent = false;
 
 let outroMouseHeld = false;
@@ -5142,6 +5605,22 @@ function typeOutroText(
 ) {
 
     return new Promise(resolve => {
+
+        /*
+ * CANCELACIÓN:
+ *
+ * Si el usuario salió de la OUTRO,
+ * detenemos completamente la escritura.
+ */
+if (outroTypingCancelled) {
+
+    outroTypingResolve = null;
+
+    resolve();
+
+    return;
+
+}
 
         /*
          * Si se pidió SKIP,
@@ -5336,13 +5815,13 @@ function finishOutroImmediately() {
    START OUTRO TYPEWRITER
    ========================================================= */
 
-
 async function startOutroTyping() {
 
-       const languageData =
+    const languageData =
         translations[
             languages[currentLanguageIndex].code
         ];
+
 
     if (outroTypingStarted) {
         return;
@@ -5351,83 +5830,82 @@ async function startOutroTyping() {
 
     outroTypingStarted = true;
 
+    /*
+     * Reiniciamos el estado de cancelación
+     * cada vez que entramos nuevamente a la OUTRO.
+     */
+    outroTypingCancelled = false;
+
 
     /*
      * Esperamos 1 segundo después
      * de entrar a la OUTRO.
      */
 
-    await new Promise(resolve => {
-
-        setTimeout(
-            resolve,
-            1000
-        );
-
-    });
+    if (!await waitOutro(1000)) {
+        return;
+    }
 
 
     /*
      * CONTACT
      */
 
-await typeOutroText(
-    outroTitle,
-    languageData.outroTitle,
-    70
-);
+    await typeOutroText(
+        outroTitle,
+        languageData.outroTitle,
+        70
+    );
+
+    if (outroTypingCancelled) {
+        return;
+    }
 
 
-    await new Promise(resolve => {
-
-        setTimeout(
-            resolve,
-            500
-        );
-
-    });
+    if (!await waitOutro(500)) {
+        return;
+    }
 
 
     /*
      * HABLEMOS
      */
 
-await typeOutroText(
-    outroHeading,
-    languageData.outroHeading,
-    70
-);
+    await typeOutroText(
+        outroHeading,
+        languageData.outroHeading,
+        70
+    );
+
+    if (outroTypingCancelled) {
+        return;
+    }
 
 
-    await new Promise(resolve => {
-
-        setTimeout(
-            resolve,
-            350
-        );
-
-    });
+    if (!await waitOutro(350)) {
+        return;
+    }
 
 
     /*
      * EMAIL
      */
 
-await typeOutroText(
-    outroEmailLabel,
-    languageData.outroEmailLabel,
-    70
-);
+    await typeOutroText(
+        outroEmailLabel,
+        languageData.outroEmailLabel,
+        70
+    );
+
+    if (outroTypingCancelled) {
+        return;
+    }
 
 
-    await new Promise(resolve => {
+    if (!await waitOutro(350)) {
+        return;
+    }
 
-        setTimeout(
-            resolve,
-            350
-        );
-
-    });
 
     await typeOutroText(
         outroEmail,
@@ -5435,33 +5913,34 @@ await typeOutroText(
         70
     );
 
-    await new Promise(resolve => {
+    if (outroTypingCancelled) {
+        return;
+    }
 
-    setTimeout(
-        resolve,
-        450
-    );
 
-});
+    if (!await waitOutro(450)) {
+        return;
+    }
+
 
     /*
      * LINKEDIN
      */
 
-await typeOutroText(
-    outroLinkedinLabel,
-    languageData.outroLinkedinLabel,
-    70
-);
+    await typeOutroText(
+        outroLinkedinLabel,
+        languageData.outroLinkedinLabel,
+        70
+    );
 
-    await new Promise(resolve => {
+    if (outroTypingCancelled) {
+        return;
+    }
 
-        setTimeout(
-            resolve,
-            350
-        );
 
-    });
+    if (!await waitOutro(350)) {
+        return;
+    }
 
 
     await typeOutroText(
@@ -5470,104 +5949,116 @@ await typeOutroText(
         70
     );
 
-await new Promise(resolve => {
+    if (outroTypingCancelled) {
+        return;
+    }
 
-    setTimeout(
-        resolve,
-        450
-    );
 
-});
+    if (!await waitOutro(450)) {
+        return;
+    }
+
+
     /*
      * LOCATION
      */
 
-await typeOutroText(
-    outroLocationLabel,
-    languageData.outroLocationLabel,
-    70
-);
-
-    await new Promise(resolve => {
-
-        setTimeout(
-            resolve,
-            350
-        );
-
-    });
-
-
-await typeOutroText(
-    outroLocation,
-    languageData.outroLocation,
-    70
-);
-
-await new Promise(resolve => {
-
-    setTimeout(
-        resolve,
-        500
+    await typeOutroText(
+        outroLocationLabel,
+        languageData.outroLocationLabel,
+        70
     );
 
-});
+    if (outroTypingCancelled) {
+        return;
+    }
+
+
+    if (!await waitOutro(350)) {
+        return;
+    }
+
+
+    await typeOutroText(
+        outroLocation,
+        languageData.outroLocation,
+        70
+    );
+
+    if (outroTypingCancelled) {
+        return;
+    }
+
+
+    if (!await waitOutro(500)) {
+        return;
+    }
+
+
     /*
      * AVAILABILITY
      */
 
-await typeOutroText(
-    outroAvailabilityLabel,
-    languageData.outroAvailabilityLabel,
-    70
-);
-
-    await new Promise(resolve => {
-
-        setTimeout(
-            resolve,
-            350
-        );
-
-    });
-
-
-await typeOutroText(
-    outroAvailability,
-    languageData.outroAvailability,
-    70
-);
-
-await new Promise(resolve => {
-
-    setTimeout(
-        resolve,
-        1200
+    await typeOutroText(
+        outroAvailabilityLabel,
+        languageData.outroAvailabilityLabel,
+        70
     );
 
-});
-/*
- * APARECE EL FORMULARIO
- */
+    if (outroTypingCancelled) {
+        return;
+    }
 
-await new Promise(resolve => {
 
-    setTimeout(
-        resolve,
-        500
+    if (!await waitOutro(350)) {
+        return;
+    }
+
+
+    await typeOutroText(
+        outroAvailability,
+        languageData.outroAvailability,
+        70
     );
 
-});
+    if (outroTypingCancelled) {
+        return;
+    }
 
 
-outroForm.classList.add(
-    "visible"
-);
+    if (!await waitOutro(1200)) {
+        return;
+    }
+
+
+    /*
+     * APARECE EL FORMULARIO
+     */
+
+    if (!await waitOutro(500)) {
+        return;
+    }
+
+
+    /*
+     * Una última comprobación por seguridad:
+     * si salimos de la OUTRO justo antes
+     * de mostrar el formulario, no hacemos nada.
+     */
+
+    if (outroTypingCancelled) {
+        return;
+    }
+
+
+    outroForm.classList.add(
+        "visible"
+    );
+
 
     outroTypingFinished = true;
 
 }
-
 /* =========================================================
    OUTRO MOUSE CONTROLS
 ========================================================= */
@@ -5793,6 +6284,19 @@ await new Promise(resolve => {
 
 });
 
+/*
+ * Los mensajes finales siempre deben
+ * escribirse normalmente, aunque antes
+ * se haya usado el SKIP de la OUTRO.
+ */
+
+outroSkipRequested = false;
+
+outroStoryMessage.textContent = "";
+
+outroStoryFinal.textContent = "";
+
+
 outroStoryMessage.style.opacity = "1";
 
 await typeOutroText(
@@ -5810,6 +6314,7 @@ await new Promise(resolve => {
 
 });
 
+outroStoryFinal.textContent = "";
 outroStoryFinal.style.opacity = "1";
 
 await typeOutroText(
@@ -5817,6 +6322,28 @@ await typeOutroText(
     languageData.outroStoryFinal,
     70
 );
+
+/*
+ * Esperamos 2 segundos
+ * después del último mensaje.
+ */
+
+await new Promise(resolve => {
+
+    setTimeout(
+        resolve,
+        2000
+    );
+
+});
+
+
+/*
+ * Fade out y reinicio completo
+ * del portfolio.
+ */
+
+restartPortfolio();
 
         } catch (error) {
 
@@ -5878,6 +6405,221 @@ Object.values(
 
     }
 );
+
+}
+
+async function restartPortfolio() {
+
+    const portfolioFade =
+        document.getElementById(
+            "portfolio-fade"
+        );
+
+
+    /*
+     * FADE OUT A NEGRO
+     */
+
+    portfolioFade.style.opacity = "1";
+
+
+    /*
+     * Esperamos a que termine
+     * el fade.
+     */
+
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            1200
+        );
+
+    });
+
+
+    /*
+     * Mantenemos la pantalla negra
+     * durante 2 segundos.
+     */
+
+    await new Promise(resolve => {
+
+        setTimeout(
+            resolve,
+            2000
+        );
+
+    });
+
+
+    /* =====================================================
+       REINICIAMOS LA INTRO
+    ===================================================== */
+
+    clearTimeout(
+        typingTimer
+    );
+
+
+    typingTimer = null;
+
+
+    /*
+     * Reiniciamos los índices
+     * del typewriter de la intro.
+     */
+
+    roleIndex = 0;
+
+    index = 0;
+
+    subIndex = 0;
+
+    quoteIndex = 0;
+
+
+    /*
+     * Reiniciamos estados.
+     */
+
+    typingStarted = false;
+
+    typingFinished = false;
+
+    mouseHeld = false;
+
+
+    /*
+     * Borramos todos los textos.
+     */
+
+    roleElement.innerHTML = "";
+
+    titleElement.innerHTML = "";
+
+    subtitleElement.innerHTML = "";
+
+    quoteElement.innerHTML = "";
+
+
+    /*
+     * Volvemos a mostrar
+     * PRESS ANY BUTTON.
+     */
+
+    document.getElementById(
+        "press-start"
+    ).style.display = "";
+
+
+    /*
+     * Ocultamos nuevamente
+     * los controles.
+     */
+
+    const audioControl =
+        document.getElementById(
+            "audio-control"
+        );
+
+    if (audioControl) {
+
+        audioControl.style.display =
+            "none";
+
+    }
+
+
+    const languageControl =
+        document.getElementById(
+            "language-control"
+        );
+
+    if (languageControl) {
+
+        languageControl.style.display =
+            "none";
+
+    }
+
+
+    /*
+     * Ocultamos el indicador
+     * de scroll.
+     */
+
+    scrollIndicator.classList.remove(
+        "visible"
+    );
+
+
+    /* =====================================================
+       REINICIAMOS LA OUTRO
+    ===================================================== */
+
+    resetOutroVisuals();
+
+    outroTypingStarted = false;
+
+    outroTypingFinished = false;
+
+    outroTypingCancelled = false;
+
+    outroSkipRequested = false;
+
+
+    /* =====================================================
+       VOLVEMOS A LA INTRO
+    ===================================================== */
+
+    verticalSections.forEach(
+        section => {
+
+            clearStates(section);
+
+        }
+    );
+
+
+    currentSection = 0;
+
+
+    intro.classList.add(
+        "vertical-current"
+    );
+
+
+    /*
+     * Reiniciamos el audio
+     * de las secciones.
+     */
+
+    changeSectionAudio(
+        currentSection
+    );
+
+
+    /*
+     * Esperamos un frame para
+     * asegurarnos de que todo
+     * esté correctamente reseteado.
+     */
+
+    await new Promise(resolve => {
+
+        requestAnimationFrame(
+            resolve
+        );
+
+    });
+
+
+    /*
+     * FADE IN DESDE NEGRO.
+     */
+
+    portfolioFade.style.opacity = "0";
 
 }
 
@@ -6149,6 +6891,16 @@ newAudio.currentTime =
 const audioToggle =
     document.getElementById("audio-toggle");
 
+    const uiSounds = [
+
+    document.getElementById("arrow-sound"),
+
+    document.getElementById("arrow-sound-p2"),
+
+    document.getElementById("arrow-sound-p3")
+
+];
+
 /* =========================================================
    AUDIO ON / OFF
    ========================================================= */
@@ -6177,6 +6929,19 @@ audioToggle.addEventListener(
                         : 0;
             }
         );
+
+        uiSounds.forEach(
+    sound => {
+
+        if (!sound) return;
+
+        sound.volume =
+            audioEnabled
+                ? 1
+                : 0;
+
+    }
+);
 
         /*
          * Sonido de máquina de escribir
@@ -6302,6 +7067,19 @@ function showVerticalSection(newIndex) {
     const target =
         verticalSections[newIndex];
 
+        /*
+ * Si estamos saliendo de la OUTRO
+ * mientras todavía se está escribiendo,
+ * cancelamos completamente el proceso.
+ */
+if (
+    current.id === "outro" &&
+    !outroTypingFinished
+) {
+
+    cancelOutroTyping();
+
+}
 
     /*
      * =====================================================
@@ -7042,6 +7820,7 @@ setInitialVerticalState();
 
 const arrowSound = document.getElementById("arrow-sound");
 const arrowSoundP2 = document.getElementById("arrow-sound-p2");
+const arrowSoundP3 = document.getElementById("arrow-sound-p3");
 
 function pressArrow(imgElement, normalSrc, pressedSrc) {
 
@@ -7057,8 +7836,22 @@ function pressArrow(imgElement, normalSrc, pressedSrc) {
         soundToPlay = arrowSoundP2;
     }
 
+        // Si la flecha pertenece al Proyecto 3
+    if (
+        imgElement.id === "arrowP3-prev-img" ||
+        imgElement.id === "arrowP3-next-img"
+    ) {
+        soundToPlay = arrowSoundP3;
+    }
+
+if (audioEnabled && soundToPlay) {
+
     soundToPlay.currentTime = 0;
-    soundToPlay.play().catch(() => {});
+
+    soundToPlay.play()
+        .catch(() => {});
+
+}
 
     setTimeout(() => {
         imgElement.src = normalSrc;
