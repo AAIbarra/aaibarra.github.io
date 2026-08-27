@@ -609,26 +609,42 @@ user-select: none;
    ========================================================= */
 
 .project3-layout .project-gallery {
+
     flex: 1;
+
     min-height: 0;
+
     width: 100%;
 
     display: flex;
+
     flex-direction: column;
+
+    justify-content: center;
+
 }
 
 
 .project3-layout .carousel-wrapper {
+
     flex: 1;
+
     min-height: 0;
 
     height: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
 
     --gallery-size: clamp(
         850px,
         76vw,
         1400px
     );
+
 }
 
 
@@ -789,6 +805,18 @@ user-select: none;
     overflow-wrap: break-word;
 }
 
+/* =========================================================
+   PROJECT 3 — DOTS
+========================================================= */
+
+.project3-layout .carousel-dots {
+
+    flex-shrink: 0;
+
+    margin-top: 14px;
+    margin-bottom: 20px;
+
+}
 
 /* =========================================================
    VERTICAL CAROUSEL STATES
@@ -3912,7 +3940,7 @@ project3Slide4Focus3:
             "CONTACT",
 
         outroHeading:
-            "HABLEMOS:",
+            "Personal Information:",
 
         outroEmailLabel:
             "EMAIL",
@@ -4137,7 +4165,7 @@ project3Slide4Focus3:
             "CONTACTO",
 
         outroHeading:
-            "HABLEMOS:",
+            "Información personal:",
 
         outroEmailLabel:
             "EMAIL",
@@ -4361,7 +4389,7 @@ project3Slide4Focus3:
             "お問い合わせ",
 
         outroHeading:
-            "お話ししましょう：",
+            "基本情報：",
 
         outroEmailLabel:
             "EMAIL",
