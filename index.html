@@ -2809,7 +2809,7 @@ PROJECT 3
 
           role = languageData.role;
 
-          name = languageData.name;
+          introName = languageData.name;
 
           subtitle = languageData.subtitle;
 
@@ -2846,7 +2846,7 @@ PROJECT 3
           if (typingFinished) {
             roleElement.textContent = role;
 
-            titleElement.textContent = name;
+            titleElement.textContent = introName;
 
             subtitleElement.textContent = subtitle;
 
@@ -3701,7 +3701,7 @@ PROJECT 3
 
         let role = translations.en.role;
 
-        let name = translations.en.name;
+        let introName = translations.en.name;
 
         let subtitle = translations.en.subtitle;
 
@@ -3856,13 +3856,13 @@ PROJECT 3
           }
 
           titleElement.innerHTML =
-            name.substring(0, index) + '<span class="cursor">|</span>';
+            introName.substring(0, index) + '<span class="cursor">|</span>';
 
           /*
            * Sonido
            */
 
-          if (index < name.length) {
+          if (index < introName.length) {
             playTypeSound();
           }
 
@@ -3872,7 +3872,7 @@ PROJECT 3
            * Todavía falta escribir
            */
 
-          if (index <= name.length) {
+          if (index <= introName.length) {
             const speed = mouseHeld ? fastSpeed : normalSpeed;
 
             typingTimer = setTimeout(typeName, speed);
@@ -3884,7 +3884,7 @@ PROJECT 3
            * Terminó el nombre.
            */
 
-          titleElement.innerHTML = name;
+          titleElement.innerHTML = introName;
 
           /*
            * Esperamos un poquito
@@ -4008,7 +4008,7 @@ PROJECT 3
            */
           roleElement.innerHTML = role;
 
-          titleElement.innerHTML = name;
+          titleElement.innerHTML = introName;
 
           subtitleElement.innerHTML = subtitle;
 
@@ -4016,7 +4016,7 @@ PROJECT 3
 
           roleIndex = role.length;
 
-          index = name.length;
+          index = introName.length;
 
           subIndex = subtitle.length;
 
@@ -4169,10 +4169,6 @@ PROJECT 3
         );
 
         const outroAvailability = document.getElementById("outro-availability");
-
-        const outroFinalMessage = document.getElementById(
-          "outro-final-message",
-        );
 
         const outroStoryMessage = document.getElementById(
           "outro-story-message",
