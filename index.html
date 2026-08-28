@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Agustín Andrés Ibarra — Videogame Narrative Designer</title>
+    <meta name="description" content="Portfolio de Agustín Andrés Ibarra, diseñador narrativo de videojuegos." />
+    <link rel="icon" href="images/favicon.ico" />
 
     <style>
       /* =========================================================
@@ -786,21 +788,17 @@
       .project-title {
         margin: 0;
         padding: 0;
-        width: 100%;
         font-size: clamp(1.7rem, max(2.2vw, 4.5vh), 2.8rem);
         font-weight: 500;
         letter-spacing: 0.5px;
-        text-align: center;
-        white-space: nowrap;
         transform: translateY(-20px);
         width: min(90vw, 1500px);
         max-width: 1500px;
         margin-left: auto;
         margin-right: auto;
-
+        text-align: center;
         white-space: normal;
         overflow-wrap: break-word;
-        text-align: center;
       }
 
       /* =========================================================
@@ -1797,6 +1795,113 @@
 
         color: #000;
       }
+
+      /* =========================================================
+   CAROUSEL LIGHTBOX
+========================================================= */
+
+      #carousel-lightbox {
+        position: fixed;
+        inset: 0;
+
+        z-index: 50000;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        opacity: 0;
+        pointer-events: none;
+
+        transition: opacity 0.4s ease;
+      }
+
+      #carousel-lightbox.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      #carousel-lightbox-backdrop {
+        position: absolute;
+        inset: 0;
+
+        background: rgba(18, 18, 18, 0.88);
+      }
+
+      #carousel-lightbox-close {
+        position: absolute;
+
+        top: 24px;
+        right: 24px;
+
+        z-index: 2;
+
+        width: 44px;
+        height: 44px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 50%;
+
+        background: transparent;
+        color: #ffffff;
+
+        font-family: inherit;
+        font-size: 18px;
+        line-height: 1;
+
+        cursor: pointer;
+
+        transition:
+          opacity 0.2s ease,
+          border-color 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      #carousel-lightbox-close:hover {
+        opacity: 0.7;
+        transform: scale(1.08);
+      }
+
+      #carousel-lightbox-content {
+        position: relative;
+        z-index: 1;
+
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+      }
+
+      /* =========================================================
+   LIGHTBOX — ENLARGED CAROUSEL SIZE
+========================================================= */
+
+      .lightbox-gallery {
+        width: auto;
+      }
+
+      .lightbox-gallery .carousel-wrapper {
+        --gallery-size: clamp(700px, min(58vw, 70vh), 1300px);
+      }
+
+      /*
+       * Acercamos un poco las flechas a la imagen
+       * para que no se salgan de la pantalla
+       * al agrandar el carrusel.
+       */
+
+      .lightbox-gallery .carousel-button.prev {
+        left: calc(50% - (var(--gallery-size) / 2) - 60px);
+      }
+
+      .lightbox-gallery .carousel-button.next {
+        right: calc(50% - (var(--gallery-size) / 2) - 60px);
+      }
+
     </style>
   </head>
 
@@ -1829,6 +1934,25 @@
     </div>
 
     <div class="page-wrapper">
+
+          <div class="page-wrapper">
+      <!-- =========================================================
+         CAROUSEL LIGHTBOX
+    ========================================================= -->
+      <div id="carousel-lightbox">
+        <div id="carousel-lightbox-backdrop"></div>
+
+        <button
+          id="carousel-lightbox-close"
+          type="button"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+
+        <div id="carousel-lightbox-content"></div>
+      </div>
+
       <!-- =========================================================
          AUDIO SETTINGS FOR USER
     ========================================================= -->
@@ -1978,6 +2102,7 @@
               <div class="carousel-wrapper">
                 <button
                   class="carousel-button prev"
+                  aria-label="Previous slide"
                   onclick="
                     pressArrow(
                       document.getElementById('arrowP1-prev-img'),
@@ -2030,7 +2155,7 @@
                     onclick="selectSlide(0, 2)"
                   >
                     <img
-                      src="images/p1/ViñetaExplosión.png"
+                      src="images/p1/VinetaExplosion.png"
                       alt="Foam Traveler Go screenshot3"
                     />
                   </div>
@@ -2043,8 +2168,8 @@
                     onclick="selectSlide(0, 3)"
                   >
                     <img
-                      src="images/p1/ViñetaExpulsado.png"
-                      alt="Foam Traveler Go screenshot3"
+                      src="images/p1/VinetaExpulsado.png"
+                      alt="Foam Traveler Go screenshot4"
                     />
                   </div>
 
@@ -2057,7 +2182,7 @@
                   >
                     <img
                       src="images/p1/VeMatafuegos.png"
-                      alt="Foam Traveler Go screenshot3"
+                      alt="Foam Traveler Go screenshot5"
                     />
                   </div>
 
@@ -2070,7 +2195,7 @@
                   >
                     <img
                       src="images/p1/lets-do-this.png"
-                      alt="Foam Traveler Go screenshot3"
+                      alt="Foam Traveler Go screenshot6"
                     />
                   </div>
 
@@ -2083,7 +2208,7 @@
                   >
                     <img
                       src="images/p1/Pausa.png"
-                      alt="Foam Traveler Go screenshot3"
+                      alt="Foam Traveler Go screenshot7"
                     />
                   </div>
 
@@ -2096,7 +2221,7 @@
                   >
                     <img
                       src="images/p1/MenuFogata.png"
-                      alt="Foam Traveler Go screenshot3"
+                      alt="Foam Traveler Go screenshot8"
                     />
                   </div>
 
@@ -2122,6 +2247,7 @@
 
                 <button
                   class="carousel-button next"
+                  aria-label="Next slide"
                   onclick="
                     pressArrow(
                       document.getElementById('arrowP1-next-img'),
@@ -2235,6 +2361,7 @@
               <div class="carousel-wrapper">
                 <button
                   class="carousel-button prev"
+                  aria-label="Previous slide"
                   onclick="
                     pressArrow(
                       document.getElementById('arrowP2-prev-img'),
@@ -2347,6 +2474,7 @@
 
                 <button
                   class="carousel-button next"
+                  aria-label="Next slide"
                   onclick="
                     pressArrow(
                       document.getElementById('arrowP2-next-img'),
@@ -2442,6 +2570,7 @@ PROJECT 3
 
                 <button
                   class="carousel-button prev"
+                  aria-label="Previous slide"
                   onclick="
                     pressArrow(
                       document.getElementById('arrowP3-prev-img'),
@@ -2714,6 +2843,7 @@ PROJECT 3
 
                   <button
                     class="carousel-button next"
+                    aria-label="Next slide"
                     onclick="
                       pressArrow(
                         document.getElementById('arrowP3-next-img'),
@@ -2831,7 +2961,7 @@ PROJECT 3
                   MESSAGE
                 </label>
 
-                <textarea id="contact-message" rows="4"> </textarea>
+                <textarea id="contact-message" rows="4"></textarea>
               </div>
 
               <button
@@ -2897,6 +3027,7 @@ PROJECT 3
         }
 
         const initialLanguage = detectInitialLanguage();
+        document.documentElement.lang = initialLanguage;
 
         let currentLanguageIndex = languages.findIndex(
           (language) => language.code === initialLanguage,
@@ -2969,6 +3100,8 @@ PROJECT 3
           const language = languages[currentLanguageIndex];
 
           currentLanguageElement.textContent = language.name;
+
+          document.documentElement.lang = language.code;
 
           const languageData = translations[language.code];
 
@@ -3293,7 +3426,7 @@ PROJECT 3
             /*----- PROJECT 2 --------*/
 
             project2Title:
-              "Ahora soy un fantasma | Búsqueda de indentidad, cronotopo y puzzles 3D",
+              "Ahora soy un fantasma | Búsqueda de identidad, cronotopo y puzzles 3D",
 
             project2Subtitle:
               "Unity 3D • C# • Diseño de Niveles • Diseño Narrativo • Diseño de Personajes • Diseño de Puzzles",
@@ -5053,7 +5186,9 @@ window.addEventListener("keydown", (event) => {
            * tengan contenido.
            */
 
-          if (!name || !email || !message) {
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!name || !email || !message || !emailPattern.test(email)) {
             alert(languageData.outroFormValidation);
             return;
           }
@@ -5901,6 +6036,10 @@ window.addEventListener("keydown", (event) => {
         });
 
         window.addEventListener("touchend", (event) => {
+
+          if (lightboxOpen) {
+            return;
+          }
           if (!typingFinished) {
             return;
           }
@@ -5969,6 +6108,11 @@ window.addEventListener("keydown", (event) => {
     window.addEventListener(
       "wheel",
       (event) => {
+
+        if (lightboxOpen) {
+          event.preventDefault();
+          return;
+        }
 
         if (!typingFinished) {
           return;
@@ -6051,8 +6195,23 @@ window.addEventListener("keydown", (event) => {
         /* =========================================================
    KEYBOARD
    ========================================================= */
-
 window.addEventListener("keydown", (event) => {
+
+  if (lightboxOpen) {
+
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeCarouselLightbox();
+    } else if (event.key === "ArrowLeft" && lightboxPrevButton) {
+      event.preventDefault();
+      lightboxPrevButton.click();
+    } else if (event.key === "ArrowRight" && lightboxNextButton) {
+      event.preventDefault();
+      lightboxNextButton.click();
+    }
+
+    return;
+  }
 
   if (!typingFinished) {
     return;
@@ -6151,11 +6310,47 @@ if (event.key === "ArrowRight") {
         const carouselIndexes = [0, 0, 0];
 
         /* =========================================================
+           CAROUSEL LIGHTBOX STATE
+        ========================================================= */
+
+        const carouselLightbox = document.getElementById("carousel-lightbox");
+        const carouselLightboxBackdrop = document.getElementById(
+          "carousel-lightbox-backdrop",
+        );
+        const carouselLightboxClose = document.getElementById(
+          "carousel-lightbox-close",
+        );
+        const carouselLightboxContent = document.getElementById(
+          "carousel-lightbox-content",
+        );
+
+        let lightboxOpen = false;
+        let lightboxFromRect = null;
+        let activeLightboxCarouselIndex = null;
+        let lightboxPrevButton = null;
+        let lightboxNextButton = null;
+
+        const arrowAssetsByCarousel = {
+          0: {
+            normalPrev: "images/ui/arrowP1-prev.png",
+            pressedPrev: "images/ui/arrowP1-prev-pressed.png",
+            normalNext: "images/ui/arrowP1-next.png",
+            pressedNext: "images/ui/arrowP1-next-pressed.png",
+          },
+          1: {
+            normalPrev: "images/ui/arrowP2-prev.png",
+            pressedPrev: "images/ui/arrowP2-prev-pressed.png",
+            normalNext: "images/ui/arrowP2-next.png",
+            pressedNext: "images/ui/arrowP2-next-pressed.png",
+          },
+        };
+
+        /* =========================================================
            UPDATE COVERFLOW
         ========================================================= */
 
-        function updateCarousel(carouselIndex) {
-          const section = projects[carouselIndex];
+        function updateCarousel(carouselIndex, container = projects[carouselIndex]) {
+          const section = container;
 
           const slides = section.querySelectorAll(".carousel-slide");
 
@@ -6290,6 +6485,319 @@ if (event.key === "ArrowRight") {
             imgElement.src = normalSrc;
           }, 150);
         }
+
+        /* =========================================================
+   CAROUSEL LIGHTBOX
+========================================================= */
+
+        /*
+         * Igual que pressArrow, pero elige el sonido
+         * según el índice de carrusel en lugar del id
+         * del <img> (el clon del lightbox no tiene ids,
+         * para no duplicarlos con el carrusel original).
+         */
+
+        function pressArrowForCarousel(
+          carouselIndex,
+          imgElement,
+          normalSrc,
+          pressedSrc,
+        ) {
+          imgElement.src = pressedSrc;
+
+          const soundByCarousel = {
+            0: arrowSound,
+            1: arrowSoundP2,
+            2: arrowSoundP3,
+          };
+
+          const soundToPlay = soundByCarousel[carouselIndex];
+
+          if (audioEnabled && soundToPlay) {
+            soundToPlay.currentTime = 0;
+
+            soundToPlay.play().catch(() => {});
+          }
+
+          setTimeout(() => {
+            imgElement.src = normalSrc;
+          }, 150);
+        }
+
+        /*
+         * =====================================================
+         * CONECTAMOS LOS BOTONES Y DOTS DEL CLON
+         * =====================================================
+         *
+         * El clon no trae los onclick originales
+         * (los sacamos al clonar), así que acá le
+         * enchufamos listeners propios.
+         */
+
+        function wireLightboxCarousel(clone, carouselIndex) {
+          const assets = arrowAssetsByCarousel[carouselIndex];
+
+          const prevButton = clone.querySelector(".carousel-button.prev");
+          const nextButton = clone.querySelector(".carousel-button.next");
+
+          const prevImg = prevButton.querySelector("img");
+          const nextImg = nextButton.querySelector("img");
+
+          prevButton.addEventListener("click", () => {
+            pressArrowForCarousel(
+              carouselIndex,
+              prevImg,
+              assets.normalPrev,
+              assets.pressedPrev,
+            );
+
+            moveCarousel(carouselIndex, -1);
+
+            updateCarousel(carouselIndex, clone);
+          });
+
+          nextButton.addEventListener("click", () => {
+            pressArrowForCarousel(
+              carouselIndex,
+              nextImg,
+              assets.normalNext,
+              assets.pressedNext,
+            );
+
+            moveCarousel(carouselIndex, 1);
+
+            updateCarousel(carouselIndex, clone);
+          });
+
+          clone.querySelectorAll(".carousel-dot").forEach((dot, index) => {
+            dot.addEventListener("click", () => {
+              selectSlide(carouselIndex, index);
+
+              updateCarousel(carouselIndex, clone);
+            });
+          });
+
+          lightboxPrevButton = prevButton;
+          lightboxNextButton = nextButton;
+        }
+
+        /*
+         * =====================================================
+         * ABRIR EL LIGHTBOX
+         * =====================================================
+         *
+         * Técnica FLIP:
+         * 1. Medimos dónde está el carrusel original (fromRect).
+         * 2. Insertamos el clon ya en su tamaño/posición FINAL.
+         * 3. Le aplicamos un transform que lo hace VERSE como
+         *    si todavía estuviera en fromRect.
+         * 4. En el frame siguiente, sacamos ese transform con
+         *    una transición: el navegador anima solo.
+         */
+
+        function openCarouselLightbox(carouselIndex) {
+          if (carouselIndex !== 0 && carouselIndex !== 1) {
+            return;
+          }
+
+          const section = projects[carouselIndex];
+
+          const gallery = section.querySelector(".project-gallery");
+
+          const wrapper = gallery.querySelector(".carousel-wrapper");
+
+          lightboxFromRect = wrapper.getBoundingClientRect();
+
+          /*
+           * Clonamos TODO el project-gallery
+           * (carrusel + botones + dots).
+           */
+
+          const clone = gallery.cloneNode(true);
+
+          clone.classList.add("lightbox-gallery");
+
+          /*
+           * Sacamos ids y onclicks originales
+           * para evitar duplicados y conflictos.
+           */
+
+          clone.querySelectorAll("[id]").forEach((element) => {
+            element.removeAttribute("id");
+          });
+
+          clone.querySelectorAll("[onclick]").forEach((element) => {
+            element.removeAttribute("onclick");
+          });
+
+          carouselLightboxContent.innerHTML = "";
+
+          carouselLightboxContent.appendChild(clone);
+
+          wireLightboxCarousel(clone, carouselIndex);
+
+          activeLightboxCarouselIndex = carouselIndex;
+
+          lightboxOpen = true;
+
+          carouselLightbox.classList.add("open");
+
+          /*
+           * Medimos la posición FINAL
+           * (ya con el tamaño grande aplicado por CSS)
+           * y calculamos el transform inicial
+           * para que arranque pareciendo
+           * el carrusel chico de origen.
+           */
+
+          const cloneWrapper = clone.querySelector(".carousel-wrapper");
+
+          const toRect = cloneWrapper.getBoundingClientRect();
+
+          const deltaX = lightboxFromRect.left - toRect.left;
+          const deltaY = lightboxFromRect.top - toRect.top;
+          const scaleX = lightboxFromRect.width / toRect.width;
+          const scaleY = lightboxFromRect.height / toRect.height;
+
+          cloneWrapper.style.transition = "none";
+
+          cloneWrapper.style.transform =
+            `translate(${deltaX}px, ${deltaY}px) ` +
+            `scale(${scaleX}, ${scaleY})`;
+
+          /*
+           * Forzamos reflow para que el navegador
+           * aplique esa posición ANTES de animar.
+           */
+
+          cloneWrapper.offsetWidth;
+
+          requestAnimationFrame(() => {
+            cloneWrapper.style.transition =
+              "transform 0.7s cubic-bezier(0.77, 0, 0.175, 1)";
+
+            cloneWrapper.style.transform = "translate(0, 0) scale(1, 1)";
+          });
+        }
+
+        /*
+         * =====================================================
+         * CERRAR EL LIGHTBOX
+         * =====================================================
+         *
+         * Mismo truco FLIP, pero al revés:
+         * animamos desde el tamaño grande actual
+         * de vuelta hacia fromRect.
+         */
+
+        function closeCarouselLightbox() {
+          if (!lightboxOpen) {
+            return;
+          }
+
+          const cloneWrapper = carouselLightboxContent.querySelector(
+            ".carousel-wrapper",
+          );
+
+          lightboxOpen = false;
+
+          carouselLightbox.classList.remove("open");
+
+          if (cloneWrapper && lightboxFromRect) {
+            const currentRect = cloneWrapper.getBoundingClientRect();
+
+            const deltaX = lightboxFromRect.left - currentRect.left;
+            const deltaY = lightboxFromRect.top - currentRect.top;
+            const scaleX = lightboxFromRect.width / currentRect.width;
+            const scaleY = lightboxFromRect.height / currentRect.height;
+
+            cloneWrapper.style.transition =
+              "transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)";
+
+            cloneWrapper.style.transform =
+              `translate(${deltaX}px, ${deltaY}px) ` +
+              `scale(${scaleX}, ${scaleY})`;
+          }
+
+          /*
+           * Esperamos a que termine la animación
+           * antes de vaciar el contenido.
+           */
+
+            setTimeout(() => {
+            carouselLightboxContent.innerHTML = "";
+
+            lightboxFromRect = null;
+            activeLightboxCarouselIndex = null;
+            lightboxPrevButton = null;
+            lightboxNextButton = null;
+          }, 650);
+        }
+
+        /*
+         * =====================================================
+         * DETECTAR CLICK EN LA IMAGEN CENTRAL
+         * =====================================================
+         *
+         * Usamos "capture: true" para que esto se ejecute
+         * ANTES que el onclick original de la slide
+         * (que solo mueve el carrusel). Así podemos chequear
+         * si la slide YA estaba centrada antes de que
+         * selectSlide la centre de nuevo.
+         */
+
+        document.addEventListener(
+          "click",
+          (event) => {
+            const slide = event.target.closest(".carousel-slide");
+
+            if (!slide) {
+              return;
+            }
+
+            /*
+             * Ignoramos clicks dentro del propio lightbox
+             * (si no, se podría re-abrir en loop).
+             */
+
+            if (slide.closest("#carousel-lightbox-content")) {
+              return;
+            }
+
+            if (!slide.classList.contains("center")) {
+              return;
+            }
+
+            const section = slide.closest(".portfolio-section");
+
+            if (!section) {
+              return;
+            }
+
+            const carouselIndex = Number(section.dataset.project);
+
+            if (carouselIndex !== 0 && carouselIndex !== 1) {
+              return;
+            }
+
+            openCarouselLightbox(carouselIndex);
+          },
+          true,
+        );
+
+        /*
+         * =====================================================
+         * CERRAR: cruz y click fuera de la imagen
+         * =====================================================
+         */
+
+        carouselLightboxClose.addEventListener("click", () => {
+          closeCarouselLightbox();
+        });
+
+        carouselLightboxBackdrop.addEventListener("click", () => {
+          closeCarouselLightbox();
+        });
       </script>
     </div>
   </body>
