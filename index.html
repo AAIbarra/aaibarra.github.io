@@ -1895,11 +1895,11 @@
        */
 
       .lightbox-gallery .carousel-button.prev {
-        left: calc(50% - (var(--gallery-size) / 2) - 60px);
+        left: calc(50% - (var(--gallery-size) / 2) - 200px);
       }
 
       .lightbox-gallery .carousel-button.next {
-        right: calc(50% - (var(--gallery-size) / 2) - 60px);
+        right: calc(50% - (var(--gallery-size) / 2) - 200px);
       }
 
     </style>
@@ -6411,30 +6411,30 @@ if (event.key === "ArrowRight") {
            MOVE CAROUSEL
         ========================================================= */
 
-        function moveCarousel(carouselIndex, direction) {
-          const section = projects[carouselIndex];
+function moveCarousel(carouselIndex, direction, container) {
+  const section = container || projects[carouselIndex];
 
-          const slides = section.querySelectorAll(".carousel-slide");
+  const slides = section.querySelectorAll(".carousel-slide");
 
-          const total = slides.length;
+  const total = slides.length;
 
-          carouselIndexes[carouselIndex] = getWrappedIndex(
-            carouselIndexes[carouselIndex] + direction,
-            total,
-          );
+  carouselIndexes[carouselIndex] = getWrappedIndex(
+    carouselIndexes[carouselIndex] + direction,
+    total,
+  );
 
-          updateCarousel(carouselIndex);
-        }
+  updateCarousel(carouselIndex, section);
+}
 
-        /* =========================================================
-           SELECT SLIDE
-        ========================================================= */
+/* =========================================================
+   SELECT SLIDE
+========================================================= */
 
-        function selectSlide(carouselIndex, slideIndex) {
-          carouselIndexes[carouselIndex] = slideIndex;
+function selectSlide(carouselIndex, slideIndex, container) {
+  carouselIndexes[carouselIndex] = slideIndex;
 
-          updateCarousel(carouselIndex);
-        }
+  updateCarousel(carouselIndex, container || projects[carouselIndex]);
+}
 
         /* =========================================================
            INITIALIZE CAROUSELS
@@ -6543,39 +6543,33 @@ if (event.key === "ArrowRight") {
           const prevImg = prevButton.querySelector("img");
           const nextImg = nextButton.querySelector("img");
 
-          prevButton.addEventListener("click", () => {
-            pressArrowForCarousel(
-              carouselIndex,
-              prevImg,
-              assets.normalPrev,
-              assets.pressedPrev,
-            );
+prevButton.addEventListener("click", () => {
+  pressArrowForCarousel(
+    carouselIndex,
+    prevImg,
+    assets.normalPrev,
+    assets.pressedPrev,
+  );
 
-            moveCarousel(carouselIndex, -1);
+  moveCarousel(carouselIndex, -1, clone);
+});
 
-            updateCarousel(carouselIndex, clone);
-          });
+nextButton.addEventListener("click", () => {
+  pressArrowForCarousel(
+    carouselIndex,
+    nextImg,
+    assets.normalNext,
+    assets.pressedNext,
+  );
 
-          nextButton.addEventListener("click", () => {
-            pressArrowForCarousel(
-              carouselIndex,
-              nextImg,
-              assets.normalNext,
-              assets.pressedNext,
-            );
+  moveCarousel(carouselIndex, 1, clone);
+});
 
-            moveCarousel(carouselIndex, 1);
-
-            updateCarousel(carouselIndex, clone);
-          });
-
-          clone.querySelectorAll(".carousel-dot").forEach((dot, index) => {
-            dot.addEventListener("click", () => {
-              selectSlide(carouselIndex, index);
-
-              updateCarousel(carouselIndex, clone);
-            });
-          });
+clone.querySelectorAll(".carousel-dot").forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    selectSlide(carouselIndex, index, clone);
+  });
+});
 
           lightboxPrevButton = prevButton;
           lightboxNextButton = nextButton;
@@ -6604,9 +6598,9 @@ if (event.key === "ArrowRight") {
 
           const gallery = section.querySelector(".project-gallery");
 
-          const wrapper = gallery.querySelector(".carousel-wrapper");
+const sourceSlide = gallery.querySelector(".carousel-slide.center");
 
-          lightboxFromRect = wrapper.getBoundingClientRect();
+lightboxFromRect = sourceSlide.getBoundingClientRect();
 
           /*
            * Clonamos TODO el project-gallery
@@ -6650,34 +6644,44 @@ if (event.key === "ArrowRight") {
            * el carrusel chico de origen.
            */
 
-          const cloneWrapper = clone.querySelector(".carousel-wrapper");
+const cloneSlide = clone.querySelector(".carousel-slide.center");
 
-          const toRect = cloneWrapper.getBoundingClientRect();
+const toRect = cloneSlide.getBoundingClientRect();
 
-          const deltaX = lightboxFromRect.left - toRect.left;
-          const deltaY = lightboxFromRect.top - toRect.top;
-          const scaleX = lightboxFromRect.width / toRect.width;
-          const scaleY = lightboxFromRect.height / toRect.height;
+const fromCenterX =
+  lightboxFromRect.left + lightboxFromRect.width / 2;
 
-          cloneWrapper.style.transition = "none";
+const fromCenterY =
+  lightboxFromRect.top + lightboxFromRect.height / 2;
 
-          cloneWrapper.style.transform =
-            `translate(${deltaX}px, ${deltaY}px) ` +
-            `scale(${scaleX}, ${scaleY})`;
+const toCenterX =
+  toRect.left + toRect.width / 2;
 
-          /*
-           * Forzamos reflow para que el navegador
-           * aplique esa posición ANTES de animar.
-           */
+const toCenterY =
+  toRect.top + toRect.height / 2;
 
-          cloneWrapper.offsetWidth;
+const deltaX = fromCenterX - toCenterX;
+const deltaY = fromCenterY - toCenterY;
 
-          requestAnimationFrame(() => {
-            cloneWrapper.style.transition =
-              "transform 0.7s cubic-bezier(0.77, 0, 0.175, 1)";
+const scaleX = lightboxFromRect.width / toRect.width;
+const scaleY = lightboxFromRect.height / toRect.height;
 
-            cloneWrapper.style.transform = "translate(0, 0) scale(1, 1)";
-          });
+cloneSlide.style.transition = "none";
+
+cloneSlide.style.transform =
+  `translate(-50%, -50%) ` +
+  `translate(${deltaX}px, ${deltaY}px) ` +
+  `scale(${scaleX}, ${scaleY})`;
+
+cloneSlide.offsetWidth;
+
+requestAnimationFrame(() => {
+  cloneSlide.style.transition =
+    "transform 0.7s cubic-bezier(0.77, 0, 0.175, 1)";
+
+  cloneSlide.style.transform =
+    "translate(-50%, -50%) scale(1, 1)";
+});
         }
 
         /*
@@ -6695,29 +6699,54 @@ if (event.key === "ArrowRight") {
             return;
           }
 
-          const cloneWrapper = carouselLightboxContent.querySelector(
-            ".carousel-wrapper",
-          );
+const cloneSlide = carouselLightboxContent.querySelector(
+  ".carousel-slide.center",
+);
 
-          lightboxOpen = false;
+lightboxOpen = false;
 
-          carouselLightbox.classList.remove("open");
+carouselLightbox.classList.remove("open");
 
-          if (cloneWrapper && lightboxFromRect) {
-            const currentRect = cloneWrapper.getBoundingClientRect();
+/*
+ * Recién ahora pintamos el carrusel chico original
+ * con el índice final que quedó en el clon.
+ * Queda tapado por el clon mientras se achica,
+ * así que el cambio no se ve saltar.
+ */
 
-            const deltaX = lightboxFromRect.left - currentRect.left;
-            const deltaY = lightboxFromRect.top - currentRect.top;
-            const scaleX = lightboxFromRect.width / currentRect.width;
-            const scaleY = lightboxFromRect.height / currentRect.height;
+if (activeLightboxCarouselIndex !== null) {
+  updateCarousel(activeLightboxCarouselIndex);
+}
 
-            cloneWrapper.style.transition =
-              "transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)";
+if (cloneSlide && lightboxFromRect) {
+  const currentRect = cloneSlide.getBoundingClientRect();
 
-            cloneWrapper.style.transform =
-              `translate(${deltaX}px, ${deltaY}px) ` +
-              `scale(${scaleX}, ${scaleY})`;
-          }
+  const fromCenterX =
+    lightboxFromRect.left + lightboxFromRect.width / 2;
+
+  const fromCenterY =
+    lightboxFromRect.top + lightboxFromRect.height / 2;
+
+  const currentCenterX =
+    currentRect.left + currentRect.width / 2;
+
+  const currentCenterY =
+    currentRect.top + currentRect.height / 2;
+
+  const deltaX = fromCenterX - currentCenterX;
+  const deltaY = fromCenterY - currentCenterY;
+
+  const scaleX = lightboxFromRect.width / currentRect.width;
+  const scaleY = lightboxFromRect.height / currentRect.height;
+
+  cloneSlide.style.transition =
+    "transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)";
+
+  cloneSlide.style.transform =
+    `translate(-50%, -50%) ` +
+    `translate(${deltaX}px, ${deltaY}px) ` +
+    `scale(${scaleX}, ${scaleY})`;
+}
 
           /*
            * Esperamos a que termine la animación
