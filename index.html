@@ -1327,6 +1327,112 @@
       }
 
       /* =========================================================
+   RESPONSIVE — SHORT DESKTOP SCREENS
+   ========================================================= */
+
+    /*
+      El diseño normal se mantiene intacto.
+      Solo empezamos a compactar cuando el viewport
+      realmente es muy bajo.
+    */
+
+    @media (max-height: 600px) and (min-width: 1101px) {
+
+        .project-container {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        /*
+          Reducimos un poco el tamaño del carrusel,
+          pero NO hacemos microscópica la descripción.
+        */
+
+        .carousel-wrapper {
+            --gallery-size: clamp(
+                250px,
+                min(40vw, 50vh),
+                540px
+            );
+        }
+
+        /*
+          Reducimos apenas los márgenes internos
+          de la descripción.
+        */
+
+        .desc-quote {
+            margin-bottom: 12px;
+        }
+
+        .desc-title {
+            margin-bottom: 8px;
+        }
+
+        .desc-list li {
+            margin-bottom: 6px;
+        }
+
+        /*
+          Las skills se compactan apenas.
+        */
+
+        .project-skills {
+            gap: 5px;
+        }
+
+        .skill-tag {
+            padding: 4px 8px;
+        }
+
+        /*
+          Los puntos quedan más cerca del carrusel.
+        */
+
+        .carousel-dots {
+            margin-top: 8px;
+        }
+    }
+
+    /* =========================================================
+      PROJECT 3 — SHORT DESKTOP SCREENS
+      ========================================================= */
+
+    @media (max-height: 600px) and (min-width: 1101px) {
+
+        .project3-layout .carousel-stage {
+            height: clamp(380px, 50vh, 600px);
+        }
+
+        .project3-layout .carousel-slide {
+            height: clamp(380px, 50vh, 600px);
+        }
+
+        .project3-layout .carousel-dots {
+            margin-top: 8px;
+            margin-bottom: 10px;
+        }
+    }
+
+        /* =========================================================
+      CONDITIONAL VERTICAL SCROLL
+      Only when the viewport is too short
+      ========================================================= */
+
+        @media (min-width: 1101px) {
+
+        .portfolio-section {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .portfolio-section > .project-container {
+            min-height: 100%;
+        }
+
+    }
+
+      /* =========================================================
            MOBILE
         ========================================================= */
 
