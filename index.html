@@ -1034,17 +1034,52 @@
            CENTER SLIDE
         ========================================================= */
 
-      .carousel-slide.center {
+.carousel-slide.center {
+    transform: translate(-50%, -50%) scale(1);
+
+    opacity: 1;
+
+    z-index: 5;
+
+    filter: brightness(1);
+
+    cursor: pointer;
+
+    position: absolute;
+
+    transition:
+        transform 0.55s cubic-bezier(0.77, 0, 0.175, 1),
+        opacity 0.55s ease,
+        filter 0.25s ease;
+}
+
+/* =========================================================
+   CENTER SLIDE — HOVER ANIMATION
+   ONLY PROJECTS 1 AND 2
+========================================================= */
+
+.portfolio-section[data-project="0"] .carousel-slide.center:hover,
+.portfolio-section[data-project="1"] .carousel-slide.center:hover {
+    filter:
+        brightness(1.2)
+        drop-shadow(0 0 12px rgba(255, 215, 100, 0.65));
+
+    animation: centerSlidePulse 1.6s ease-in-out infinite;
+}
+
+
+@keyframes centerSlidePulse {
+
+    0%,
+    100% {
         transform: translate(-50%, -50%) scale(1);
+    }
 
-        opacity: 1;
+    50% {
+        transform: translate(-50%, -50%) scale(1.035);
+    }
 
-        z-index: 5;
-
-        filter: brightness(1);
-
-        cursor: default;
-      }
+}
 
       /* =========================================================
            PREVIOUS SLIDE
@@ -1414,22 +1449,50 @@
         }
     }
 
-        /* =========================================================
+    /* =========================================================
       CONDITIONAL VERTICAL SCROLL
-      Only when the viewport is too short
-      ========================================================= */
+    ========================================================= */
 
-        @media (min-width: 1101px) {
+.portfolio-section {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
-        .portfolio-section {
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
+.portfolio-section > .project-container {
+    box-sizing: border-box;
 
-        .portfolio-section > .project-container {
-            min-height: 100%;
-        }
+    height: 100%;
+    min-height: 0;
+}
 
+    /* =========================================================
+   CUSTOM SCROLLBAR
+========================================================= */
+
+    .portfolio-section::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .portfolio-section::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.25);
+    }
+
+    .portfolio-section::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.45);
+        border-radius: 10px;
+    }
+
+    .portfolio-section::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.75);
+    }
+
+
+    /* Firefox */
+
+    .portfolio-section {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.45)
+                        rgba(0, 0, 0, 0.25);
     }
 
       /* =========================================================
@@ -4220,6 +4283,38 @@ PROJECT 3
           mouseHeld = false;
         });
 
+        /* =========================================================
+   KEYBOARD START
+========================================================= */
+
+window.addEventListener("keydown", (event) => {
+
+  /*
+   * Si ya terminó la intro,
+   * no hacemos nada acá.
+   *
+   * Las demás teclas seguirán siendo
+   * manejadas por sus propios controles.
+   */
+
+  if (typingFinished) {
+    return;
+  }
+
+
+  /*
+   * Si todavía no empezó,
+   * cualquier tecla inicia la escritura.
+   */
+
+  if (!typingStarted) {
+
+    startTyping();
+
+  }
+
+});
+
         /*
          * DOBLE CLICK
          *
@@ -5871,51 +5966,177 @@ PROJECT 3
           }
         });
 
-        window.addEventListener(
-          "wheel",
-          (event) => {
-            if (!typingFinished) {
+    window.addEventListener(
+      "wheel",
+      (event) => {
+
+        if (!typingFinished) {
+          return;
+        }
+
+        const currentElement = verticalSections[currentSection];
+
+        /*
+        * =====================================================
+        * SCROLL INTERNO DE LA SECCIÓN ACTUAL
+        * =====================================================
+        */
+
+        if (currentElement.classList.contains("portfolio-section")) {
+
+          const canScroll =
+            currentElement.scrollHeight > currentElement.clientHeight;
+
+          if (canScroll) {
+
+            const isScrollingDown = event.deltaY > 0;
+            const isScrollingUp = event.deltaY < 0;
+
+            const isAtTop =
+              currentElement.scrollTop <= 0;
+
+            const isAtBottom =
+              currentElement.scrollTop +
+              currentElement.clientHeight >=
+              currentElement.scrollHeight - 1;
+
+
+            /*
+            * Si todavía hay contenido para recorrer,
+            * dejamos que el navegador haga el scroll normal.
+            */
+
+            if (
+              (isScrollingDown && !isAtBottom) ||
+              (isScrollingUp && !isAtTop)
+            ) {
               return;
             }
+          }
+        }
 
-            event.preventDefault();
 
-            if (verticalLocked) {
-              return;
-            }
+        /*
+        * =====================================================
+        * TRANSICIÓN ENTRE PROYECTOS
+        * =====================================================
+        */
 
-            if (Math.abs(event.deltaY) < 10) {
-              return;
-            }
+        event.preventDefault();
 
-            if (event.deltaY > 0) {
-              showVerticalSection(currentSection + 1);
-            } else {
-              showVerticalSection(currentSection - 1);
-            }
-          },
-          {
-            passive: false,
-          },
-        );
+        if (verticalLocked) {
+          return;
+        }
+
+        if (Math.abs(event.deltaY) < 10) {
+          return;
+        }
+
+        if (event.deltaY > 0) {
+
+          showVerticalSection(currentSection + 1);
+
+        } else {
+
+          showVerticalSection(currentSection - 1);
+
+        }
+
+      },
+      {
+        passive: false,
+      },
+    );
 
         /* =========================================================
    KEYBOARD
    ========================================================= */
 
-        window.addEventListener("keydown", (event) => {
-          if (!typingFinished) {
-            return;
-          }
+window.addEventListener("keydown", (event) => {
 
-          if (event.key === "ArrowDown" || event.key === "PageDown") {
-            showVerticalSection(currentSection + 1);
-          }
+  if (!typingFinished) {
+    return;
+  }
 
-          if (event.key === "ArrowUp" || event.key === "PageUp") {
-            showVerticalSection(currentSection - 1);
-          }
-        });
+
+  /* =====================================================
+     VERTICAL
+  ===================================================== */
+
+  if (event.key === "ArrowDown" || event.key === "PageDown") {
+
+    event.preventDefault();
+
+    showVerticalSection(currentSection + 1);
+
+    return;
+  }
+
+
+  if (event.key === "ArrowUp" || event.key === "PageUp") {
+
+    event.preventDefault();
+
+    showVerticalSection(currentSection - 1);
+
+    return;
+  }
+
+
+/* =====================================================
+   HORIZONTAL CAROUSEL
+===================================================== */
+
+if (
+  event.key !== "ArrowLeft" &&
+  event.key !== "ArrowRight"
+) {
+  return;
+}
+
+
+/*
+   La intro es índice 0.
+*/
+
+if (currentSection === 0) {
+  return;
+}
+
+
+const currentProject =
+  verticalSections[currentSection];
+
+
+/*
+   Buscamos los botones del carrusel
+   dentro del proyecto actual.
+*/
+
+const previousButton =
+  currentProject.querySelector(".carousel-button.prev");
+
+const nextButton =
+  currentProject.querySelector(".carousel-button.next");
+
+if (event.key === "ArrowLeft") {
+
+  event.preventDefault();
+
+  previousButton?.click();
+
+}
+
+
+if (event.key === "ArrowRight") {
+
+  event.preventDefault();
+
+  nextButton?.click();
+
+}
+
+});
 
         /* =========================================================
    INITIAL STATE
