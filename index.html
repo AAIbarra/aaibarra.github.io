@@ -6445,27 +6445,60 @@ if (event.key === "ArrowRight") {
           "carousel-lightbox-content",
         );
 
+        const LIGHTBOX_OPEN_MS = 700;
+        const LIGHTBOX_CLOSE_MS = 600;
+
         let lightboxOpen = false;
         let lightboxFromRect = null;
         let activeLightboxCarouselIndex = null;
         let lightboxPrevButton = null;
         let lightboxNextButton = null;
 
-        const arrowAssetsByCarousel = {
-          0: {
-            normalPrev: "images/ui/arrowP1-prev.webp",
-            pressedPrev: "images/ui/arrowP1-prev-pressed.webp",
-            normalNext: "images/ui/arrowP1-next.webp",
-            pressedNext: "images/ui/arrowP1-next-pressed.webp",
-          },
-          1: {
-            normalPrev: "images/ui/arrowP2-prev.webp",
-            pressedPrev: "images/ui/arrowP2-prev-pressed.webp",
-            normalNext: "images/ui/arrowP2-next.webp",
-            pressedNext: "images/ui/arrowP2-next-pressed.webp",
-          },
-        };
+        /*
+         * Dado el src "normal" de una flecha
+         * (ej: "images/ui/arrowP1-prev.webp"),
+         * devuelve el nombre del archivo "presionado"
+         * (ej: "images/ui/arrowP1-prev-pressed.webp").
+         *
+         * Esto evita tener que hardcodear los nombres
+         * de archivo de cada proyecto en el JS: los
+         * leemos directamente del <img> del clon.
+         */
 
+        function getPressedSrc(normalSrc) {
+          const lastDotIndex = normalSrc.lastIndexOf(".");
+
+          return (
+            normalSrc.slice(0, lastDotIndex) +
+            "-pressed" +
+            normalSrc.slice(lastDotIndex)
+          );
+        }
+
+                function getPressedSrc(normalSrc) {
+          const lastDotIndex = normalSrc.lastIndexOf(".");
+
+          return (
+            normalSrc.slice(0, lastDotIndex) +
+            "-pressed" +
+            normalSrc.slice(lastDotIndex)
+          );
+        }
+
+        /*
+         * Precargamos en segundo plano las imágenes
+         * "presionadas" de todas las flechas
+         * (P1, P2 y P3), para que la primera vez
+         * que alguien clickea ya estén en caché
+         * y se alcancen a ver.
+         */
+
+        document.querySelectorAll(".carousel-button img").forEach((img) => {
+          const pressedSrc = getPressedSrc(img.getAttribute("src"));
+
+          new Image().src = pressedSrc;
+        });
+        
         /* =========================================================
            UPDATE COVERFLOW
         ========================================================= */
@@ -6575,26 +6608,8 @@ function selectSlide(carouselIndex, slideIndex, container) {
         const arrowSoundP2 = document.getElementById("arrow-sound-p2");
         const arrowSoundP3 = document.getElementById("arrow-sound-p3");
 
-        function pressArrow(imgElement, normalSrc, pressedSrc) {
+        function pressArrowVisual(imgElement, normalSrc, pressedSrc, soundToPlay) {
           imgElement.src = pressedSrc;
-
-          let soundToPlay = arrowSound;
-
-          // Si la flecha pertenece al Proyecto 2
-          if (
-            imgElement.id === "arrowP2-prev-img" ||
-            imgElement.id === "arrowP2-next-img"
-          ) {
-            soundToPlay = arrowSoundP2;
-          }
-
-          // Si la flecha pertenece al Proyecto 3
-          if (
-            imgElement.id === "arrowP3-prev-img" ||
-            imgElement.id === "arrowP3-next-img"
-          ) {
-            soundToPlay = arrowSoundP3;
-          }
 
           if (audioEnabled && soundToPlay) {
             soundToPlay.currentTime = 0;
@@ -6607,42 +6622,23 @@ function selectSlide(carouselIndex, slideIndex, container) {
           }, 150);
         }
 
-        /* =========================================================
-   CAROUSEL LIGHTBOX
-========================================================= */
+        const soundByCarousel = {
+          0: arrowSound,
+          1: arrowSoundP2,
+          2: arrowSoundP3,
+        };
 
-        /*
-         * Igual que pressArrow, pero elige el sonido
-         * según el índice de carrusel en lugar del id
-         * del <img> (el clon del lightbox no tiene ids,
-         * para no duplicarlos con el carrusel original).
-         */
+        function pressArrow(imgElement, normalSrc, pressedSrc) {
+          let carouselIndex = 0;
 
-        function pressArrowForCarousel(
-          carouselIndex,
-          imgElement,
-          normalSrc,
-          pressedSrc,
-        ) {
-          imgElement.src = pressedSrc;
+          if (imgElement.id.includes("P2")) carouselIndex = 1;
+          if (imgElement.id.includes("P3")) carouselIndex = 2;
 
-          const soundByCarousel = {
-            0: arrowSound,
-            1: arrowSoundP2,
-            2: arrowSoundP3,
-          };
+          pressArrowVisual(imgElement, normalSrc, pressedSrc, soundByCarousel[carouselIndex]);
+        }
 
-          const soundToPlay = soundByCarousel[carouselIndex];
-
-          if (audioEnabled && soundToPlay) {
-            soundToPlay.currentTime = 0;
-
-            soundToPlay.play().catch(() => {});
-          }
-
-          setTimeout(() => {
-            imgElement.src = normalSrc;
-          }, 150);
+        function pressArrowForCarousel(carouselIndex, imgElement, normalSrc, pressedSrc) {
+          pressArrowVisual(imgElement, normalSrc, pressedSrc, soundByCarousel[carouselIndex]);
         }
 
         /*
@@ -6656,41 +6652,51 @@ function selectSlide(carouselIndex, slideIndex, container) {
          */
 
         function wireLightboxCarousel(clone, carouselIndex) {
-          const assets = arrowAssetsByCarousel[carouselIndex];
-
           const prevButton = clone.querySelector(".carousel-button.prev");
           const nextButton = clone.querySelector(".carousel-button.next");
 
           const prevImg = prevButton.querySelector("img");
           const nextImg = nextButton.querySelector("img");
 
-prevButton.addEventListener("click", () => {
-  pressArrowForCarousel(
-    carouselIndex,
-    prevImg,
-    assets.normalPrev,
-    assets.pressedPrev,
-  );
+          /*
+           * Leemos el src "normal" directamente del clon
+           * (ya viene copiado tal cual del carrusel original)
+           * y calculamos el "presionado" a partir de él.
+           */
 
-  moveCarousel(carouselIndex, -1, clone);
-});
+          const prevNormalSrc = prevImg.getAttribute("src");
+          const nextNormalSrc = nextImg.getAttribute("src");
 
-nextButton.addEventListener("click", () => {
-  pressArrowForCarousel(
-    carouselIndex,
-    nextImg,
-    assets.normalNext,
-    assets.pressedNext,
-  );
+          const prevPressedSrc = getPressedSrc(prevNormalSrc);
+          const nextPressedSrc = getPressedSrc(nextNormalSrc);
 
-  moveCarousel(carouselIndex, 1, clone);
-});
+          prevButton.addEventListener("click", () => {
+            pressArrowForCarousel(
+              carouselIndex,
+              prevImg,
+              prevNormalSrc,
+              prevPressedSrc,
+            );
 
-clone.querySelectorAll(".carousel-dot").forEach((dot, index) => {
-  dot.addEventListener("click", () => {
-    selectSlide(carouselIndex, index, clone);
-  });
-});
+            moveCarousel(carouselIndex, -1, clone);
+          });
+
+          nextButton.addEventListener("click", () => {
+            pressArrowForCarousel(
+              carouselIndex,
+              nextImg,
+              nextNormalSrc,
+              nextPressedSrc,
+            );
+
+            moveCarousel(carouselIndex, 1, clone);
+          });
+
+          clone.querySelectorAll(".carousel-dot").forEach((dot, index) => {
+            dot.addEventListener("click", () => {
+              selectSlide(carouselIndex, index, clone);
+            });
+          });
 
           lightboxPrevButton = prevButton;
           lightboxNextButton = nextButton;
@@ -6798,7 +6804,7 @@ cloneSlide.offsetWidth;
 
 requestAnimationFrame(() => {
   cloneSlide.style.transition =
-    "transform 0.7s cubic-bezier(0.77, 0, 0.175, 1)";
+    `transform ${LIGHTBOX_OPEN_MS}ms cubic-bezier(0.77, 0, 0.175, 1)`;
 
   cloneSlide.style.transform =
     "translate(-50%, -50%) scale(1, 1)";
@@ -6816,7 +6822,7 @@ requestAnimationFrame(() => {
   setTimeout(() => {
     cloneSlide.style.transition = "";
     cloneSlide.style.transform = "";
-  }, 720);
+  }, LIGHTBOX_OPEN_MS + 20);
 });
         }
 
@@ -6876,7 +6882,7 @@ if (cloneSlide && lightboxFromRect) {
   const scaleY = lightboxFromRect.height / currentRect.height;
 
   cloneSlide.style.transition =
-    "transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)";
+    `transform ${LIGHTBOX_CLOSE_MS}ms cubic-bezier(0.77, 0, 0.175, 1)`;
 
   cloneSlide.style.transform =
     `translate(-50%, -50%) ` +
@@ -6896,7 +6902,7 @@ if (cloneSlide && lightboxFromRect) {
             activeLightboxCarouselIndex = null;
             lightboxPrevButton = null;
             lightboxNextButton = null;
-          }, 650);
+          }, LIGHTBOX_CLOSE_MS + 50);
         }
 
         /*
