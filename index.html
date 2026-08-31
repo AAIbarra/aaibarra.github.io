@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Agustín Andrés Ibarra — Videogame Narrative Designer</title>
-    <meta name="description" content="Portfolio de Agustín Andrés Ibarra, diseñador narrativo de videojuegos." />
+    <meta
+      name="description"
+      content="Portfolio de Agustín Andrés Ibarra, diseñador narrativo de videojuegos."
+    />
     <link rel="icon" href="images/favicon.ico" />
 
     <style>
@@ -1032,52 +1035,47 @@
            CENTER SLIDE
         ========================================================= */
 
-.carousel-slide.center {
-    transform: translate(-50%, -50%) scale(1);
+      .carousel-slide.center {
+        transform: translate(-50%, -50%) scale(1);
 
-    opacity: 1;
+        opacity: 1;
 
-    z-index: 5;
+        z-index: 5;
 
-    filter: brightness(1);
+        filter: brightness(1);
 
-    cursor: pointer;
+        cursor: pointer;
 
-    position: absolute;
+        position: absolute;
 
-    transition:
-        transform 0.55s cubic-bezier(0.77, 0, 0.175, 1),
-        opacity 0.55s ease,
-        filter 0.25s ease;
-}
+        transition:
+          transform 0.55s cubic-bezier(0.77, 0, 0.175, 1),
+          opacity 0.55s ease,
+          filter 0.25s ease;
+      }
 
-/* =========================================================
+      /* =========================================================
    CENTER SLIDE — HOVER ANIMATION
    ONLY PROJECTS 1 AND 2
 ========================================================= */
 
-.portfolio-section[data-project="0"] .carousel-slide.center:hover,
-.portfolio-section[data-project="1"] .carousel-slide.center:hover {
-    filter:
-        brightness(1.2)
-        drop-shadow(0 0 12px rgba(255, 215, 100, 0.65));
+      .portfolio-section[data-project="0"] .carousel-slide.center:hover,
+      .portfolio-section[data-project="1"] .carousel-slide.center:hover {
+        filter: brightness(1.2) drop-shadow(0 0 12px rgba(255, 215, 100, 0.65));
 
-    animation: centerSlidePulse 1.6s ease-in-out infinite;
-}
+        animation: centerSlidePulse 1.6s ease-in-out infinite;
+      }
 
+      @keyframes centerSlidePulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
 
-@keyframes centerSlidePulse {
-
-    0%,
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    50% {
-        transform: translate(-50%, -50%) scale(1.035);
-    }
-
-}
+        50% {
+          transform: translate(-50%, -50%) scale(1.035);
+        }
+      }
 
       /* =========================================================
            PREVIOUS SLIDE
@@ -1363,17 +1361,16 @@
    RESPONSIVE — SHORT DESKTOP SCREENS
    ========================================================= */
 
-    /*
+      /*
       El diseño normal se mantiene intacto.
       Solo empezamos a compactar cuando el viewport
       realmente es muy bajo.
     */
 
-    @media (max-height: 900px) and (min-width: 1101px) {
-
+      @media (max-height: 900px) and (min-width: 1101px) {
         .project-container {
-            padding-top: 10px;
-            padding-bottom: 10px;
+          padding-top: 10px;
+          padding-bottom: 10px;
         }
 
         /*
@@ -1382,11 +1379,7 @@
         */
 
         .carousel-wrapper {
-            --gallery-size: clamp(
-                250px,
-                min(40vw, 56vh),
-                540px
-            );
+          --gallery-size: clamp(250px, min(40vw, 56vh), 540px);
         }
 
         /*
@@ -1395,15 +1388,15 @@
         */
 
         .desc-quote {
-            margin-bottom: 12px;
+          margin-bottom: 12px;
         }
 
         .desc-title {
-            margin-bottom: 8px;
+          margin-bottom: 8px;
         }
 
         .desc-list li {
-            margin-bottom: 6px;
+          margin-bottom: 6px;
         }
 
         /*
@@ -1411,11 +1404,11 @@
         */
 
         .project-skills {
-            gap: 5px;
+          gap: 5px;
         }
 
         .skill-tag {
-            padding: 4px 8px;
+          padding: 4px 8px;
         }
 
         /*
@@ -1423,75 +1416,72 @@
         */
 
         .carousel-dots {
-            margin-top: 8px;
+          margin-top: 8px;
         }
-    }
+      }
 
-    /* =========================================================
+      /* =========================================================
       PROJECT 3 — SHORT DESKTOP SCREENS
       ========================================================= */
 
-    @media (max-height: 600px) and (min-width: 1101px) {
-
+      @media (max-height: 600px) and (min-width: 1101px) {
         .project3-layout .carousel-stage {
-            height: clamp(380px, 50vh, 600px);
+          height: clamp(380px, 50vh, 600px);
         }
 
         .project3-layout .carousel-slide {
-            height: clamp(380px, 50vh, 600px);
+          height: clamp(380px, 50vh, 600px);
         }
 
         .project3-layout .carousel-dots {
-            margin-top: 8px;
-            margin-bottom: 10px;
+          margin-top: 8px;
+          margin-bottom: 10px;
         }
-    }
+      }
 
-    /* =========================================================
+      /* =========================================================
       CONDITIONAL VERTICAL SCROLL
     ========================================================= */
 
-.portfolio-section {
-    overflow-y: auto;
-    overflow-x: hidden;
-}
+      .portfolio-section {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
 
-.portfolio-section > .project-container {
-    box-sizing: border-box;
+      .portfolio-section > .project-container {
+        box-sizing: border-box;
 
-    height: 100%;
-    min-height: 0;
-}
+        height: 100%;
+        min-height: 0;
+      }
 
-    /* =========================================================
+      /* =========================================================
    CUSTOM SCROLLBAR
 ========================================================= */
 
-    .portfolio-section::-webkit-scrollbar {
+      .portfolio-section::-webkit-scrollbar {
         width: 8px;
-    }
+      }
 
-    .portfolio-section::-webkit-scrollbar-track {
+      .portfolio-section::-webkit-scrollbar-track {
         background: rgba(0, 0, 0, 0.25);
-    }
+      }
 
-    .portfolio-section::-webkit-scrollbar-thumb {
+      .portfolio-section::-webkit-scrollbar-thumb {
         background: rgba(255, 255, 255, 0.45);
         border-radius: 10px;
-    }
+      }
 
-    .portfolio-section::-webkit-scrollbar-thumb:hover {
+      .portfolio-section::-webkit-scrollbar-thumb:hover {
         background: rgba(255, 255, 255, 0.75);
-    }
+      }
 
+      /* Firefox */
 
-    /* Firefox */
-
-    .portfolio-section {
+      .portfolio-section {
         scrollbar-width: thin;
-        scrollbar-color: rgba(255, 255, 255, 0.45)
-                        rgba(0, 0, 0, 0.25);
-    }
+        scrollbar-color: rgba(255, 255, 255, 0.45) rgba(0, 0, 0, 0.25);
+      }
 
       /* =========================================================
            MOBILE
@@ -1901,19 +1891,23 @@
       .lightbox-gallery .carousel-button.next {
         right: calc(50% - (var(--gallery-size) / 2) - 200px);
       }
-
     </style>
   </head>
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GRZDV555HG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-GRZDV555HG"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-  gtag('config', 'G-GRZDV555HG');
-</script>
+    gtag("config", "G-GRZDV555HG");
+  </script>
 
   <body>
     <div id="portfolio-fade"></div>
@@ -1944,19 +1938,13 @@
     </div>
 
     <div class="page-wrapper">
-
-          <div class="page-wrapper">
       <!-- =========================================================
          CAROUSEL LIGHTBOX
     ========================================================= -->
       <div id="carousel-lightbox">
         <div id="carousel-lightbox-backdrop"></div>
 
-        <button
-          id="carousel-lightbox-close"
-          type="button"
-          aria-label="Close"
-        >
+        <button id="carousel-lightbox-close" type="button" aria-label="Close">
           ✕
         </button>
 
@@ -2627,10 +2615,14 @@ PROJECT 3
                     onclick="selectSlide(2, 0)"
                   >
                     <div class="p3-slide-content">
-
                       <!-- NUMBER -->
 
-                      <span class="p3-slide-number" data-translation="project3Slide1Overline"> 01 </span>
+                      <span
+                        class="p3-slide-number"
+                        data-translation="project3Slide1Overline"
+                      >
+                        01
+                      </span>
 
                       <!-- TITLE -->
 
@@ -2691,7 +2683,12 @@ PROJECT 3
                     <div class="p3-slide-content">
                       <!-- NUMBER -->
 
-                      <span class="p3-slide-number" data-translation="project3Slide2Overline"> 02 </span>
+                      <span
+                        class="p3-slide-number"
+                        data-translation="project3Slide2Overline"
+                      >
+                        02
+                      </span>
 
                       <!-- TITLE -->
 
@@ -2752,7 +2749,12 @@ PROJECT 3
                     <div class="p3-slide-content">
                       <!-- NUMBER -->
 
-                      <span class="p3-slide-number" data-translation="project3Slide3Overline"> 03 </span>
+                      <span
+                        class="p3-slide-number"
+                        data-translation="project3Slide3Overline"
+                      >
+                        03
+                      </span>
 
                       <!-- TITLE -->
 
@@ -2813,7 +2815,12 @@ PROJECT 3
                     <div class="p3-slide-content">
                       <!-- NUMBER -->
 
-                      <span class="p3-slide-number" data-translation="project3Slide4Overline"> 04 </span>
+                      <span
+                        class="p3-slide-number"
+                        data-translation="project3Slide4Overline"
+                      >
+                        04
+                      </span>
 
                       <!-- TITLE -->
 
@@ -3313,7 +3320,7 @@ PROJECT 3
               "→ Technical Asset: Leveraging a strong understanding of engine workflows (Unity) to bridge the gap between creative writing, technical implementation, and multi-language localization.",
 
             project3Slide2Overline: "WORK EXPERIENCE",
-            
+
             project3Slide2Title: "02. DIGITAL HEARTS",
 
             project3Slide2Subtitle: "LOCALIZATION PROJECT LEADER",
@@ -3399,7 +3406,8 @@ PROJECT 3
 
             outroDocumentsLabel: "CITIZENSHIP & VISAS",
 
-            outroDocuments: "Argentine & Italian (EU) citizenship\nValid Japan work visa until 2028",
+            outroDocuments:
+              "Argentine & Italian (EU) citizenship\nValid Japan work visa until 2028",
 
             outroAvailabilityLabel: "AVAILABILITY",
 
@@ -3565,7 +3573,7 @@ PROJECT 3
 
             project3Slide4Overline: "PERFIL ACADÉMICO",
 
-              project3Slide4Title: "04. ACADEMIA",
+            project3Slide4Title: "04. ACADEMIA",
 
             project3Slide4Subtitle: "TEORÍA LITERARIA Y ARQUITECTURA NARRATIVA",
 
@@ -3604,7 +3612,8 @@ PROJECT 3
 
             outroDocumentsLabel: "NACIONALIDAD Y VISADOS",
 
-            outroDocuments: "Ciudadanía argentina e italiana (UE)\nVisa de trabajo en Japón válida hasta 2028",
+            outroDocuments:
+              "Ciudadanía argentina e italiana (UE)\nVisa de trabajo en Japón válida hasta 2028",
 
             outroAvailabilityLabel: "DISPONIBILIDAD",
 
@@ -3792,7 +3801,7 @@ PROJECT 3
             project3Slide4Focus3:
               "→ 『ファイナルファンタジーIX』における中世主義 — ナラティブ・メカニクス：中世的なトロープ、美学、文学的アーキタイプが、ゲームのキャラクターとナラティブの中でどのように再構築されているかを分析。",
 
-           /*----- OUTRO --------*/
+            /*----- OUTRO --------*/
 
             outroTitle: "お問い合わせ",
 
@@ -3809,11 +3818,13 @@ PROJECT 3
 
             outroDocumentsLabel: "国籍・ビザ",
 
-            outroDocuments: "アルゼンチン・イタリア（EU）国籍保有。\n2028年まで有効な日本就労ビザ保有。",
+            outroDocuments:
+              "アルゼンチン・イタリア（EU）国籍保有。\n2028年まで有効な日本就労ビザ保有。",
 
             outroAvailabilityLabel: "稼働状況",
 
-            outroAvailability: "フルタイムおよびフリーランスの案件に対応可能です。",
+            outroAvailability:
+              "フルタイムおよびフリーランスの案件に対応可能です。",
 
             outroFormName: "お名前",
 
@@ -3833,7 +3844,6 @@ PROJECT 3
 
             outroStoryFinal: "次のチャプターを一緒に書きましょう。",
           },
-
         };
 
         /* =========================================================
@@ -4490,33 +4500,28 @@ PROJECT 3
    KEYBOARD START
 ========================================================= */
 
-window.addEventListener("keydown", (event) => {
+        window.addEventListener("keydown", (event) => {
+          /*
+           * Si ya terminó la intro,
+           * no hacemos nada acá.
+           *
+           * Las demás teclas seguirán siendo
+           * manejadas por sus propios controles.
+           */
 
-  /*
-   * Si ya terminó la intro,
-   * no hacemos nada acá.
-   *
-   * Las demás teclas seguirán siendo
-   * manejadas por sus propios controles.
-   */
+          if (typingFinished) {
+            return;
+          }
 
-  if (typingFinished) {
-    return;
-  }
+          /*
+           * Si todavía no empezó,
+           * cualquier tecla inicia la escritura.
+           */
 
-
-  /*
-   * Si todavía no empezó,
-   * cualquier tecla inicia la escritura.
-   */
-
-  if (!typingStarted) {
-
-    startTyping();
-
-  }
-
-});
+          if (!typingStarted) {
+            startTyping();
+          }
+        });
 
         /*
          * DOBLE CLICK
@@ -4568,7 +4573,8 @@ window.addEventListener("keydown", (event) => {
 
         const outroLocation = document.getElementById("outro-location");
 
-        const outroDocumentsLabel = document.getElementById("outro-documents-label",
+        const outroDocumentsLabel = document.getElementById(
+          "outro-documents-label",
         );
 
         const outroDocuments = document.getElementById("outro-documents");
@@ -5159,7 +5165,7 @@ window.addEventListener("keydown", (event) => {
             return;
           }
 
-                    /*
+          /*
            * DOCUMENTS
            */
 
@@ -6157,7 +6163,6 @@ window.addEventListener("keydown", (event) => {
         });
 
         window.addEventListener("touchend", (event) => {
-
           if (lightboxOpen) {
             return;
           }
@@ -6226,197 +6231,167 @@ window.addEventListener("keydown", (event) => {
           }
         });
 
-    window.addEventListener(
-      "wheel",
-      (event) => {
-
-        if (lightboxOpen) {
-          event.preventDefault();
-          return;
-        }
-
-        if (!typingFinished) {
-          return;
-        }
-
-        const currentElement = verticalSections[currentSection];
-
-        /*
-        * =====================================================
-        * SCROLL INTERNO DE LA SECCIÓN ACTUAL
-        * =====================================================
-        */
-
-        if (currentElement.classList.contains("portfolio-section")) {
-
-          const canScroll =
-            currentElement.scrollHeight > currentElement.clientHeight;
-
-          if (canScroll) {
-
-            const isScrollingDown = event.deltaY > 0;
-            const isScrollingUp = event.deltaY < 0;
-
-            const isAtTop =
-              currentElement.scrollTop <= 0;
-
-            const isAtBottom =
-              currentElement.scrollTop +
-              currentElement.clientHeight >=
-              currentElement.scrollHeight - 1;
-
-
-            /*
-            * Si todavía hay contenido para recorrer,
-            * dejamos que el navegador haga el scroll normal.
-            */
-
-            if (
-              (isScrollingDown && !isAtBottom) ||
-              (isScrollingUp && !isAtTop)
-            ) {
+        window.addEventListener(
+          "wheel",
+          (event) => {
+            if (lightboxOpen) {
+              event.preventDefault();
               return;
             }
-          }
-        }
 
+            if (!typingFinished) {
+              return;
+            }
 
-        /*
-        * =====================================================
-        * TRANSICIÓN ENTRE PROYECTOS
-        * =====================================================
-        */
+            const currentElement = verticalSections[currentSection];
 
-        event.preventDefault();
+            /*
+             * =====================================================
+             * SCROLL INTERNO DE LA SECCIÓN ACTUAL
+             * =====================================================
+             */
 
-        if (verticalLocked) {
-          return;
-        }
+            if (currentElement.classList.contains("portfolio-section")) {
+              const canScroll =
+                currentElement.scrollHeight > currentElement.clientHeight;
 
-        if (Math.abs(event.deltaY) < 10) {
-          return;
-        }
+              if (canScroll) {
+                const isScrollingDown = event.deltaY > 0;
+                const isScrollingUp = event.deltaY < 0;
 
-        if (event.deltaY > 0) {
+                const isAtTop = currentElement.scrollTop <= 0;
 
-          showVerticalSection(currentSection + 1);
+                const isAtBottom =
+                  currentElement.scrollTop + currentElement.clientHeight >=
+                  currentElement.scrollHeight - 1;
 
-        } else {
+                /*
+                 * Si todavía hay contenido para recorrer,
+                 * dejamos que el navegador haga el scroll normal.
+                 */
 
-          showVerticalSection(currentSection - 1);
+                if (
+                  (isScrollingDown && !isAtBottom) ||
+                  (isScrollingUp && !isAtTop)
+                ) {
+                  return;
+                }
+              }
+            }
 
-        }
+            /*
+             * =====================================================
+             * TRANSICIÓN ENTRE PROYECTOS
+             * =====================================================
+             */
 
-      },
-      {
-        passive: false,
-      },
-    );
+            event.preventDefault();
+
+            if (verticalLocked) {
+              return;
+            }
+
+            if (Math.abs(event.deltaY) < 10) {
+              return;
+            }
+
+            if (event.deltaY > 0) {
+              showVerticalSection(currentSection + 1);
+            } else {
+              showVerticalSection(currentSection - 1);
+            }
+          },
+          {
+            passive: false,
+          },
+        );
 
         /* =========================================================
    KEYBOARD
    ========================================================= */
-window.addEventListener("keydown", (event) => {
+        window.addEventListener("keydown", (event) => {
+          if (lightboxOpen) {
+            if (event.key === "Escape") {
+              event.preventDefault();
+              closeCarouselLightbox();
+            } else if (event.key === "ArrowLeft" && lightboxPrevButton) {
+              event.preventDefault();
+              lightboxPrevButton.click();
+            } else if (event.key === "ArrowRight" && lightboxNextButton) {
+              event.preventDefault();
+              lightboxNextButton.click();
+            }
 
-  if (lightboxOpen) {
+            return;
+          }
 
-    if (event.key === "Escape") {
-      event.preventDefault();
-      closeCarouselLightbox();
-    } else if (event.key === "ArrowLeft" && lightboxPrevButton) {
-      event.preventDefault();
-      lightboxPrevButton.click();
-    } else if (event.key === "ArrowRight" && lightboxNextButton) {
-      event.preventDefault();
-      lightboxNextButton.click();
-    }
+          if (!typingFinished) {
+            return;
+          }
 
-    return;
-  }
-
-  if (!typingFinished) {
-    return;
-  }
-
-
-  /* =====================================================
+          /* =====================================================
      VERTICAL
   ===================================================== */
 
-  if (event.key === "ArrowDown" || event.key === "PageDown") {
+          if (event.key === "ArrowDown" || event.key === "PageDown") {
+            event.preventDefault();
 
-    event.preventDefault();
+            showVerticalSection(currentSection + 1);
 
-    showVerticalSection(currentSection + 1);
+            return;
+          }
 
-    return;
-  }
+          if (event.key === "ArrowUp" || event.key === "PageUp") {
+            event.preventDefault();
 
+            showVerticalSection(currentSection - 1);
 
-  if (event.key === "ArrowUp" || event.key === "PageUp") {
+            return;
+          }
 
-    event.preventDefault();
-
-    showVerticalSection(currentSection - 1);
-
-    return;
-  }
-
-
-/* =====================================================
+          /* =====================================================
    HORIZONTAL CAROUSEL
 ===================================================== */
 
-if (
-  event.key !== "ArrowLeft" &&
-  event.key !== "ArrowRight"
-) {
-  return;
-}
+          if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+            return;
+          }
 
-
-/*
+          /*
    La intro es índice 0.
 */
 
-if (currentSection === 0) {
-  return;
-}
+          if (currentSection === 0) {
+            return;
+          }
 
+          const currentProject = verticalSections[currentSection];
 
-const currentProject =
-  verticalSections[currentSection];
-
-
-/*
+          /*
    Buscamos los botones del carrusel
    dentro del proyecto actual.
 */
 
-const previousButton =
-  currentProject.querySelector(".carousel-button.prev");
+          const previousButton = currentProject.querySelector(
+            ".carousel-button.prev",
+          );
 
-const nextButton =
-  currentProject.querySelector(".carousel-button.next");
+          const nextButton = currentProject.querySelector(
+            ".carousel-button.next",
+          );
 
-if (event.key === "ArrowLeft") {
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
 
-  event.preventDefault();
+            previousButton?.click();
+          }
 
-  previousButton?.click();
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
 
-}
-
-
-if (event.key === "ArrowRight") {
-
-  event.preventDefault();
-
-  nextButton?.click();
-
-}
-
-});
+            nextButton?.click();
+          }
+        });
 
         /* =========================================================
    INITIAL STATE
@@ -6475,7 +6450,7 @@ if (event.key === "ArrowRight") {
           );
         }
 
-                function getPressedSrc(normalSrc) {
+        function getPressedSrc(normalSrc) {
           const lastDotIndex = normalSrc.lastIndexOf(".");
 
           return (
@@ -6498,12 +6473,15 @@ if (event.key === "ArrowRight") {
 
           new Image().src = pressedSrc;
         });
-        
+
         /* =========================================================
            UPDATE COVERFLOW
         ========================================================= */
 
-        function updateCarousel(carouselIndex, container = projects[carouselIndex]) {
+        function updateCarousel(
+          carouselIndex,
+          container = projects[carouselIndex],
+        ) {
           const section = container;
 
           const slides = section.querySelectorAll(".carousel-slide");
@@ -6565,30 +6543,30 @@ if (event.key === "ArrowRight") {
            MOVE CAROUSEL
         ========================================================= */
 
-function moveCarousel(carouselIndex, direction, container) {
-  const section = container || projects[carouselIndex];
+        function moveCarousel(carouselIndex, direction, container) {
+          const section = container || projects[carouselIndex];
 
-  const slides = section.querySelectorAll(".carousel-slide");
+          const slides = section.querySelectorAll(".carousel-slide");
 
-  const total = slides.length;
+          const total = slides.length;
 
-  carouselIndexes[carouselIndex] = getWrappedIndex(
-    carouselIndexes[carouselIndex] + direction,
-    total,
-  );
+          carouselIndexes[carouselIndex] = getWrappedIndex(
+            carouselIndexes[carouselIndex] + direction,
+            total,
+          );
 
-  updateCarousel(carouselIndex, section);
-}
+          updateCarousel(carouselIndex, section);
+        }
 
-/* =========================================================
+        /* =========================================================
    SELECT SLIDE
 ========================================================= */
 
-function selectSlide(carouselIndex, slideIndex, container) {
-  carouselIndexes[carouselIndex] = slideIndex;
+        function selectSlide(carouselIndex, slideIndex, container) {
+          carouselIndexes[carouselIndex] = slideIndex;
 
-  updateCarousel(carouselIndex, container || projects[carouselIndex]);
-}
+          updateCarousel(carouselIndex, container || projects[carouselIndex]);
+        }
 
         /* =========================================================
            INITIALIZE CAROUSELS
@@ -6608,7 +6586,12 @@ function selectSlide(carouselIndex, slideIndex, container) {
         const arrowSoundP2 = document.getElementById("arrow-sound-p2");
         const arrowSoundP3 = document.getElementById("arrow-sound-p3");
 
-        function pressArrowVisual(imgElement, normalSrc, pressedSrc, soundToPlay) {
+        function pressArrowVisual(
+          imgElement,
+          normalSrc,
+          pressedSrc,
+          soundToPlay,
+        ) {
           imgElement.src = pressedSrc;
 
           if (audioEnabled && soundToPlay) {
@@ -6634,11 +6617,26 @@ function selectSlide(carouselIndex, slideIndex, container) {
           if (imgElement.id.includes("P2")) carouselIndex = 1;
           if (imgElement.id.includes("P3")) carouselIndex = 2;
 
-          pressArrowVisual(imgElement, normalSrc, pressedSrc, soundByCarousel[carouselIndex]);
+          pressArrowVisual(
+            imgElement,
+            normalSrc,
+            pressedSrc,
+            soundByCarousel[carouselIndex],
+          );
         }
 
-        function pressArrowForCarousel(carouselIndex, imgElement, normalSrc, pressedSrc) {
-          pressArrowVisual(imgElement, normalSrc, pressedSrc, soundByCarousel[carouselIndex]);
+        function pressArrowForCarousel(
+          carouselIndex,
+          imgElement,
+          normalSrc,
+          pressedSrc,
+        ) {
+          pressArrowVisual(
+            imgElement,
+            normalSrc,
+            pressedSrc,
+            soundByCarousel[carouselIndex],
+          );
         }
 
         /*
@@ -6725,9 +6723,9 @@ function selectSlide(carouselIndex, slideIndex, container) {
 
           const gallery = section.querySelector(".project-gallery");
 
-const sourceSlide = gallery.querySelector(".carousel-slide.center");
+          const sourceSlide = gallery.querySelector(".carousel-slide.center");
 
-lightboxFromRect = sourceSlide.getBoundingClientRect();
+          lightboxFromRect = sourceSlide.getBoundingClientRect();
 
           /*
            * Clonamos TODO el project-gallery
@@ -6771,59 +6769,55 @@ lightboxFromRect = sourceSlide.getBoundingClientRect();
            * el carrusel chico de origen.
            */
 
-const cloneSlide = clone.querySelector(".carousel-slide.center");
+          const cloneSlide = clone.querySelector(".carousel-slide.center");
 
-const toRect = cloneSlide.getBoundingClientRect();
+          const toRect = cloneSlide.getBoundingClientRect();
 
-const fromCenterX =
-  lightboxFromRect.left + lightboxFromRect.width / 2;
+          const fromCenterX =
+            lightboxFromRect.left + lightboxFromRect.width / 2;
 
-const fromCenterY =
-  lightboxFromRect.top + lightboxFromRect.height / 2;
+          const fromCenterY =
+            lightboxFromRect.top + lightboxFromRect.height / 2;
 
-const toCenterX =
-  toRect.left + toRect.width / 2;
+          const toCenterX = toRect.left + toRect.width / 2;
 
-const toCenterY =
-  toRect.top + toRect.height / 2;
+          const toCenterY = toRect.top + toRect.height / 2;
 
-const deltaX = fromCenterX - toCenterX;
-const deltaY = fromCenterY - toCenterY;
+          const deltaX = fromCenterX - toCenterX;
+          const deltaY = fromCenterY - toCenterY;
 
-const scaleX = lightboxFromRect.width / toRect.width;
-const scaleY = lightboxFromRect.height / toRect.height;
+          const scaleX = lightboxFromRect.width / toRect.width;
+          const scaleY = lightboxFromRect.height / toRect.height;
 
-cloneSlide.style.transition = "none";
+          cloneSlide.style.transition = "none";
 
-cloneSlide.style.transform =
-  `translate(-50%, -50%) ` +
-  `translate(${deltaX}px, ${deltaY}px) ` +
-  `scale(${scaleX}, ${scaleY})`;
+          cloneSlide.style.transform =
+            `translate(-50%, -50%) ` +
+            `translate(${deltaX}px, ${deltaY}px) ` +
+            `scale(${scaleX}, ${scaleY})`;
 
-cloneSlide.offsetWidth;
+          cloneSlide.offsetWidth;
 
-requestAnimationFrame(() => {
-  cloneSlide.style.transition =
-    `transform ${LIGHTBOX_OPEN_MS}ms cubic-bezier(0.77, 0, 0.175, 1)`;
+          requestAnimationFrame(() => {
+            cloneSlide.style.transition = `transform ${LIGHTBOX_OPEN_MS}ms cubic-bezier(0.77, 0, 0.175, 1)`;
 
-  cloneSlide.style.transform =
-    "translate(-50%, -50%) scale(1, 1)";
+            cloneSlide.style.transform = "translate(-50%, -50%) scale(1, 1)";
 
-  /*
-   * Una vez que termina de agrandarse,
-   * le sacamos el transform/transition
-   * inline para devolverle el control
-   * a las clases CSS (center/previous/next/etc).
-   * Si no hacemos esto, ESTA slide puntual
-   * queda pegada en el centro para siempre,
-   * sin importar qué clase tenga después.
-   */
+            /*
+             * Una vez que termina de agrandarse,
+             * le sacamos el transform/transition
+             * inline para devolverle el control
+             * a las clases CSS (center/previous/next/etc).
+             * Si no hacemos esto, ESTA slide puntual
+             * queda pegada en el centro para siempre,
+             * sin importar qué clase tenga después.
+             */
 
-  setTimeout(() => {
-    cloneSlide.style.transition = "";
-    cloneSlide.style.transform = "";
-  }, LIGHTBOX_OPEN_MS + 20);
-});
+            setTimeout(() => {
+              cloneSlide.style.transition = "";
+              cloneSlide.style.transform = "";
+            }, LIGHTBOX_OPEN_MS + 20);
+          });
         }
 
         /*
@@ -6841,61 +6835,58 @@ requestAnimationFrame(() => {
             return;
           }
 
-const cloneSlide = carouselLightboxContent.querySelector(
-  ".carousel-slide.center",
-);
+          const cloneSlide = carouselLightboxContent.querySelector(
+            ".carousel-slide.center",
+          );
 
-lightboxOpen = false;
+          lightboxOpen = false;
 
-carouselLightbox.classList.remove("open");
+          carouselLightbox.classList.remove("open");
 
-/*
- * Recién ahora pintamos el carrusel chico original
- * con el índice final que quedó en el clon.
- * Queda tapado por el clon mientras se achica,
- * así que el cambio no se ve saltar.
- */
+          /*
+           * Recién ahora pintamos el carrusel chico original
+           * con el índice final que quedó en el clon.
+           * Queda tapado por el clon mientras se achica,
+           * así que el cambio no se ve saltar.
+           */
 
-if (activeLightboxCarouselIndex !== null) {
-  updateCarousel(activeLightboxCarouselIndex);
-}
+          if (activeLightboxCarouselIndex !== null) {
+            updateCarousel(activeLightboxCarouselIndex);
+          }
 
-if (cloneSlide && lightboxFromRect) {
-  const currentRect = cloneSlide.getBoundingClientRect();
+          if (cloneSlide && lightboxFromRect) {
+            const currentRect = cloneSlide.getBoundingClientRect();
 
-  const fromCenterX =
-    lightboxFromRect.left + lightboxFromRect.width / 2;
+            const fromCenterX =
+              lightboxFromRect.left + lightboxFromRect.width / 2;
 
-  const fromCenterY =
-    lightboxFromRect.top + lightboxFromRect.height / 2;
+            const fromCenterY =
+              lightboxFromRect.top + lightboxFromRect.height / 2;
 
-  const currentCenterX =
-    currentRect.left + currentRect.width / 2;
+            const currentCenterX = currentRect.left + currentRect.width / 2;
 
-  const currentCenterY =
-    currentRect.top + currentRect.height / 2;
+            const currentCenterY = currentRect.top + currentRect.height / 2;
 
-  const deltaX = fromCenterX - currentCenterX;
-  const deltaY = fromCenterY - currentCenterY;
+            const deltaX = fromCenterX - currentCenterX;
+            const deltaY = fromCenterY - currentCenterY;
 
-  const scaleX = lightboxFromRect.width / currentRect.width;
-  const scaleY = lightboxFromRect.height / currentRect.height;
+            const scaleX = lightboxFromRect.width / currentRect.width;
+            const scaleY = lightboxFromRect.height / currentRect.height;
 
-  cloneSlide.style.transition =
-    `transform ${LIGHTBOX_CLOSE_MS}ms cubic-bezier(0.77, 0, 0.175, 1)`;
+            cloneSlide.style.transition = `transform ${LIGHTBOX_CLOSE_MS}ms cubic-bezier(0.77, 0, 0.175, 1)`;
 
-  cloneSlide.style.transform =
-    `translate(-50%, -50%) ` +
-    `translate(${deltaX}px, ${deltaY}px) ` +
-    `scale(${scaleX}, ${scaleY})`;
-}
+            cloneSlide.style.transform =
+              `translate(-50%, -50%) ` +
+              `translate(${deltaX}px, ${deltaY}px) ` +
+              `scale(${scaleX}, ${scaleY})`;
+          }
 
           /*
            * Esperamos a que termine la animación
            * antes de vaciar el contenido.
            */
 
-            setTimeout(() => {
+          setTimeout(() => {
             carouselLightboxContent.innerHTML = "";
 
             lightboxFromRect = null;
