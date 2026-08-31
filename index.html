@@ -6802,6 +6802,21 @@ requestAnimationFrame(() => {
 
   cloneSlide.style.transform =
     "translate(-50%, -50%) scale(1, 1)";
+
+  /*
+   * Una vez que termina de agrandarse,
+   * le sacamos el transform/transition
+   * inline para devolverle el control
+   * a las clases CSS (center/previous/next/etc).
+   * Si no hacemos esto, ESTA slide puntual
+   * queda pegada en el centro para siempre,
+   * sin importar qué clase tenga después.
+   */
+
+  setTimeout(() => {
+    cloneSlide.style.transition = "";
+    cloneSlide.style.transform = "";
+  }, 720);
 });
         }
 
