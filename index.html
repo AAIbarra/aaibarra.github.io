@@ -143,14 +143,14 @@
         position: absolute;
 
         top: 50%;
-        left: 50%;
+        left: calc(50% - 8px);
 
         width: 34px;
         height: 34px;
 
         object-fit: contain;
 
-        transform: translate(-50%, -50%) translate(-14px, -24.3px);
+        transform: translate(-50%, -50%) translate(-20px, -24.3px);
 
         opacity: 1;
       }
@@ -193,13 +193,13 @@
           transform: translate(-50%, -50%) translate(-12.5px, -25px);
         }
         100% {
-          transform: translate(-50%, -50%) translate(-14px, -24.3px);
+          transform: translate(-50%, -50%) translate(-20px, -24.3px);
         }
       }
 
       @keyframes wheel-spin-in-from-down {
         0% {
-          transform: translate(-50%, -50%) translate(-14px, 24.3px);
+          transform: translate(-50%, -50%) translate(-20px, -24.3px);
         }
         10% {
           transform: translate(-50%, -50%) translate(-12.5px, 25px);
@@ -265,13 +265,13 @@
           transform: translate(-50%, -50%) translate(-12.5px, 25px);
         }
         100% {
-          transform: translate(-50%, -50%) translate(-14px, 24.3px);
+          transform: translate(-50%, -50%) translate(-20px, -24.3px);
         }
       }
 
       @keyframes wheel-spin-in-from-up {
         0% {
-          transform: translate(-50%, -50%) translate(-14px, -24.3px);
+          transform: translate(-50%, -50%) translate(-20px, -24.3px);
         }
         10% {
           transform: translate(-50%, -50%) translate(-12.5px, -25px);
@@ -304,7 +304,7 @@
           transform: translate(-50%, -50%) translate(28px, 0px);
         }
       }
-      
+
       /* =========================================================
    MOBILE PHONE BLOCK
 ========================================================= */
@@ -2202,19 +2202,6 @@
     ========================================================= -->
 
       <section id="intro">
-        <!-- FONDO DE INTRO -->
-        <div class="section-background">
-          <img src="images/intro-bg.webp" alt="" />
-        </div>
-
-        <!-- AUDIO DE INTRO -->
-        <audio
-          class="section-audio"
-          src="sounds/intro.mp3"
-          preload="auto"
-          loop
-        ></audio>
-
         <div id="intro-content">
           <div id="press-start">PRESS ANY BUTTON</div>
 
