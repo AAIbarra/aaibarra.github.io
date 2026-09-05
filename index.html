@@ -107,6 +107,247 @@
         user-select: none;
       }
 
+            /* =========================================================
+   WHEEL NAV (indicador de navegación tipo disco)
+========================================================= */
+
+      #wheel-nav {
+        position: fixed;
+
+        top: 50%;
+        left: -45px;
+
+        transform: translateY(-50%);
+
+        width: 90px;
+        height: 90px;
+
+        border-radius: 50%;
+
+        background: rgba(20, 20, 20, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        z-index: 500;
+
+        opacity: 0;
+        pointer-events: none;
+
+        transition: opacity 0.6s ease;
+      }
+
+      #wheel-nav.wheel-visible {
+        opacity: 1;
+      }
+
+      .wheel-icon {
+        position: absolute;
+
+        top: 50%;
+        left: 50%;
+
+        width: 34px;
+        height: 34px;
+
+        object-fit: contain;
+
+        transform: translate(-50%, -50%);
+
+        opacity: 0;
+      }
+
+      .wheel-icon.icon-active {
+        opacity: 1;
+
+        transform: translate(-50%, -50%) translate(28px, 0px) scale(1);
+      }
+
+      @keyframes wheel-spin-out-up {
+        0% {
+          transform: translate(-50%, -50%) translate(28px, 0px) scale(1);
+          opacity: 1;
+        }
+        10% {
+          transform: translate(-50%, -50%) translate(28px, -1.6px) scale(0.983);
+          opacity: 0.972;
+        }
+        20% {
+          transform: translate(-50%, -50%) translate(27.3px, -6px) scale(0.938);
+          opacity: 0.896;
+        }
+        30% {
+          transform: translate(-50%, -50%) translate(25.2px, -12.2px) scale(0.87);
+          opacity: 0.784;
+        }
+        40% {
+          transform: translate(-50%, -50%) translate(20.7px, -18.8px) scale(0.789);
+          opacity: 0.648;
+        }
+        50% {
+          transform: translate(-50%, -50%) translate(14px, -24.3px) scale(0.7);
+          opacity: 0.5;
+        }
+        60% {
+          transform: translate(-50%, -50%) translate(5.9px, -27.4px) scale(0.611);
+          opacity: 0.352;
+        }
+        70% {
+          transform: translate(-50%, -50%) translate(-2px, -27.9px) scale(0.53);
+          opacity: 0.216;
+        }
+        80% {
+          transform: translate(-50%, -50%) translate(-8.4px, -26.7px) scale(0.462);
+          opacity: 0.104;
+        }
+        90% {
+          transform: translate(-50%, -50%) translate(-12.5px, -25px) scale(0.417);
+          opacity: 0.028;
+        }
+        100% {
+          transform: translate(-50%, -50%) translate(-14px, -24.3px) scale(0.4);
+          opacity: 0;
+        }
+      }
+
+      @keyframes wheel-spin-in-from-down {
+        0% {
+          transform: translate(-50%, -50%) translate(-14px, 24.3px) scale(0.4);
+          opacity: 0;
+        }
+        10% {
+          transform: translate(-50%, -50%) translate(-12.5px, 25px) scale(0.417);
+          opacity: 0.028;
+        }
+        20% {
+          transform: translate(-50%, -50%) translate(-8.4px, 26.7px) scale(0.462);
+          opacity: 0.104;
+        }
+        30% {
+          transform: translate(-50%, -50%) translate(-2px, 27.9px) scale(0.53);
+          opacity: 0.216;
+        }
+        40% {
+          transform: translate(-50%, -50%) translate(5.9px, 27.4px) scale(0.611);
+          opacity: 0.352;
+        }
+        50% {
+          transform: translate(-50%, -50%) translate(14px, 24.3px) scale(0.7);
+          opacity: 0.5;
+        }
+        60% {
+          transform: translate(-50%, -50%) translate(20.7px, 18.8px) scale(0.789);
+          opacity: 0.648;
+        }
+        70% {
+          transform: translate(-50%, -50%) translate(25.2px, 12.2px) scale(0.87);
+          opacity: 0.784;
+        }
+        80% {
+          transform: translate(-50%, -50%) translate(27.3px, 6px) scale(0.938);
+          opacity: 0.896;
+        }
+        90% {
+          transform: translate(-50%, -50%) translate(28px, 1.6px) scale(0.983);
+          opacity: 0.972;
+        }
+        100% {
+          transform: translate(-50%, -50%) translate(28px, 0px) scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes wheel-spin-out-down {
+        0% {
+          transform: translate(-50%, -50%) translate(28px, 0px) scale(1);
+          opacity: 1;
+        }
+        10% {
+          transform: translate(-50%, -50%) translate(28px, 1.6px) scale(0.983);
+          opacity: 0.972;
+        }
+        20% {
+          transform: translate(-50%, -50%) translate(27.3px, 6px) scale(0.938);
+          opacity: 0.896;
+        }
+        30% {
+          transform: translate(-50%, -50%) translate(25.2px, 12.2px) scale(0.87);
+          opacity: 0.784;
+        }
+        40% {
+          transform: translate(-50%, -50%) translate(20.7px, 18.8px) scale(0.789);
+          opacity: 0.648;
+        }
+        50% {
+          transform: translate(-50%, -50%) translate(14px, 24.3px) scale(0.7);
+          opacity: 0.5;
+        }
+        60% {
+          transform: translate(-50%, -50%) translate(5.9px, 27.4px) scale(0.611);
+          opacity: 0.352;
+        }
+        70% {
+          transform: translate(-50%, -50%) translate(-2px, 27.9px) scale(0.53);
+          opacity: 0.216;
+        }
+        80% {
+          transform: translate(-50%, -50%) translate(-8.4px, 26.7px) scale(0.462);
+          opacity: 0.104;
+        }
+        90% {
+          transform: translate(-50%, -50%) translate(-12.5px, 25px) scale(0.417);
+          opacity: 0.028;
+        }
+        100% {
+          transform: translate(-50%, -50%) translate(-14px, 24.3px) scale(0.4);
+          opacity: 0;
+        }
+      }
+
+      @keyframes wheel-spin-in-from-up {
+        0% {
+          transform: translate(-50%, -50%) translate(-14px, -24.3px) scale(0.4);
+          opacity: 0;
+        }
+        10% {
+          transform: translate(-50%, -50%) translate(-12.5px, -25px) scale(0.417);
+          opacity: 0.028;
+        }
+        20% {
+          transform: translate(-50%, -50%) translate(-8.4px, -26.7px) scale(0.462);
+          opacity: 0.104;
+        }
+        30% {
+          transform: translate(-50%, -50%) translate(-2px, -27.9px) scale(0.53);
+          opacity: 0.216;
+        }
+        40% {
+          transform: translate(-50%, -50%) translate(5.9px, -27.4px) scale(0.611);
+          opacity: 0.352;
+        }
+        50% {
+          transform: translate(-50%, -50%) translate(14px, -24.3px) scale(0.7);
+          opacity: 0.5;
+        }
+        60% {
+          transform: translate(-50%, -50%) translate(20.7px, -18.8px) scale(0.789);
+          opacity: 0.648;
+        }
+        70% {
+          transform: translate(-50%, -50%) translate(25.2px, -12.2px) scale(0.87);
+          opacity: 0.784;
+        }
+        80% {
+          transform: translate(-50%, -50%) translate(27.3px, -6px) scale(0.938);
+          opacity: 0.896;
+        }
+        90% {
+          transform: translate(-50%, -50%) translate(28px, -1.6px) scale(0.983);
+          opacity: 0.972;
+        }
+        100% {
+          transform: translate(-50%, -50%) translate(28px, 0px) scale(1);
+          opacity: 1;
+        }
+      }
       /* =========================================================
    MOBILE PHONE BLOCK
 ========================================================= */
@@ -1973,6 +2214,30 @@
         <button id="language-down" type="button" aria-label="Next language">
           ▼
         </button>
+      </div>
+
+      <!-- =========================================================
+         WHEEL NAV (indicador de navegación tipo disco)
+    ========================================================= -->
+        <div id="wheel-nav" aria-hidden="true">
+        <img
+          class="wheel-icon"
+          data-project="0"
+          src="images/ui/wheel-icon-p1.WEBP"
+          alt=""
+        />
+        <img
+          class="wheel-icon"
+          data-project="1"
+          src="images/ui/wheel-icon-p2.WEBP"
+          alt=""
+        />
+        <img
+          class="wheel-icon"
+          data-project="2"
+          src="images/ui/wheel-icon-p3.WEBP"
+          alt=""
+        />
       </div>
 
       <!-- =========================================================
@@ -5638,6 +5903,78 @@ PROJECT 3
 
         const ANIM_TIME = 800;
 
+                /* =========================================================
+   WHEEL NAV (indicador de navegación tipo disco)
+========================================================= */
+
+        const wheelNav = document.getElementById("wheel-nav");
+        const wheelIcons = wheelNav.querySelectorAll(".wheel-icon");
+
+        let wheelActiveProject = null;
+
+        const WHEEL_ANIM_TIME = 800;
+
+        function updateWheelUI(newIndex, movingDown) {
+          const projectIndex = newIndex - 1;
+
+          const shouldShow = projectIndex >= 0 && projectIndex <= 2;
+
+          wheelNav.classList.toggle("wheel-visible", shouldShow);
+
+          wheelIcons.forEach((icon) => {
+            const iconProject = Number(icon.dataset.project);
+
+            if (iconProject === projectIndex) {
+              /*
+               * ESTE es el ícono que entra.
+               */
+
+              if (iconProject === wheelActiveProject) {
+                return;
+              }
+
+              const animName = movingDown
+                ? "wheel-spin-in-from-down"
+                : "wheel-spin-in-from-up";
+
+              icon.classList.remove("icon-active");
+
+              icon.style.animation = `${animName} ${WHEEL_ANIM_TIME}ms linear forwards`;
+
+              setTimeout(() => {
+                icon.style.animation = "";
+
+                icon.classList.add("icon-active");
+              }, WHEEL_ANIM_TIME);
+            } else if (iconProject === wheelActiveProject) {
+              /*
+               * ESTE es el ícono que se va.
+               */
+
+              const animName = movingDown
+                ? "wheel-spin-out-up"
+                : "wheel-spin-out-down";
+
+              icon.classList.remove("icon-active");
+
+              icon.style.animation = `${animName} ${WHEEL_ANIM_TIME}ms linear forwards`;
+
+              setTimeout(() => {
+                icon.style.animation = "";
+              }, WHEEL_ANIM_TIME);
+            } else {
+              /*
+               * Los demás quedan escondidos, sin animar.
+               */
+
+              icon.style.animation = "";
+
+              icon.classList.remove("icon-active");
+            }
+          });
+
+          wheelActiveProject = shouldShow ? projectIndex : null;
+        }
         /* =========================================================
    SECTION AUDIO
    ========================================================= */
@@ -6029,6 +6366,9 @@ PROJECT 3
           currentSection = newIndex;
 
           changeSectionAudio(currentSection);
+
+           updateWheelUI(currentSection, movingDown);
+
           /*
            * =====================================================
            * SIGUIENTE FRAME
